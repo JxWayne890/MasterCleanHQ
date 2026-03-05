@@ -75,7 +75,7 @@ const Footer = () => {
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                        <img src="/img/logo.png" alt="Master Commercial Clean Logo" style={{ height: '60px', filter: 'invert(1)' }} />
+                        <img src="/img/logo2.png" alt="Master Commercial Clean Logo" style={{ height: '60px' }} />
                     </div>
                 </div>
 

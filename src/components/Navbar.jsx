@@ -62,7 +62,11 @@ const Navbar = () => {
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
                         <a href="/" style={{ minWidth: 'fit-content' }}>
-                            <img src="/logo.png" alt="Master Commercial Clean" style={{ height: '40px', filter: scrolled ? 'none' : 'invert(1)', transition: 'filter 0.4s' }} />
+                            <img
+                                src={scrolled ? "/img/logo.png" : "/img/logo2.png"}
+                                alt="Master Commercial Clean Logo"
+                                style={{ height: '60px', transition: 'all 0.4s' }}
+                            />
                         </a>
                     </div>
 
