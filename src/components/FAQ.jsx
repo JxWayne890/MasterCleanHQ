@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HashLink } from 'react-router-hash-link';
 
 const faqData = [
     {
@@ -7,11 +8,13 @@ const faqData = [
         questions: [
             {
                 q: 'What cities does Master Commercial Clean serve in West Texas?',
-                a: 'Master Commercial Clean serves all major West Texas cities including San Angelo, Abilene, Lubbock, Midland, Odessa, Big Spring, Sweetwater, Snyder, Andrews, Pecos, Brady, Brownwood, Coleman, Ballinger, Lamesa, and all surrounding communities across the Concho Valley, Permian Basin, South Plains, and Big Country regions.'
+                a: 'Master Commercial Clean serves all major West Texas cities including San Angelo, Abilene, Lubbock, Midland, Odessa, Big Spring, Sweetwater, Snyder, Andrews, Pecos, Brady, Brownwood, Coleman, Ballinger, Lamesa, and all surrounding communities across the Concho Valley, Permian Basin, South Plains, and Big Country regions.',
+                link: { to: '/#service-areas', text: 'View all service areas' }
             },
             {
                 q: 'Does Master Commercial Clean travel to remote West Texas locations?',
-                a: 'Yes. We regularly serve businesses in smaller communities and remote West Texas locations between our major service hubs. If your facility is within the region, contact us at (325) 249-5191 to confirm service availability and scheduling for your area.'
+                a: 'Yes. We regularly serve businesses in smaller communities and remote West Texas locations between our major service hubs. If your facility is within the region, contact us at (325) 249-5191 to confirm service availability and scheduling for your area.',
+                link: { to: '/#contact', text: 'Contact us to confirm your area' }
             }
         ]
     },
@@ -20,7 +23,8 @@ const faqData = [
         questions: [
             {
                 q: 'How much does commercial cleaning cost in West Texas?',
-                a: 'Commercial cleaning costs in West Texas vary based on facility size, cleaning frequency, and service type. Master Commercial Clean provides free, no-obligation walk-through estimates for every business. Most offices between 1,000–5,000 sq ft can expect competitive monthly rates. Contact us at (325) 249-5191 for a custom quote.'
+                a: 'Commercial cleaning costs in West Texas vary based on facility size, cleaning frequency, and service type. Master Commercial Clean provides free, no-obligation walk-through estimates for every business. Most offices between 1,000–5,000 sq ft can expect competitive monthly rates. Contact us at (325) 249-5191 for a custom quote.',
+                link: { to: '/#contact', text: 'Request a free quote' }
             },
             {
                 q: 'Does Master Commercial Clean offer after-hours or weekend cleaning?',
@@ -37,7 +41,8 @@ const faqData = [
         questions: [
             {
                 q: 'What types of commercial cleaning services does MCC offer?',
-                a: 'Master Commercial Clean offers three core services: routine commercial cleaning for offices, retail stores, and corporate environments; post-construction cleanup including debris removal and fine dust detailing; and specialized cleaning for medical facilities, high-traffic zones, and move-in/move-out situations across all of West Texas.'
+                a: 'Master Commercial Clean offers three core services: routine commercial cleaning for offices, retail stores, and corporate environments; post-construction cleanup including debris removal and fine dust detailing; and specialized cleaning for medical facilities, high-traffic zones, and move-in/move-out situations across all of West Texas.',
+                link: { to: '/#services', text: 'See our full service details' }
             },
             {
                 q: 'Is Master Commercial Clean licensed and insured?',
@@ -174,6 +179,25 @@ const FAQ = () => {
                                                 }}>
                                                     {item.a}
                                                 </p>
+                                                {item.link && (
+                                                    <HashLink
+                                                        smooth
+                                                        to={item.link.to}
+                                                        style={{
+                                                            fontFamily: 'var(--font-sans)',
+                                                            fontSize: '0.9rem',
+                                                            color: 'var(--orange)',
+                                                            textDecoration: 'none',
+                                                            fontWeight: 600,
+                                                            display: 'inline-flex',
+                                                            alignItems: 'center',
+                                                            gap: '4px',
+                                                            paddingBottom: '1.5rem'
+                                                        }}
+                                                    >
+                                                        {item.link.text} →
+                                                    </HashLink>
+                                                )}
                                             </motion.div>
                                         )}
                                     </AnimatePresence>

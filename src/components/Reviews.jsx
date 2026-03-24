@@ -2,10 +2,30 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const reviewsData = [
-    "Master Commercial Clean transformed our office! The attention to detail is unmatched, and our staff loves coming into a fresh-smelling workspace. Highly recommend! — Alex J.",
-    "Exceptional service. Highly professional. They arrive exactly on time, execute flawlessly, and always secure the building when they leave. — Sebastian L.",
-    "MCC provided great ongoing construction cleanup. They handled the deep cleaning without ever disrupting my crew's workflow. Lifesavers. — Ray C."
+    {
+        text: "Master Commercial Clean transformed our office! The attention to detail is unmatched, and our staff loves coming into a fresh-smelling workspace. Highly recommend!",
+        author: "Alex J.",
+        rating: 5
+    },
+    {
+        text: "Exceptional service. Highly professional. They arrive exactly on time, execute flawlessly, and always secure the building when they leave.",
+        author: "Sebastian L.",
+        rating: 5
+    },
+    {
+        text: "MCC provided great ongoing construction cleanup. They handled the deep cleaning without ever disrupting my crew's workflow. Lifesavers.",
+        author: "Ray C.",
+        rating: 5
+    }
 ];
+
+const StarRating = ({ rating }) => (
+    <div style={{ display: 'flex', gap: '2px', marginBottom: '0.75rem' }} aria-label={`${rating} out of 5 stars`}>
+        {Array(rating).fill(null).map((_, i) => (
+            <span key={i} style={{ color: 'var(--orange)', fontSize: '1.1rem' }}>★</span>
+        ))}
+    </div>
+);
 
 const Reviews = () => {
     const containerRef = useRef(null);
@@ -73,7 +93,7 @@ const Reviews = () => {
                 </motion.div>
             </div>
 
-            {/* Actual Review Cards in Grid */}
+            {/* Actual Review Cards in Grid — Semantic <blockquote> + <cite> */}
             <div className="container" style={{ marginTop: '8rem' }}>
                 <div style={{
                     display: 'grid',
@@ -92,15 +112,29 @@ const Reviews = () => {
                                 paddingTop: '2rem'
                             }}
                         >
-                            <p style={{
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: '1.25rem',
-                                color: 'var(--text-primary)',
-                                lineHeight: 1.6,
-                                fontWeight: 500
-                            }}>
-                                {review}
-                            </p>
+                            <StarRating rating={review.rating} />
+                            <blockquote style={{ margin: 0 }}>
+                                <p style={{
+                                    fontFamily: 'var(--font-sans)',
+                                    fontSize: '1.25rem',
+                                    color: 'var(--text-primary)',
+                                    lineHeight: 1.6,
+                                    fontWeight: 500,
+                                    marginBottom: '1rem'
+                                }}>
+                                    "{review.text}"
+                                </p>
+                                <cite style={{
+                                    fontFamily: 'var(--font-sans)',
+                                    fontSize: '0.9rem',
+                                    color: 'var(--text-secondary)',
+                                    fontStyle: 'normal',
+                                    fontWeight: 600,
+                                    letterSpacing: '0.5px'
+                                }}>
+                                    — {review.author}
+                                </cite>
+                            </blockquote>
                         </motion.div>
                     ))}
                 </div>

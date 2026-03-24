@@ -1,11 +1,30 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
+import { servicePages } from '../data/servicePages';
+
+const desktopLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/commercial-cleaning' },
+    { name: 'Expertise', href: '/#expertise' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Connect', href: '/#contact' },
+];
+
+const mobileLinks = [
+    { name: 'Home', href: '/', number: '01' },
+    { name: 'Commercial Cleaning', href: '/commercial-cleaning', number: '02' },
+    { name: 'Post-Construction', href: '/post-construction-cleaning', number: '03' },
+    { name: 'Specialized Cleaning', href: '/specialized-cleaning', number: '04' },
+    { name: 'FAQ', href: '/faq', number: '05' },
+    { name: 'Connect', href: '/#contact', number: '06' },
+];
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [width, setWidth] = useState(window.innerWidth);
+    const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -61,13 +80,13 @@ const Navbar = () => {
             >
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
-                        <a href="/" style={{ minWidth: 'fit-content' }}>
+                        <Link to="/" style={{ minWidth: 'fit-content' }}>
                             <img
                                 src={scrolled ? "/img/logo.png" : "/img/logo2.png"}
                                 alt="Master Commercial Clean Logo"
                                 style={{ height: '60px', transition: 'all 0.4s' }}
                             />
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Desktop Navigation - Centered */}
@@ -79,33 +98,49 @@ const Navbar = () => {
                             justifyContent: 'center',
                             flex: 2
                         }}>
-                            {[
-                                { name: 'Home', href: '/' },
-                                { name: 'Expertise', href: '/#expertise' },
-                                { name: 'FAQ', href: '/faq' },
-                                { name: 'Testimonials', href: '/#testimonials' },
-                                { name: 'Connect', href: '/#contact' }
-                            ].map((link) => (
-                                <HashLink
-                                    key={link.name}
-                                    smooth
-                                    to={link.href}
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: scrolled ? 'var(--navy)' : 'var(--white)',
-                                        fontFamily: 'var(--font-sans)',
-                                        fontSize: '0.85rem',
-                                        fontWeight: 600,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                        transition: 'color 0.3s',
-                                        whiteSpace: 'nowrap'
-                                    }}
-                                    onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
-                                    onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--navy)' : 'var(--white)'}
-                                >
-                                    {link.name}
-                                </HashLink>
+                            {desktopLinks.map((link) => (
+                                link.href.startsWith('/#') ? (
+                                    <HashLink
+                                        key={link.name}
+                                        smooth
+                                        to={link.href}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: scrolled ? 'var(--navy)' : 'var(--white)',
+                                            fontFamily: 'var(--font-sans)',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            transition: 'color 0.3s',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
+                                        onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--navy)' : 'var(--white)'}
+                                    >
+                                        {link.name}
+                                    </HashLink>
+                                ) : (
+                                    <Link
+                                        key={link.name}
+                                        to={link.href}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: scrolled ? 'var(--navy)' : 'var(--white)',
+                                            fontFamily: 'var(--font-sans)',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            transition: 'color 0.3s',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
+                                        onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--navy)' : 'var(--white)'}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )
                             ))}
                         </nav>
                     )}
@@ -178,13 +213,7 @@ const Navbar = () => {
                         }}
                     >
                         <nav style={{ display: 'flex', flexDirection: 'column', gap: '2vh' }}>
-                            {[
-                                { name: 'Home', href: '/', number: '01' },
-                                { name: 'Expertise', href: '/#expertise', number: '02' },
-                                { name: 'FAQ', href: '/faq', number: '03' },
-                                { name: 'Testimonials', href: '/#testimonials', number: '04' },
-                                { name: 'Connect', href: '/#contact', number: '05' }
-                            ].map((link, i) => (
+                            {mobileLinks.map((link, i) => (
                                 <div key={link.name} style={{ overflow: 'hidden' }}>
                                     {link.href.startsWith('/#') ? (
                                         <motion.a
@@ -234,7 +263,7 @@ const Navbar = () => {
                                             variants={linkVariants}
                                             style={{ display: 'flex' }}
                                         >
-                                            <HashLink smooth
+                                            <Link
                                                 to={link.href}
                                                 onClick={() => setIsOpen(false)}
                                                 style={{
@@ -272,7 +301,7 @@ const Navbar = () => {
                                                 >
                                                     {link.name}
                                                 </span>
-                                            </HashLink>
+                                            </Link>
                                         </motion.div>
                                     )}
                                 </div>
@@ -295,6 +324,10 @@ const Navbar = () => {
                                 textTransform: 'uppercase'
                             }}
                         >
+                            <div>
+                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Core Services</p>
+                                <p>{servicePages.map((service) => service.navLabel).join(', ')}</p>
+                            </div>
                             <div>
                                 <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Location</p>
                                 <p>San Angelo, Texas<br />Serving the Concho Valley</p>

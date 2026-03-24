@@ -57,7 +57,7 @@ const Contact = () => {
                                 <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
                                     Direct Line
                                 </p>
-                                <a href="tel:+13252495191" style={{
+                                <a href="tel:+13252495191" onClick={() => { if (typeof gtag === 'function') { gtag('event', 'click_to_call', { event_category: 'contact', event_label: 'phone_hero' }); } }} style={{
                                     fontFamily: 'var(--font-serif)',
                                     fontSize: '2.5rem',
                                     color: 'var(--navy)',
@@ -131,6 +131,13 @@ const Contact = () => {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
+                                    // GA4: Track form submission
+                                    if (typeof gtag === 'function') {
+                                        gtag('event', 'generate_lead', {
+                                            event_category: 'contact',
+                                            event_label: 'quote_form_submit'
+                                        });
+                                    }
                                     alert('Thank you for your message. We will get back to you shortly!');
                                 }}
                                 style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}
@@ -255,6 +262,7 @@ const Contact = () => {
                                         <select
                                             id="service"
                                             required
+                                            defaultValue=""
                                             style={{
                                                 width: '100%',
                                                 padding: '0.5rem 0',
@@ -272,7 +280,7 @@ const Contact = () => {
                                             onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
                                             onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
                                         >
-                                            <option value="" disabled selected style={{ color: 'rgba(2, 24, 43, 0.5)' }}>Select a service</option>
+                                            <option value="" disabled style={{ color: 'rgba(2, 24, 43, 0.5)' }}>Select a service</option>
                                             <option value="commercial">Commercial Routine</option>
                                             <option value="construction">Post-Construction</option>
                                             <option value="specialized">Specialized Extraction</option>

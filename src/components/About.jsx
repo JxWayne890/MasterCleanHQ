@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const About = () => {
     return (
@@ -43,10 +44,20 @@ const About = () => {
                             fontSize: '1.1rem',
                             color: 'var(--text-secondary)',
                             lineHeight: 1.8,
-                            marginBottom: '3rem'
+                            marginBottom: '1.5rem'
                         }}>
                             Locally owned and operated, our team understands the unique demands of West Texas facilities — from oil field offices in the Permian Basin to corporate environments in the Concho Valley. We guarantee that your workspace is not just superficially clean, but thoroughly sanitized, inviting, and professional.
                         </p>
+
+                        {/* AEO: Contextual internal links for topical clustering */}
+                        <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
+                            <Link to="/commercial-cleaning" style={{ color: 'var(--orange)', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.95rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                View commercial cleaning →
+                            </Link>
+                            <Link to="/faq" style={{ color: 'var(--navy)', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.95rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.7 }}>
+                                Questions? Visit our FAQ →
+                            </Link>
+                        </div>
 
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             {[

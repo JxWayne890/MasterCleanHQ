@@ -1,31 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { servicePages } from '../data/servicePages';
 
-const servicesData = [
-    {
-        id: '01',
-        title: 'Commercial Cleaning',
-        /* AEO: Question-based sub-heading baked into the description */
-        question: 'What does commercial cleaning include in West Texas?',
-        /* AEO: 40-60 word answer nugget */
-        answer: 'Commercial cleaning from Master Commercial Clean includes scheduled office sanitation, restroom disinfection, floor care, window cleaning, trash removal, and breakroom maintenance for businesses across San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas cities. Our trained staff use industrial-grade products and follow systematic protocols tailored to each facility.',
-        bullets: ['Offices & Corporate Suites', 'Retail Stores & Banks', 'Medical Clinics & Lobbies', 'Day / Night / Weekend Scheduling']
-    },
-    {
-        id: '02',
-        title: 'Post-Construction Cleanup',
-        question: 'How does post-construction cleaning work in West Texas?',
-        answer: 'Post-construction cleaning from Master Commercial Clean covers heavy debris extraction, fine dust removal, surface polishing, window detailing, and final inspection preparation for newly built or remodeled spaces. We serve contractors and property managers throughout San Angelo, Abilene, Lubbock, Midland, Odessa, and all West Texas communities.',
-        bullets: ['Debris & Material Removal', 'Fine Dust & HVAC Vent Cleaning', 'Surface Polish & Detailing', 'Move-In Ready Guarantee']
-    },
-    {
-        id: '03',
-        title: 'Specialized Cleaning',
-        question: 'What specialized cleaning services are available in West Texas?',
-        answer: 'Master Commercial Clean offers specialized cleaning operations including medical-grade sanitation, industrial facility degreasing, high-traffic zone maintenance, and move-in/move-out deep cleans for properties across San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas areas.',
-        bullets: ['Medical & Healthcare Facilities', 'Industrial & Warehouse Spaces', 'Move-In / Move-Out Deep Cleans', 'Event & Emergency Cleanup']
-    }
-];
+const servicesData = servicePages.map((service, index) => ({
+    id: String(index + 1).padStart(2, '0'),
+    slug: service.slug,
+    title: service.navLabel,
+    question: service.question,
+    answer: service.answer,
+    bullets: service.bullets,
+}));
 
 const ServicesAccordion = () => {
     const [activeId, setActiveId] = useState(servicesData[0].id);
@@ -175,6 +160,34 @@ const ServicesAccordion = () => {
                                                 }}>
                                                     Get a Free Quote <span style={{ fontSize: '1.2rem' }}>&rarr;</span>
                                                 </a>
+
+                                                {/* AEO: Contextual internal link to FAQ */}
+                                                <Link to="/faq" style={{
+                                                    color: 'rgba(255,255,255,0.5)',
+                                                    fontFamily: 'var(--font-sans)',
+                                                    fontSize: '0.85rem',
+                                                    textDecoration: 'none',
+                                                    display: 'block',
+                                                    marginTop: '1rem',
+                                                    transition: 'color 0.3s'
+                                                }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--orange)'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                                                >
+                                                    Learn more about our pricing and scheduling in our FAQ →
+                                                </Link>
+
+                                                <Link to={`/${service.slug}`} style={{
+                                                    color: 'var(--white)',
+                                                    fontFamily: 'var(--font-sans)',
+                                                    fontSize: '0.9rem',
+                                                    textDecoration: 'none',
+                                                    display: 'inline-block',
+                                                    marginTop: '0.75rem',
+                                                    fontWeight: 600,
+                                                }}>
+                                                    View the full {service.title} page →
+                                                </Link>
                                             </div>
                                         </motion.div>
                                     )}

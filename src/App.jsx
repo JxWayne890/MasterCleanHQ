@@ -1,17 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import FaqPage from './pages/FaqPage';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
 
 function App() {
     return (
         <Router>
-            <Routes>
-                <Route element={<MainLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/faq" element={<FaqPage />} />
-                </Route>
-            </Routes>
+            <AppRoutes />
         </Router>
     );
 }

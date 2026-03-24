@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
+import { servicePages } from '../data/servicePages';
 
 const Footer = () => {
     return (
@@ -27,8 +29,9 @@ const Footer = () => {
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)' }}>
                             <li><HashLink smooth to="/" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Home</HashLink></li>
                             <li><HashLink smooth to="/#expertise" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>About Us</HashLink></li>
-                            <li><HashLink smooth to="/#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Services</HashLink></li>
-                            <li><HashLink smooth to="/#testimonials" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Reviews</HashLink></li>
+                            <li><Link to="/commercial-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Commercial Cleaning</Link></li>
+                            <li><Link to="/post-construction-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Post-Construction</Link></li>
+                            <li><Link to="/specialized-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Specialized Cleaning</Link></li>
                             <li><HashLink smooth to="/faq" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>FAQ</HashLink></li>
                         </ul>
                     </div>
@@ -75,7 +78,21 @@ const Footer = () => {
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                        <img src="/img/logo2.png" alt="Master Commercial Clean Logo" style={{ height: '60px' }} />
+                        <div style={{ display: 'grid', gap: '1rem' }}>
+                            <img src="/img/logo2.png" alt="Master Commercial Clean Logo" style={{ height: '60px' }} />
+                            <div style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                                {servicePages.map((service) => (
+                                    <div key={service.slug}>
+                                        <Link
+                                            to={`/${service.slug}`}
+                                            style={{ color: 'inherit', textDecoration: 'none' }}
+                                        >
+                                            {service.navLabel}
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
 

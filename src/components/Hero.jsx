@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ENABLE_MOTION } from '../lib/motion';
 
 const Hero = () => {
     const container = {
@@ -46,8 +47,8 @@ const Hero = () => {
             <div className="container" style={{ position: 'relative', zIndex: 10 }}>
                 <motion.div
                     variants={container}
-                    initial="hidden"
-                    animate="show"
+                    initial={ENABLE_MOTION ? 'hidden' : false}
+                    animate={ENABLE_MOTION ? 'show' : undefined}
                     style={{ maxWidth: '1000px' }}
                 >
                     <div style={{ overflow: 'hidden', marginBottom: '1.5rem' }}>
