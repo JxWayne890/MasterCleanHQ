@@ -27,12 +27,13 @@ const Footer = () => {
                             fontSize: '0.9rem'
                         }}>Company</h4>
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)' }}>
-                            <li><HashLink smooth to="/" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Home</HashLink></li>
-                            <li><HashLink smooth to="/#expertise" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>About Us</HashLink></li>
-                            <li><Link to="/commercial-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Commercial Cleaning</Link></li>
-                            <li><Link to="/post-construction-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Post-Construction</Link></li>
-                            <li><Link to="/specialized-cleaning" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Specialized Cleaning</Link></li>
-                            <li><HashLink smooth to="/faq" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>FAQ</HashLink></li>
+                            <li><Link to="/" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Home</Link></li>
+                            <li><Link to="/about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>About Us</Link></li>
+                            <li><Link to="/services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Services</Link></li>
+                            <li><Link to="/blog" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Blog</Link></li>
+                            <li><Link to="/reviews" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Reviews</Link></li>
+                            <li><Link to="/guides" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Cost Guides</Link></li>
+                            <li><Link to="/faq" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>FAQ</Link></li>
                         </ul>
                     </div>
 
@@ -48,12 +49,12 @@ const Footer = () => {
                             fontSize: '0.9rem'
                         }}>Service Areas</h4>
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem' }}>
-                            <li>San Angelo, TX</li>
-                            <li>Abilene, TX</li>
-                            <li>Lubbock, TX</li>
-                            <li>Midland, TX</li>
-                            <li>Odessa, TX</li>
-                            <li><HashLink smooth to="/#service-areas" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>View All Cities →</HashLink></li>
+                            <li><Link to="/service-areas/san-angelo" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>San Angelo, TX</Link></li>
+                            <li><Link to="/service-areas/abilene" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Abilene, TX</Link></li>
+                            <li><Link to="/service-areas/lubbock" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Lubbock, TX</Link></li>
+                            <li><Link to="/service-areas/midland" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Midland, TX</Link></li>
+                            <li><Link to="/service-areas/odessa" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Odessa, TX</Link></li>
+                            <li><Link to="/service-areas" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>View All Cities →</Link></li>
                         </ul>
                     </div>
 

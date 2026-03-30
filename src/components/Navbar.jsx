@@ -6,19 +6,23 @@ import { servicePages } from '../data/servicePages';
 
 const desktopLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '/commercial-cleaning' },
-    { name: 'Expertise', href: '/#expertise' },
+    { name: 'Services', href: '/services' },
+    { name: 'Areas', href: '/service-areas' },
+    { name: 'About', href: '/about' },
+    { name: 'Blog', href: '/blog' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Connect', href: '/#contact' },
 ];
 
 const mobileLinks = [
     { name: 'Home', href: '/', number: '01' },
-    { name: 'Commercial Cleaning', href: '/commercial-cleaning', number: '02' },
-    { name: 'Post-Construction', href: '/post-construction-cleaning', number: '03' },
-    { name: 'Specialized Cleaning', href: '/specialized-cleaning', number: '04' },
-    { name: 'FAQ', href: '/faq', number: '05' },
-    { name: 'Connect', href: '/#contact', number: '06' },
+    { name: 'Services', href: '/services', number: '02' },
+    { name: 'Service Areas', href: '/service-areas', number: '03' },
+    { name: 'About', href: '/about', number: '04' },
+    { name: 'Blog', href: '/blog', number: '05' },
+    { name: 'Reviews', href: '/reviews', number: '06' },
+    { name: 'FAQ', href: '/faq', number: '07' },
+    { name: 'Connect', href: '/#contact', number: '08' },
 ];
 
 const Navbar = () => {

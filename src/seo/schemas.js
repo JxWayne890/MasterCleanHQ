@@ -109,11 +109,54 @@ export function buildFaqSchema(faqs, path) {
         url: buildAbsoluteUrl(path),
         mainEntity: faqs.map((faq) => ({
             '@type': 'Question',
-            name: faq.question,
+            name: faq.question || faq.q,
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: faq.answer,
+                text: faq.answer || faq.a,
             },
         })),
+    };
+}
+
+export function buildArticleSchema({ title, description, path, publishDate, author = SITE_NAME }) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${buildAbsoluteUrl(path)}#article`,
+        headline: title,
+        description,
+        url: buildAbsoluteUrl(path),
+        datePublished: publishDate,
+        dateModified: publishDate,
+        author: {
+            '@type': 'Organization',
+            name: author,
+            url: SITE_URL,
+        },
+        publisher: { '@id': organizationId },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': buildAbsoluteUrl(path),
+        },
+    };
+}
+
+export function buildLocalServiceSchema({ serviceName, serviceSlug, cityName, citySlug, description }) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${buildAbsoluteUrl(`/service-areas/${citySlug}/${serviceSlug}`)}#service`,
+        serviceType: serviceName,
+        name: `${serviceName} in ${cityName}, TX`,
+        provider: { '@id': businessId },
+        areaServed: {
+            '@type': 'City',
+            name: cityName,
+            containedInPlace: {
+                '@type': 'State',
+                name: 'Texas',
+            },
+        },
+        description,
     };
 }

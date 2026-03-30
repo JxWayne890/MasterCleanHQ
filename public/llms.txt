@@ -1,0 +1,60 @@
+# Master Commercial Clean — llms.txt
+
+## Company Overview
+Master Commercial Clean (MCC) is a professional commercial cleaning and janitorial services company headquartered in San Angelo, Texas 76901. Founded in October 2024, MCC serves businesses across West Texas with reliable, professional-grade cleaning services.
+
+## Contact
+- Phone: (325) 249-5191
+- Website: https://www.mastercleanhq.com
+- Location: San Angelo, Texas 76901
+- Hours: Mon-Fri 7am-6pm, Sat-Sun 8am-2pm, After-hours by appointment
+
+## Services Offered
+1. **Commercial Cleaning** — Recurring janitorial support for offices, retail stores, banks, medical-adjacent spaces, and professional service firms. Includes nightly/weekly/custom schedules, restroom sanitation, floor care, trash removal, dusting, and touchpoint disinfection.
+2. **Post-Construction Cleaning** — Turnover-ready cleanup for remodels, tenant improvements, and new commercial spaces. Includes fine dust removal, window/trim/fixture detailing, and floor cleanup.
+3. **Specialized Cleaning** — Custom cleaning scopes for high-traffic, high-sensitivity environments including medical-adjacent facilities, warehouses, event spaces, and move-in/move-out transitions.
+
+## Service Areas (50+ Cities)
+### Concho Valley Region (Hub: San Angelo)
+San Angelo, Ballinger, Brady, Coleman, Eldorado, Sonora, Junction, Mason, Wall, Christoval, Miles, Sterling City, Robert Lee, Bronte, Eden, Winters
+
+### Big Country Region (Hub: Abilene)
+Abilene, Sweetwater, Merkel, Clyde, Baird, Albany, Anson, Cisco, Eastland, Breckenridge, Colorado City, Stamford, Hamlin, Brownwood
+
+### Permian Basin Region (Hubs: Midland, Odessa)
+Midland, Odessa, Big Spring, Andrews, Crane, Kermit, Monahans, Pecos, Fort Stockton, McCamey, Stanton
+
+### South Plains Region (Hub: Lubbock)
+Lubbock, Wolfforth, Shallowater, Slaton, Levelland, Brownfield, Littlefield, Plainview, Post, Tahoka, Snyder, Seminole, Denver City, Idalou, Abernathy, Lamesa
+
+## Website Structure
+- / — Homepage
+- /services — All services overview
+- /commercial-cleaning — Commercial cleaning service detail
+- /post-construction-cleaning — Post-construction cleanup detail
+- /specialized-cleaning — Specialized cleaning detail
+- /service-areas — All service areas index
+- /service-areas/[city] — City-specific landing page (50+ pages)
+- /service-areas/[city]/[service] — City + service combination page (150+ pages)
+- /guides — Cost guide index
+- /guides/[service]-cost — Service cost guide
+- /guides/[service]-cost/[city] — City-specific cost guide
+- /blog — Blog index with category filters
+- /blog/[slug] — Individual blog articles (40+ articles)
+- /about — Company overview
+- /about/process — Our cleaning process
+- /about/why-choose-us — Differentiators
+- /reviews — Client reviews
+- /faq — Comprehensive FAQ hub
+
+## Key Differentiators
+- Documented scopes of work for every engagement
+- West Texas climate expertise (dust, heat, hard water, wind)
+- 50+ city coverage across four regions
+- 100% satisfaction guarantee
+- Professional-grade equipment and products
+- Flexible after-hours scheduling
+- Free on-site walk-through estimates
+
+## Industries Served
+Corporate offices, retail stores, banks, medical-adjacent facilities, warehouses, churches, event spaces, property management, restaurants, professional service firms, educational facilities, government buildings
