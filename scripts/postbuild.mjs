@@ -45,17 +45,8 @@ const prerenderRoutes = [
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
 ];
 
-// Prerender core pages
-for (const route of prerenderRoutes) {
-    try {
-        const rendered = render(route.path);
-        const outputFile = getOutputFile(route.path);
-        await fs.mkdir(path.dirname(outputFile), { recursive: true });
-        await fs.writeFile(outputFile, injectMarkup(template, rendered), 'utf8');
-    } catch (e) {
-        console.warn(`Warning: Failed to prerender ${route.path}:`, e.message);
-    }
-}
+// Core pages are prerendered first; dynamic routes are prerendered below
+// after allRoutes is fully assembled.
 
 // Build all sitemap routes using the SSR-bundled modules
 // Import from the server bundle instead of raw source (avoids Node ESM resolution issues)
@@ -133,6 +124,23 @@ costGuideSlugs.forEach(slug => {
         });
     });
 });
+
+// Prerender ALL routes to static HTML
+let prerenderSuccess = 0;
+let prerenderFail = 0;
+for (const route of allRoutes) {
+    try {
+        const rendered = render(route.path);
+        const outputFile = getOutputFile(route.path);
+        await fs.mkdir(path.dirname(outputFile), { recursive: true });
+        await fs.writeFile(outputFile, injectMarkup(template, rendered), 'utf8');
+        prerenderSuccess++;
+    } catch (e) {
+        prerenderFail++;
+        console.warn(`Warning: Failed to prerender ${route.path}:`, e.message);
+    }
+}
+console.log(`Prerendered ${prerenderSuccess} pages (${prerenderFail} failed)`);
 
 // Generate sitemap
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
