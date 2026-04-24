@@ -25,18 +25,33 @@ if (!keyCheck.ok) {
 }
 console.log(`Key file verified at ${KEY_LOCATION}`);
 
-const res = await fetch(INDEXNOW_ENDPOINT, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body: JSON.stringify({ host: HOST, key: KEY, keyLocation: KEY_LOCATION, urlList }),
-});
+const payload = JSON.stringify({ host: HOST, key: KEY, keyLocation: KEY_LOCATION, urlList });
 
-const body = await res.text();
-console.log(`IndexNow responded: ${res.status} ${res.statusText}`);
-if (body) console.log(body);
+// IndexNow rejects with 403 "SiteVerificationNotCompleted" until its crawler
+// fetches the key file — can take a few minutes after first hosting. Retry.
+const maxAttempts = 20;
+const retryDelayMs = 30_000;
 
-// IndexNow returns 200 on accepted, 202 on accepted-pending-validation.
-if (res.status !== 200 && res.status !== 202) {
-  process.exit(1);
+for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+  const res = await fetch(INDEXNOW_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: payload,
+  });
+  const body = await res.text();
+  console.log(`[attempt ${attempt}] IndexNow: ${res.status} ${res.statusText} ${body}`);
+
+  if (res.status === 200 || res.status === 202) {
+    console.log(`Submitted ${urlList.length} URLs to IndexNow.`);
+    process.exit(0);
+  }
+  if (res.status !== 403) {
+    console.error('Non-retryable error from IndexNow.');
+    process.exit(1);
+  }
+  if (attempt < maxAttempts) {
+    await new Promise(r => setTimeout(r, retryDelayMs));
+  }
 }
-console.log(`Submitted ${urlList.length} URLs to IndexNow.`);
+console.error('Exhausted retries waiting for IndexNow site verification.');
+process.exit(1);
