@@ -45,6 +45,14 @@ const prerenderRoutes = [
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
 ];
 
+const privatePrerenderRoutes = [
+    { path: '/checkin' },
+    { path: '/dashboard' },
+    { path: '/invoices' },
+    { path: '/invoices/inv-vbhs-001' },
+    { path: '/invoices/inv-vbhs-002' },
+];
+
 // Core pages are prerendered first; dynamic routes are prerendered below
 // after allRoutes is fully assembled.
 
@@ -125,10 +133,11 @@ costGuideSlugs.forEach(slug => {
     });
 });
 
-// Prerender ALL routes to static HTML
+// Prerender ALL public routes plus private operations routes. Private routes
+// are rendered for direct links but intentionally excluded from the sitemap.
 let prerenderSuccess = 0;
 let prerenderFail = 0;
-for (const route of allRoutes) {
+for (const route of [...allRoutes, ...privatePrerenderRoutes]) {
     try {
         const rendered = render(route.path);
         const outputFile = getOutputFile(route.path);
@@ -181,6 +190,10 @@ Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
+
+Disallow: /checkin
+Disallow: /dashboard
+Disallow: /invoices
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `,

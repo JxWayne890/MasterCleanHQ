@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Invoice VBHS-INV-001 — Veribest High School Field House</title>
+<style>
+  @page { size: Letter; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #1f2937;
+    font-size: 12px;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    padding: 32px 36px 24px 36px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 4px solid #11366b;
+    position: relative;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    width: 110px;
+    height: 4px;
+    background: #f08a1c;
+  }
+  .header .logo img {
+    width: 175px;
+    height: auto;
+    display: block;
+  }
+  .header .title {
+    text-align: right;
+  }
+  .header .title h1 {
+    font-size: 32px;
+    color: #11366b;
+    margin: 0;
+    letter-spacing: 1px;
+    font-weight: 800;
+  }
+  .header .title .meta {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Two-column info */
+  .info-row {
+    display: flex;
+    gap: 36px;
+    margin-top: 22px;
+  }
+  .info-col {
+    flex: 1;
+  }
+  .info-label {
+    color: #11366b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #11366b;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  .info-line {
+    display: flex;
+    padding: 4px 0;
+  }
+  .info-line .k {
+    width: 90px;
+    color: #6b7280;
+    font-weight: 600;
+  }
+  .info-line .v {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  .info-line .v.bold {
+    font-weight: 800;
+    color: #11366b;
+  }
+
+  /* Section heading bar */
+  .section-bar {
+    background: #11366b;
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+    padding: 10px 14px;
+    margin-top: 22px;
+  }
+
+  /* Scope groups */
+  .group-head {
+    background: #e8eef7;
+    color: #11366b;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 8px 14px;
+    border-bottom: 1px solid #d4dcec;
+  }
+  .scope-table {
+    border: 1px solid #e3e7ee;
+    border-top: none;
+  }
+  .scope-row {
+    padding: 8px 14px;
+    border-bottom: 1px solid #eef1f6;
+    display: flex;
+    align-items: flex-start;
+  }
+  .scope-row:last-child { border-bottom: none; }
+  .scope-row .bullet {
+    color: #f08a1c;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  /* Charges table */
+  .charges {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+    border: 1px solid #e3e7ee;
+    border-top: none;
+  }
+  .charges thead th {
+    background: #f6f8fb;
+    color: #11366b;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 9px 14px;
+    border-bottom: 1px solid #d4dcec;
+  }
+  .charges thead th.right { text-align: right; }
+  .charges td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #eef1f6;
+    vertical-align: top;
+  }
+  .charges td.right { text-align: right; }
+  .charges .desc-title {
+    font-weight: 700;
+    color: #11366b;
+    margin-bottom: 2px;
+  }
+  .charges .desc-sub {
+    color: #6b7280;
+    font-size: 11px;
+  }
+
+  /* Totals */
+  .totals {
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .totals-box {
+    width: 280px;
+    border: 1px solid #e3e7ee;
+  }
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 14px;
+    border-bottom: 1px solid #eef1f6;
+    font-size: 12px;
+  }
+  .totals-row.total {
+    background: #f08a1c;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    border-bottom: none;
+    letter-spacing: 0.5px;
+  }
+  .totals-row .label {
+    color: #6b7280;
+    font-weight: 600;
+  }
+  .totals-row.total .label {
+    color: #ffffff;
+  }
+  .totals-row .val {
+    color: #11366b;
+    font-weight: 700;
+  }
+  .totals-row.total .val {
+    color: #ffffff;
+  }
+
+  /* Payment block */
+  .pay-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .pay-card {
+    flex: 1;
+    border: 1px solid #e3e7ee;
+    padding: 14px 16px;
+  }
+  .pay-card h3 {
+    margin: 0 0 8px 0;
+    color: #11366b;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+  .pay-card p {
+    margin: 3px 0;
+    color: #374151;
+  }
+  .pay-card .due {
+    color: #f08a1c;
+    font-weight: 800;
+  }
+
+  /* Terms */
+  .terms {
+    margin-top: 18px;
+    background: #f6f8fb;
+    padding: 14px 18px;
+    border-left: 3px solid #11366b;
+  }
+  .terms h4 {
+    margin: 0 0 6px 0;
+    color: #11366b;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+  .terms ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #374151;
+  }
+  .terms li { padding: 1px 0; }
+
+  /* Footer */
+  .footer {
+    margin-top: 22px;
+    background: #11366b;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 11px;
+  }
+  .footer .thanks {
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+  .footer .contact {
+    color: #f08a1c;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <img src="../public/img/logo.png" alt="Master Commercial Clean" />
+    </div>
+    <div class="title">
+      <h1>INVOICE</h1>
+      <div class="meta">Invoice # VBHS-INV-001 &nbsp;•&nbsp; April 22, 2026</div>
+    </div>
+  </div>
+
+  <!-- FROM / BILL TO -->
+  <div class="info-row">
+    <div class="info-col">
+      <div class="info-label">FROM</div>
+      <div class="info-line"><span class="k">Name</span><span class="v bold">John W. Johnson</span></div>
+      <div class="info-line"><span class="k">Company</span><span class="v">Master Commercial Clean</span></div>
+      <div class="info-line"><span class="k">Phone</span><span class="v">325-249-5191</span></div>
+      <div class="info-line"><span class="k">Email</span><span class="v">john@mastercleanhq.com</span></div>
+    </div>
+    <div class="info-col">
+      <div class="info-label">BILL TO</div>
+      <div class="info-line"><span class="k">Business</span><span class="v bold">Veribest High School</span></div>
+      <div class="info-line"><span class="k">Facility</span><span class="v">Field House</span></div>
+      <div class="info-line"><span class="k">Contact</span><span class="v">Mandy Traylor</span></div>
+      <div class="info-line"><span class="k">Location</span><span class="v">Veribest, Texas</span></div>
+    </div>
+  </div>
+
+  <!-- SERVICE OVERVIEW -->
+  <div class="info-row" style="margin-top: 18px;">
+    <div class="info-col">
+      <div class="info-label">SERVICE OVERVIEW</div>
+      <div class="info-line"><span class="k">Service</span><span class="v">One-Time Deep Clean</span></div>
+      <div class="info-line"><span class="k">Facility</span><span class="v">High School Field House</span></div>
+      <div class="info-line"><span class="k">Approx. Size</span><span class="v">~4,500 Sq Ft</span></div>
+      <div class="info-line"><span class="k">Date Performed</span><span class="v">April 2026</span></div>
+    </div>
+    <div class="info-col">
+      <div class="info-label">PAYMENT</div>
+      <div class="info-line"><span class="k">Invoice Date</span><span class="v">April 22, 2026</span></div>
+      <div class="info-line"><span class="k">Terms</span><span class="v">Net 15</span></div>
+      <div class="info-line"><span class="k">Due Date</span><span class="v bold">May 7, 2026</span></div>
+      <div class="info-line"><span class="k">Amount Due</span><span class="v bold">$500.00</span></div>
+    </div>
+  </div>
+
+  <!-- SCOPE OF WORK COMPLETED -->
+  <div class="section-bar">SCOPE OF WORK COMPLETED</div>
+
+  <div class="group-head">GENERAL AREAS</div>
+  <div class="scope-table">
+    <div class="scope-row"><span class="bullet">•</span><span>Swept and mopped all floors throughout the field house</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Trash removal and liner replacement in all bins</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Deep cleaning and dusting of surfaces, including countertops</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Detailed wipe-down of high-touch areas (door handles, light switches, rails)</span></div>
+  </div>
+
+  <div class="group-head" style="margin-top: 0;">LOCKER ROOMS &amp; WEIGHT ROOM</div>
+  <div class="scope-table">
+    <div class="scope-row"><span class="bullet">•</span><span>Deep cleaning of locker exteriors and surrounding surfaces</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Detailed cleaning of weight room equipment surfaces and floors</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Disinfecting of high-contact athletic surfaces</span></div>
+  </div>
+
+  <div class="group-head" style="margin-top: 0;">RESTROOMS</div>
+  <div class="scope-table">
+    <div class="scope-row"><span class="bullet">•</span><span>Deep cleaned and sanitized all toilets and urinals</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Cleaned sinks, mirrors, and countertops</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Mopped and disinfected restroom floors</span></div>
+  </div>
+
+  <div class="group-head" style="margin-top: 0;">OFFICES / COMMON AREAS</div>
+  <div class="scope-table">
+    <div class="scope-row"><span class="bullet">•</span><span>Deep cleaning of office surfaces and common areas</span></div>
+    <div class="scope-row"><span class="bullet">•</span><span>Trash removal and detailed dusting throughout</span></div>
+  </div>
+
+  <!-- CHARGES -->
+  <div class="section-bar">CHARGES</div>
+  <table class="charges">
+    <thead>
+      <tr>
+        <th style="width: 60%;">DESCRIPTION</th>
+        <th class="right" style="width: 12%;">QTY</th>
+        <th class="right" style="width: 14%;">RATE</th>
+        <th class="right" style="width: 14%;">AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="desc-title">Deep Clean — Veribest High School Field House</div>
+          <div class="desc-sub">Heavy-duty deep cleaning beyond standard maintenance scope: full floor service, trash &amp; liners, locker exteriors, weight room, offices, and full restroom sanitization.</div>
+        </td>
+        <td class="right">1</td>
+        <td class="right">$500.00</td>
+        <td class="right">$500.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TOTALS -->
+  <div class="totals">
+    <div class="totals-box">
+      <div class="totals-row"><span class="label">Subtotal</span><span class="val">$500.00</span></div>
+      <div class="totals-row"><span class="label">Tax</span><span class="val">$0.00</span></div>
+      <div class="totals-row total"><span class="label">TOTAL DUE</span><span class="val">$500.00</span></div>
+    </div>
+  </div>
+
+  <!-- PAYMENT INSTRUCTIONS -->
+  <div class="pay-row">
+    <div class="pay-card">
+      <h3>PAYMENT INSTRUCTIONS</h3>
+      <p>Make checks payable to: <strong>John W. Johnson</strong></p>
+      <p>For questions about this invoice, contact John directly:</p>
+      <p>325-249-5191 &nbsp;•&nbsp; john@mastercleanhq.com</p>
+    </div>
+    <div class="pay-card">
+      <h3>AMOUNT &amp; DUE DATE</h3>
+      <p>Amount Due: <span class="due">$500.00</span></p>
+      <p>Due Date: <strong>May 7, 2026</strong></p>
+      <p>Payment Terms: Net 15</p>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="terms">
+    <h4>TERMS &amp; NOTES</h4>
+    <ul>
+      <li>Payment due within 15 days of invoice date.</li>
+      <li>Please reference Invoice # VBHS-INV-001 with payment.</li>
+      <li>Thank you for the opportunity to serve Veribest High School.</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="thanks">Thank you, Mandy — it was a pleasure serving the Veribest Field House.</div>
+    <div class="contact">Master Commercial Clean &nbsp;•&nbsp; 325-249-5191 &nbsp;•&nbsp; john@mastercleanhq.com &nbsp;•&nbsp; mastercleanhq.com</div>
+  </div>
+
+</div>
+</body>
+</html>

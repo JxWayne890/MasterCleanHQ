@@ -16,6 +16,14 @@ import AboutProcessPage from './pages/AboutProcessPage';
 import WhyChooseUsPage from './pages/WhyChooseUsPage';
 import ReviewsPage from './pages/ReviewsPage';
 import ContactPage from './pages/ContactPage';
+import {
+    CheckInPage,
+    DashboardPage,
+    InvoiceDetailPage,
+    InvoiceListPage,
+    OperationsLayout,
+    OperationsProvider,
+} from './operations/OperationsApp';
 import { servicePages } from './data/servicePages';
 import { locations } from './data/locations';
 import { blogPosts } from './data/blogPosts';
@@ -24,6 +32,13 @@ import { costGuides } from './data/costGuides';
 const AppRoutes = () => {
     return (
         <Routes>
+            <Route element={<OperationsProvider><OperationsLayout /></OperationsProvider>}>
+                <Route path="/checkin" element={<CheckInPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/invoices" element={<InvoiceListPage />} />
+                <Route path="/invoices/:invoiceId" element={<InvoiceDetailPage />} />
+            </Route>
+
             <Route element={<MainLayout />}>
                 {/* Home */}
                 <Route path="/" element={<Home />} />
