@@ -347,6 +347,173 @@ h4 {
     border-bottom: 0;
 }
 
+.ops-list li > span {
+    display: grid;
+    gap: 0.18rem;
+}
+
+.ops-list small {
+    color: #68727f;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.ops-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(2, 24, 43, 0.58);
+}
+
+.ops-modal {
+    width: min(100%, 560px);
+    padding: 1.25rem;
+    border: 1px solid #d7dde3;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 28px 70px rgba(2, 24, 43, 0.24);
+}
+
+.ops-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ops-modal-header span {
+    color: #68727f;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.ops-modal-header h2 {
+    margin-top: 0.15rem;
+    font-family: var(--font-sans);
+    font-size: 1.45rem;
+    font-weight: 900;
+}
+
+.ops-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #d7dde3;
+    border-radius: 8px;
+    background: #fff;
+    color: #17202a;
+    cursor: pointer;
+}
+
+.ops-room-options {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.ops-room-option {
+    display: grid;
+    grid-template-columns: auto 42px 1fr;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 78px;
+    padding: 0.9rem;
+    border: 1px solid #d7dde3;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.ops-room-option.is-selected {
+    border-color: #9ed8b2;
+    background: #f0fbf4;
+}
+
+.ops-room-option input {
+    width: 20px;
+    height: 20px;
+    accent-color: #176b34;
+}
+
+.ops-room-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #edf0f3;
+    color: #173b74;
+}
+
+.ops-room-option.is-selected .ops-room-check {
+    background: #dff5e7;
+    color: #176b34;
+}
+
+.ops-room-option strong {
+    display: block;
+    color: #02182b;
+    font-size: 1rem;
+}
+
+.ops-room-option small {
+    display: block;
+    margin-top: 0.15rem;
+    color: #68727f;
+    font-weight: 700;
+}
+
+.ops-payment-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0.95rem;
+    border: 1px solid #e0e5ea;
+    border-radius: 8px;
+    background: #f6f7f8;
+}
+
+.ops-payment-preview span {
+    color: #68727f;
+    font-weight: 800;
+}
+
+.ops-payment-preview strong {
+    color: #02182b;
+    font-size: 1.45rem;
+}
+
+.ops-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.ops-secondary-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 1.2rem;
+    border: 1px solid #d7dde3;
+    border-radius: 8px;
+    background: #fff;
+    color: #17202a;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
 .ops-stats {
     display: grid;
     grid-template-columns: 1fr 1.4fr auto;
@@ -783,6 +950,16 @@ h4 {
 
     .ops-worker-button {
         min-height: 150px;
+    }
+
+    .ops-modal-actions,
+    .ops-payment-preview {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ops-modal-actions button {
+        width: 100%;
     }
 
     .ops-route-card span {

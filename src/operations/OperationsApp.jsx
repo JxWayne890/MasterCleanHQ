@@ -2,11 +2,13 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
+    Building2,
     CalendarDays,
     CheckCircle2,
     ClipboardList,
     Printer,
     UserCheck,
+    X,
 } from 'lucide-react';
 
 const STORAGE_KEY = 'masterclean_operations_v2';
@@ -281,6 +283,44 @@ function getLocation(locationId) {
     return locations.find((location) => location.id === locationId);
 }
 
+function getValidLocationIds(locationIds) {
+    const requestedIds = Array.isArray(locationIds) ? locationIds : routePackage.locationIds;
+    return routePackage.locationIds.filter((locationId) => requestedIds.includes(locationId));
+}
+
+function getVisitLocationIds(visitOrLocationIds) {
+    const locationIds = Array.isArray(visitOrLocationIds) ? visitOrLocationIds : visitOrLocationIds?.locationIds;
+    return getValidLocationIds(locationIds);
+}
+
+function getVisitLocations(visitOrLocationIds) {
+    return getVisitLocationIds(visitOrLocationIds).map(getLocation).filter(Boolean);
+}
+
+function getLocationTotal(locationIds) {
+    return getVisitLocations(locationIds).reduce((total, location) => total + Number(location.recurringRate || 0), 0);
+}
+
+function getVisitAmount(visit) {
+    return Number(visit?.rate || getLocationTotal(visit?.locationIds) || routePackage.ratePerVisit);
+}
+
+function getFacilityLabel(locationIds) {
+    const selectedLocations = getVisitLocations(locationIds);
+    if (selectedLocations.length === routePackage.locationIds.length) return routePackage.facilityLabel;
+    return selectedLocations.map((location) => location.facility).join(' + ') || routePackage.facilityLabel;
+}
+
+function getVisitSubtitle(locationIds) {
+    return getVisitLocations(locationIds)
+        .map((location) => `${formatMoney(location.recurringRate)} ${location.facility}`)
+        .join(' + ');
+}
+
+function getEmptyRoomSelections() {
+    return Object.fromEntries(routePackage.locationIds.map((locationId) => [locationId, false]));
+}
+
 function buildDefaultState() {
     return {
         visits: [],
@@ -299,8 +339,19 @@ function mergeById(defaultItems, savedItems) {
 
 function normalizeState(savedState) {
     const defaults = buildDefaultState();
+    const visits = Array.isArray(savedState?.visits)
+        ? savedState.visits.map((visit) => {
+            const locationIds = getVisitLocationIds(visit);
+            return {
+                ...visit,
+                locationIds,
+                rate: Number(visit.rate || getLocationTotal(locationIds) || routePackage.ratePerVisit),
+            };
+        })
+        : defaults.visits;
+
     return {
-        visits: Array.isArray(savedState?.visits) ? savedState.visits : defaults.visits,
+        visits,
         invoices: mergeById(defaults.invoices, savedState?.invoices),
         lineItems: mergeById(defaults.lineItems, savedState?.lineItems),
     };
@@ -331,8 +382,8 @@ function nextInvoiceNumber(invoices) {
     return `${CLIENT_CODE}-INV-${String(lastNumber + 1).padStart(3, '0')}`;
 }
 
-function visitDescription(dateString) {
-    return `Cleanup Visit - Field House + Agriculture Classroom - ${formatLongDate(dateString)}`;
+function visitDescription(dateString, locationIds = routePackage.locationIds) {
+    return `Cleanup Visit - ${getFacilityLabel(locationIds)} - ${formatLongDate(dateString)}`;
 }
 
 function recalculateInvoice(invoice, lineItems) {
@@ -360,12 +411,17 @@ export function OperationsProvider({ children }) {
     }, [state]);
 
     const actions = useMemo(() => ({
-        logVisit(workerId, visitDate = todayInCentral()) {
+        logVisit(workerId, visitDate = todayInCentral(), locationIds = routePackage.locationIds) {
             setState((current) => {
+                const selectedLocationIds = getVisitLocationIds(locationIds);
+                if (!selectedLocationIds.length) return current;
+
                 const alreadyLogged = current.visits.some(
                     (visit) => visit.workerId === workerId && visit.visitDate === visitDate,
                 );
                 if (alreadyLogged) return current;
+
+                const rate = getLocationTotal(selectedLocationIds);
 
                 return {
                     ...current,
@@ -374,10 +430,10 @@ export function OperationsProvider({ children }) {
                         {
                             id: `visit-${Date.now()}-${workerId}`,
                             servicePackageId: routePackage.id,
-                            locationIds: routePackage.locationIds,
+                            locationIds: selectedLocationIds,
                             workerId,
                             visitDate,
-                            rate: routePackage.ratePerVisit,
+                            rate,
                             note: '',
                             createdAt: new Date().toISOString(),
                         },
@@ -400,18 +456,24 @@ export function OperationsProvider({ children }) {
 
                 const invoiceId = `inv-${Date.now()}`;
                 const issueDate = todayInCentral();
-                const lineItems = uninvoicedVisits.map((visit) => ({
-                    id: `li-${Date.now()}-${visit.id}`,
-                    invoiceId,
-                    visitId: visit.id,
-                    description: visitDescription(visit.visitDate),
-                    subtitle: '$125 Field House + $125 AG Classroom',
-                    visitDate: visit.visitDate,
-                    workerId: visit.workerId,
-                    qty: 1,
-                    rate: routePackage.ratePerVisit,
-                    amount: routePackage.ratePerVisit,
-                }));
+                const lineItems = uninvoicedVisits.map((visit) => {
+                    const locationIds = getVisitLocationIds(visit);
+                    const amount = getVisitAmount(visit);
+                    const qty = locationIds.length || 1;
+
+                    return {
+                        id: `li-${Date.now()}-${visit.id}`,
+                        invoiceId,
+                        visitId: visit.id,
+                        description: visitDescription(visit.visitDate, locationIds),
+                        subtitle: getVisitSubtitle(locationIds),
+                        visitDate: visit.visitDate,
+                        workerId: visit.workerId,
+                        qty,
+                        rate: amount / qty,
+                        amount,
+                    };
+                });
 
                 createdInvoice = recalculateInvoice({
                     id: invoiceId,
@@ -498,12 +560,51 @@ export function OperationsLayout() {
 export function CheckInPage() {
     const { state, actions } = useOperations();
     const [message, setMessage] = useState('');
+    const [activeWorker, setActiveWorker] = useState(null);
+    const [roomSelections, setRoomSelections] = useState(getEmptyRoomSelections);
     const today = todayInCentral();
     const todayVisits = state.visits.filter((visit) => visit.visitDate === today);
+    const selectedLocationIds = routePackage.locationIds.filter((locationId) => roomSelections[locationId]);
+    const selectedTotal = getLocationTotal(selectedLocationIds);
 
-    function handleLog(worker) {
-        actions.logVisit(worker.id, today);
-        setMessage(`Thanks ${worker.shortName} - logged for ${formatLongDate(today)}.`);
+    useEffect(() => {
+        if (!activeWorker) return undefined;
+
+        function handleKeyDown(event) {
+            if (event.key === 'Escape') {
+                setActiveWorker(null);
+                setRoomSelections(getEmptyRoomSelections());
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [activeWorker]);
+
+    function openLogModal(worker) {
+        setActiveWorker(worker);
+        setRoomSelections(getEmptyRoomSelections());
+        setMessage('');
+    }
+
+    function closeLogModal() {
+        setActiveWorker(null);
+        setRoomSelections(getEmptyRoomSelections());
+    }
+
+    function toggleRoom(locationId) {
+        setRoomSelections((current) => ({
+            ...current,
+            [locationId]: !current[locationId],
+        }));
+    }
+
+    function handleLog() {
+        if (!activeWorker || !selectedLocationIds.length) return;
+
+        actions.logVisit(activeWorker.id, today, selectedLocationIds);
+        setMessage(`Thanks ${activeWorker.shortName} - logged ${getFacilityLabel(selectedLocationIds)} for ${formatMoney(selectedTotal)}.`);
+        closeLogModal();
     }
 
     return (
@@ -521,7 +622,7 @@ export function CheckInPage() {
 
             <div className="ops-route-card">
                 <strong>{routePackage.facilityLabel}</strong>
-                <span>{formatMoney(125)} Field House + {formatMoney(125)} AG Classroom = {formatMoney(routePackage.ratePerVisit)} per logged visit</span>
+                <span>{formatMoney(125)} per selected room, {formatMoney(routePackage.ratePerVisit)} when both are checked</span>
             </div>
 
             <div className="ops-worker-grid">
@@ -532,12 +633,12 @@ export function CheckInPage() {
                             className="ops-worker-button"
                             type="button"
                             disabled={alreadyLogged}
-                            onClick={() => handleLog(worker)}
+                            onClick={() => openLogModal(worker)}
                             key={worker.id}
                         >
                             <UserCheck size={30} />
                             <span>{worker.shortName}</span>
-                            <strong>{alreadyLogged ? 'Already checked in today' : 'I cleaned both areas today'}</strong>
+                            <strong>{alreadyLogged ? 'Already checked in today' : 'I cleaned today'}</strong>
                         </button>
                     );
                 })}
@@ -549,8 +650,11 @@ export function CheckInPage() {
                     <ul className="ops-list">
                         {todayVisits.map((visit) => (
                             <li key={visit.id}>
-                                <span>{getWorker(visit.workerId)?.name}</span>
-                                <strong>{formatMoney(visit.rate || routePackage.ratePerVisit)}</strong>
+                                <span>
+                                    {getWorker(visit.workerId)?.name}
+                                    <small>{getFacilityLabel(visit.locationIds)}</small>
+                                </span>
+                                <strong>{formatMoney(getVisitAmount(visit))}</strong>
                             </li>
                         ))}
                     </ul>
@@ -558,6 +662,83 @@ export function CheckInPage() {
                     <p className="ops-muted">No one has checked in yet today.</p>
                 )}
             </section>
+
+            {activeWorker && (
+                <div
+                    className="ops-modal-backdrop"
+                    onMouseDown={(event) => {
+                        if (event.target === event.currentTarget) closeLogModal();
+                    }}
+                >
+                    <div
+                        aria-labelledby="ops-room-modal-title"
+                        aria-modal="true"
+                        className="ops-modal"
+                        role="dialog"
+                    >
+                        <div className="ops-modal-header">
+                            <div>
+                                <span>Rooms cleaned today</span>
+                                <h2 id="ops-room-modal-title">{activeWorker.shortName}'s check-in</h2>
+                            </div>
+                            <button
+                                aria-label="Close room selection"
+                                className="ops-icon-button"
+                                type="button"
+                                onClick={closeLogModal}
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+
+                        <div className="ops-room-options">
+                            {locations.map((location) => {
+                                const checked = Boolean(roomSelections[location.id]);
+
+                                return (
+                                    <label className={`ops-room-option ${checked ? 'is-selected' : ''}`} key={location.id}>
+                                        <input
+                                            checked={checked}
+                                            type="checkbox"
+                                            onChange={() => toggleRoom(location.id)}
+                                        />
+                                        <span className="ops-room-check" aria-hidden="true">
+                                            {checked ? <CheckCircle2 size={18} /> : <Building2 size={18} />}
+                                        </span>
+                                        <span>
+                                            <strong>{location.facility}</strong>
+                                            <small>{formatMoney(location.recurringRate)} per room</small>
+                                        </span>
+                                    </label>
+                                );
+                            })}
+                        </div>
+
+                        <div className="ops-payment-preview">
+                            <span>
+                                {selectedLocationIds.length
+                                    ? `${selectedLocationIds.length} room${selectedLocationIds.length === 1 ? '' : 's'} selected`
+                                    : 'No rooms selected'}
+                            </span>
+                            <strong>{formatMoney(selectedTotal)}</strong>
+                        </div>
+
+                        <div className="ops-modal-actions">
+                            <button className="ops-secondary-action" type="button" onClick={closeLogModal}>
+                                Cancel
+                            </button>
+                            <button
+                                className="ops-primary-action"
+                                type="button"
+                                disabled={!selectedLocationIds.length}
+                                onClick={handleLog}
+                            >
+                                Log {formatMoney(selectedTotal)}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
@@ -572,7 +753,7 @@ export function DashboardPage() {
     const invoicedVisitIds = new Set(state.lineItems.map((item) => item.visitId).filter(Boolean));
     const uninvoicedVisits = monthVisits.filter((visit) => !invoicedVisitIds.has(visit.id));
     const runningTotal = uninvoicedVisits.reduce(
-        (total, visit) => total + Number(visit.rate || routePackage.ratePerVisit),
+        (total, visit) => total + getVisitAmount(visit),
         0,
     );
 
@@ -602,8 +783,8 @@ export function DashboardPage() {
                 <article className="ops-stat">
                     <ClipboardList size={24} />
                     <span>Running Total</span>
-                    <strong>{uninvoicedVisits.length} x {formatMoney(routePackage.ratePerVisit)} = {formatMoney(runningTotal)}</strong>
-                    <small>$125 Field House + $125 AG Classroom</small>
+                    <strong>{formatMoney(runningTotal)}</strong>
+                    <small>$125 per selected room</small>
                 </article>
                 <button
                     className="ops-primary-action"
@@ -621,8 +802,11 @@ export function DashboardPage() {
                     <ul className="ops-list">
                         {monthVisits.map((visit) => (
                             <li key={visit.id}>
-                                <span>{formatDate(visit.visitDate)} - {getWorker(visit.workerId)?.name}</span>
-                                <strong>{invoicedVisitIds.has(visit.id) ? 'Invoiced' : formatMoney(visit.rate || routePackage.ratePerVisit)}</strong>
+                                <span>
+                                    {formatDate(visit.visitDate)} - {getWorker(visit.workerId)?.name}
+                                    <small>{getFacilityLabel(visit.locationIds)}</small>
+                                </span>
+                                <strong>{invoicedVisitIds.has(visit.id) ? 'Invoiced' : formatMoney(getVisitAmount(visit))}</strong>
                             </li>
                         ))}
                     </ul>
