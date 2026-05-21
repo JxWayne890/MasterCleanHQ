@@ -1011,7 +1011,7 @@ function InvoiceDocument({ invoice, lineItems }) {
                     <h2>From</h2>
                     <p><span>Name</span><strong>John W. Johnson</strong></p>
                     <p><span>Company</span><b>Master Commercial Clean</b></p>
-                    <p><span>Phone</span><b>325-249-5191</b></p>
+                    <p><span>Phone</span><b>325-273-2203</b></p>
                     <p><span>Email</span><b>john@mastercleanhq.com</b></p>
                 </div>
                 <div className="mc-info-col">
@@ -1095,7 +1095,7 @@ function InvoiceDocument({ invoice, lineItems }) {
                     <h3>Payment Instructions</h3>
                     <p>Make checks payable to: <strong>John W. Johnson</strong></p>
                     <p>For questions about this invoice, contact John directly:</p>
-                    <p>325-249-5191 &nbsp;|&nbsp; john@mastercleanhq.com</p>
+                    <p>325-273-2203 &nbsp;|&nbsp; john@mastercleanhq.com</p>
                 </div>
                 <div>
                     <h3>Amount &amp; Due Date</h3>
@@ -1116,7 +1116,7 @@ function InvoiceDocument({ invoice, lineItems }) {
 
             <footer className="mc-footer">
                 <p>Thank you, Mandy - it was a pleasure serving the {client.facility}.</p>
-                <strong>Master Commercial Clean &nbsp;|&nbsp; 325-249-5191 &nbsp;|&nbsp; john@mastercleanhq.com &nbsp;|&nbsp; mastercleanhq.com</strong>
+                <strong>Master Commercial Clean &nbsp;|&nbsp; 325-273-2203 &nbsp;|&nbsp; john@mastercleanhq.com &nbsp;|&nbsp; mastercleanhq.com</strong>
             </footer>
         </article>
     );

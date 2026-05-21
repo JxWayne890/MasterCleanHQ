@@ -129,7 +129,7 @@ const ServiceAreas = () => {
                         </p>
                     </div>
                     <a
-                        href="tel:+13252495191"
+                        href="tel:+13252732203"
                         style={{
                             backgroundColor: 'var(--orange)',
                             color: 'var(--white)',
@@ -144,7 +144,7 @@ const ServiceAreas = () => {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        Call (325) 249-5191
+                        Call 325-273-2203
                     </a>
                 </motion.div>
             </div>

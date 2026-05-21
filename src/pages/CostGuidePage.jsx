@@ -19,7 +19,7 @@ const CostGuidePage = ({ guideSlug, citySlug, location }) => {
         ? `${guide.title} for ${cityName} | Master Commercial Clean`
         : guide.metaTitle;
     const description = citySlug
-        ? `Understand ${guide.title.toLowerCase()} factors for businesses in ${cityName}. Free estimates available. Call (325) 249-5191.`
+        ? `Understand ${guide.title.toLowerCase()} factors for businesses in ${cityName}. Free estimates available. Call 325-273-2203.`
         : guide.metaDescription;
 
     const cityIntro = citySlug && guide.cityIntros ? guide.cityIntros[citySlug] : null;

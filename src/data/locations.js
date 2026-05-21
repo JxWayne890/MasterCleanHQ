@@ -19,7 +19,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: true,
     metaTitle: 'Commercial Cleaning in San Angelo, TX | Master Commercial Clean',
-    metaDescription: 'Professional commercial cleaning services in San Angelo, TX. Office, post-construction, and specialized cleaning. Call (325) 249-5191.',
+    metaDescription: 'Professional commercial cleaning services in San Angelo, TX. Office, post-construction, and specialized cleaning. Call 325-273-2203.',
     intro: [
       'Master Commercial Clean is proud to call San Angelo home. As our headquarters city, we have deep roots in the Concho Valley and an unmatched understanding of the commercial cleaning needs of local businesses. From the bustling Sherwood Way corridor to the historic downtown district along Concho Avenue, we serve offices, medical facilities, and retail spaces throughout San Angelo.',
       'San Angelo is a vibrant city anchored by Goodfellow Air Force Base, Angelo State University, and Shannon Medical Center. These institutions drive a diverse economy that includes defense, education, healthcare, and agriculture. Our cleaning crews understand the high standards required by each sector, from HIPAA-compliant medical facility cleaning to secure government contractor spaces near the base.',
@@ -41,7 +41,7 @@ export const locations = [
     faqs: [
       {
         question: 'What areas of San Angelo does Master Commercial Clean serve?',
-        answer: 'We serve all of San Angelo and the surrounding Tom Green County area. From the Goodfellow AFB vicinity to the Lake Nasworthy corridor, from North San Angelo to the Christoval Highway — no location in the city is outside our service range. Call us at (325) 249-5191 to schedule a walkthrough.'
+        answer: 'We serve all of San Angelo and the surrounding Tom Green County area. From the Goodfellow AFB vicinity to the Lake Nasworthy corridor, from North San Angelo to the Christoval Highway — no location in the city is outside our service range. Call us at 325-273-2203 to schedule a walkthrough.'
       },
       {
         question: 'Do you offer after-hours cleaning for San Angelo businesses?',
@@ -70,7 +70,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Ballinger, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning services in Ballinger, TX. Trusted by Runnels County businesses. Office and ag-related facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning services in Ballinger, TX. Trusted by Runnels County businesses. Office and ag-related facility cleaning. Call 325-273-2203.',
     intro: [
       'Ballinger sits at the crossroads of US-67 and US-83 in Runnels County, serving as a commercial hub for the surrounding agricultural communities. Master Commercial Clean provides reliable janitorial and deep cleaning services for Ballinger businesses, from the courthouse square to the highway commercial strip. Our crews travel from San Angelo regularly to keep Ballinger facilities in top shape.',
       'As the Runnels County seat, Ballinger supports a range of government offices, banks, insurance agencies, and agricultural service businesses. The local economy is driven by cotton, grain sorghum, and cattle, which means many commercial spaces deal with heavy foot traffic and dirt tracked in from fields and feedlots. Our cleaning programs are built to handle these real-world conditions.',
@@ -92,7 +92,7 @@ export const locations = [
     faqs: [
       {
         question: 'How often do you send cleaning crews to Ballinger?',
-        answer: 'We have crews servicing Ballinger on a regular weekly schedule, with additional visits available for deep cleaning or special projects. Ballinger is only about 40 miles from our San Angelo headquarters, so response times are fast. Call (325) 249-5191 to set up service.'
+        answer: 'We have crews servicing Ballinger on a regular weekly schedule, with additional visits available for deep cleaning or special projects. Ballinger is only about 40 miles from our San Angelo headquarters, so response times are fast. Call 325-273-2203 to set up service.'
       },
       {
         question: 'Do you clean agricultural-related businesses in Ballinger?',
@@ -121,7 +121,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Brady, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Brady, TX — the Heart of Texas. Office, retail, and post-construction cleaning for McCulloch County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Brady, TX — the Heart of Texas. Office, retail, and post-construction cleaning for McCulloch County. Call 325-273-2203.',
     intro: [
       'Brady proudly claims the title "Heart of Texas," sitting near the geographic center of the state at the junction of US-87 and US-377. Master Commercial Clean serves Brady businesses with the same professional-grade cleaning we deliver throughout West Texas. Our teams make regular trips from San Angelo to keep McCulloch County commercial spaces clean and healthy.',
       'The Brady economy blends ranching, hunting tourism, and small-town commerce. The historic downtown square, anchored by the McCulloch County Courthouse, is home to shops, professional offices, and restaurants that depend on a clean, inviting environment to attract customers. During deer season, the influx of hunters to Brady and surrounding ranches also drives demand for lodge and hospitality cleaning.',
@@ -147,7 +147,7 @@ export const locations = [
       },
       {
         question: 'How far is Brady from your headquarters?',
-        answer: 'Brady is about 80 miles east of our San Angelo headquarters, roughly a 90-minute drive. We schedule Brady service on regular routes and can accommodate special requests with reasonable notice. Call (325) 249-5191 to discuss your needs.'
+        answer: 'Brady is about 80 miles east of our San Angelo headquarters, roughly a 90-minute drive. We schedule Brady service on regular routes and can accommodate special requests with reasonable notice. Call 325-273-2203 to discuss your needs.'
       },
       {
         question: 'Can you handle restaurant cleaning in Brady?',
@@ -172,7 +172,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Coleman, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning services in Coleman, TX. Office, retail, and facility cleaning for Coleman County businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning services in Coleman, TX. Office, retail, and facility cleaning for Coleman County businesses. Call 325-273-2203.',
     intro: [
       'Coleman is the county seat of Coleman County, located at the junction of US-84 and US-283 in the rolling plains northeast of San Angelo. Master Commercial Clean provides dependable commercial cleaning services to Coleman businesses, bringing professional-grade equipment and trained crews from our San Angelo headquarters on a regular schedule.',
       'The Coleman economy is built on agriculture, oil production, and small-town commerce. The downtown area surrounding the Coleman County Courthouse features banks, law offices, retail shops, and restaurants that benefit from consistent professional cleaning. Coleman also serves as a service center for the surrounding ranching communities, drawing customers from across the county.',
@@ -194,7 +194,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you serve all of Coleman County?',
-        answer: 'Yes. We provide commercial cleaning throughout Coleman County, including the city of Coleman and surrounding communities. We are about 75 miles from San Angelo and service Coleman on regular routes. Call (325) 249-5191 to get started.'
+        answer: 'Yes. We provide commercial cleaning throughout Coleman County, including the city of Coleman and surrounding communities. We are about 75 miles from San Angelo and service Coleman on regular routes. Call 325-273-2203 to get started.'
       },
       {
         question: 'Can you clean oil field offices in Coleman?',
@@ -223,7 +223,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Eldorado, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Eldorado, TX. Reliable service for Schleicher County offices and oil field facilities. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Eldorado, TX. Reliable service for Schleicher County offices and oil field facilities. Call 325-273-2203.',
     intro: [
       'Eldorado is a small but resilient community in Schleicher County, located about 45 miles south of San Angelo along US-277. Master Commercial Clean extends our professional cleaning services to Eldorado, ensuring that local businesses and public facilities receive the same quality care we deliver throughout the Concho Valley.',
       'The Eldorado economy is anchored by ranching and oil and gas production. Schleicher County supports sheep and goat ranching operations alongside active drilling and production activity. The commercial buildings in Eldorado — from the county courthouse to oil company offices — need reliable cleaning despite the town\'s small size, and that is exactly what we provide.',
@@ -249,7 +249,7 @@ export const locations = [
       },
       {
         question: 'What types of businesses do you clean in Eldorado?',
-        answer: 'We clean government offices, oil company facilities, banks, professional offices, and any other commercial space in Eldorado that needs professional cleaning. No business is too small for us to serve. Call (325) 249-5191 for a quote.'
+        answer: 'We clean government offices, oil company facilities, banks, professional offices, and any other commercial space in Eldorado that needs professional cleaning. No business is too small for us to serve. Call 325-273-2203 for a quote.'
       },
       {
         question: 'Can you provide cleaning supplies as part of your service?',
@@ -274,7 +274,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Sonora, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Sonora, TX. Professional office and facility cleaning for Sutton County businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Sonora, TX. Professional office and facility cleaning for Sutton County businesses. Call 325-273-2203.',
     intro: [
       'Sonora is the county seat of Sutton County, situated along Interstate 10 about 65 miles south of San Angelo. Known for the world-famous Caverns of Sonora and its thriving oil and gas sector, this small city punches above its weight commercially. Master Commercial Clean provides scheduled cleaning services to Sonora businesses, bringing professional equipment and trained crews on a regular basis.',
       'The Sonora economy is driven by oil and gas production, ranching, and tourism. The Caverns of Sonora draw visitors from around the world, while the I-10 corridor supports hotels, restaurants, and travel centers that require consistent cleaning. Oil field service companies maintain offices and shops in town that need heavy-duty janitorial attention.',
@@ -300,7 +300,7 @@ export const locations = [
       },
       {
         question: 'How quickly can you respond to a cleaning request in Sonora?',
-        answer: 'For scheduled service, we are already in Sonora on a regular basis. For urgent or emergency cleaning needs, we can typically have a crew on site within a few hours from San Angelo. Call (325) 249-5191 for immediate assistance.'
+        answer: 'For scheduled service, we are already in Sonora on a regular basis. For urgent or emergency cleaning needs, we can typically have a crew on site within a few hours from San Angelo. Call 325-273-2203 for immediate assistance.'
       },
       {
         question: 'Can you handle oil field facility cleaning in Sonora?',
@@ -325,7 +325,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Junction, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Junction, TX. Office and hospitality cleaning for Kimble County. Tourism and hunting country. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Junction, TX. Office and hospitality cleaning for Kimble County. Tourism and hunting country. Call 325-273-2203.',
     intro: [
       'Junction is a picturesque Hill Country town at the confluence of the North and South Llano Rivers in Kimble County. Located at the intersection of I-10 and US-83, Junction serves as a gateway to some of the best hunting, fishing, and outdoor recreation in Texas. Master Commercial Clean provides professional cleaning services to Junction businesses, making regular trips from our San Angelo headquarters.',
       'The Junction economy thrives on tourism, hunting, and ranching. The South Llano River State Park draws campers and kayakers, while the surrounding ranchlands are premier white-tailed deer hunting territory. Hotels, lodges, outfitters, and restaurants depend on clean, welcoming facilities to attract and retain visitors. Our crews deliver the consistent cleaning these hospitality businesses need.',
@@ -351,7 +351,7 @@ export const locations = [
       },
       {
         question: 'Is Junction too far for regular cleaning service?',
-        answer: 'Not at all. Junction is about 90 miles from San Angelo, and we service it on a regular route schedule. We have multiple clients in the Junction area, which keeps our pricing competitive. Call (325) 249-5191 to discuss scheduling.'
+        answer: 'Not at all. Junction is about 90 miles from San Angelo, and we service it on a regular route schedule. We have multiple clients in the Junction area, which keeps our pricing competitive. Call 325-273-2203 to discuss scheduling.'
       },
       {
         question: 'Do you handle mold remediation cleaning in Junction?',
@@ -376,7 +376,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Mason, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Mason, TX. Professional facility cleaning for Mason County businesses. German heritage town. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Mason, TX. Professional facility cleaning for Mason County businesses. German heritage town. Call 325-273-2203.',
     intro: [
       'Mason is a charming Hill Country town known for its German heritage, blue topaz deposits, and beautifully preserved sandstone buildings. As the Mason County seat, this community of about 2,200 residents supports a surprising number of commercial businesses, from the historic courthouse square to ranch supply stores. Master Commercial Clean brings professional cleaning services to Mason on a regular schedule.',
       'The Mason economy blends ranching, tourism, and artisan commerce. The town is famous for its topaz hunting, attracting rock hounds to the surrounding ranches, while the historic downtown square draws visitors to antique shops, cafes, and galleries. Hunting season brings another wave of visitors to Mason County lodges and outfitters. All of these businesses benefit from consistent professional cleaning.',
@@ -402,7 +402,7 @@ export const locations = [
       },
       {
         question: 'How often do you come to Mason?',
-        answer: 'We service Mason on a regular route, typically weekly. We coordinate Mason visits with nearby communities to keep scheduling efficient and costs reasonable. Call (325) 249-5191 to set up a cleaning schedule that works for your business.'
+        answer: 'We service Mason on a regular route, typically weekly. We coordinate Mason visits with nearby communities to keep scheduling efficient and costs reasonable. Call 325-273-2203 to set up a cleaning schedule that works for your business.'
       },
       {
         question: 'Do you serve topaz shops and tourist businesses in Mason?',
@@ -427,7 +427,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Wall, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning near Wall, TX. Serving farms, businesses, and facilities in south Tom Green County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning near Wall, TX. Serving farms, businesses, and facilities in south Tom Green County. Call 325-273-2203.',
     intro: [
       'Wall is a small farming community located about 12 miles south of San Angelo along US-87 in Tom Green County. Despite its modest size, Wall is home to a tight-knit community with deep agricultural roots and a renowned school district. Master Commercial Clean serves the Wall area as a natural extension of our San Angelo operations, providing cleaning services to the commercial and institutional facilities in this community.',
       'The Wall community revolves around agriculture, faith, and education. Wall ISD is one of the most respected small school districts in Texas, and the community supports local businesses and agricultural operations. Commercial cleaning needs in Wall tend to center on agricultural offices, community facilities, and small businesses that serve the farming population.',
@@ -449,7 +449,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you really serve a community as small as Wall?',
-        answer: 'Absolutely. Wall is only 12 miles from our San Angelo headquarters, making it one of our easiest service areas to reach. We serve any commercial, institutional, or community facility in the Wall area. Call (325) 249-5191 — no project is too small.'
+        answer: 'Absolutely. Wall is only 12 miles from our San Angelo headquarters, making it one of our easiest service areas to reach. We serve any commercial, institutional, or community facility in the Wall area. Call 325-273-2203 — no project is too small.'
       },
       {
         question: 'What types of facilities do you clean in Wall?',
@@ -478,7 +478,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Christoval, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning near Christoval, TX. Serving riverside businesses and facilities in south Tom Green County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning near Christoval, TX. Serving riverside businesses and facilities in south Tom Green County. Call 325-273-2203.',
     intro: [
       'Christoval is a charming riverside community on the South Concho River, about 20 miles south of San Angelo in Tom Green County. This small community has grown in popularity as a weekend destination and residential retreat, bringing with it new commercial and hospitality cleaning needs. Master Commercial Clean serves Christoval businesses as part of our south Tom Green County route.',
       'Christoval\'s appeal centers on the South Concho River, which provides swimming, tubing, and fishing opportunities that draw visitors year-round. The community supports a handful of small businesses, event venues, and lodging properties that cater to tourists and San Angelo day-trippers. These businesses need reliable cleaning to maintain the relaxed, inviting atmosphere that Christoval is known for.',
@@ -500,7 +500,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you clean vacation rentals in Christoval?',
-        answer: 'Yes. We provide turnover cleaning for vacation rental properties along the South Concho River. We can work on a per-clean basis timed to your guest schedule, ensuring each visitor arrives to a spotless property. Call (325) 249-5191 to set up service.'
+        answer: 'Yes. We provide turnover cleaning for vacation rental properties along the South Concho River. We can work on a per-clean basis timed to your guest schedule, ensuring each visitor arrives to a spotless property. Call 325-273-2203 to set up service.'
       },
       {
         question: 'Can you clean event venues in Christoval?',
@@ -529,7 +529,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Miles, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning near Miles, TX. Professional facility cleaning for Runnels County farming businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning near Miles, TX. Professional facility cleaning for Runnels County farming businesses. Call 325-273-2203.',
     intro: [
       'Miles is a small farming community in Runnels County, situated about 25 miles northeast of San Angelo along US-67. This agricultural town is known for its cotton production, grain storage facilities, and the hardworking families who have farmed this land for generations. Master Commercial Clean provides professional cleaning services to Miles-area businesses on our regular Runnels County route.',
       'The Miles economy is driven almost entirely by agriculture, with cotton gins, grain elevators, farm supply businesses, and related services forming the commercial backbone of the community. These businesses, along with the Miles ISD facilities and community buildings, benefit from professional cleaning that addresses the unique challenges of an agricultural environment.',
@@ -551,7 +551,7 @@ export const locations = [
     faqs: [
       {
         question: 'How often do you provide cleaning service in Miles?',
-        answer: 'We include Miles on our regular Runnels County route, which runs at least weekly. We can accommodate bi-weekly or monthly schedules for smaller accounts. Call (325) 249-5191 to discuss what frequency works best for your business.'
+        answer: 'We include Miles on our regular Runnels County route, which runs at least weekly. We can accommodate bi-weekly or monthly schedules for smaller accounts. Call 325-273-2203 to discuss what frequency works best for your business.'
       },
       {
         question: 'Do you clean agricultural businesses in Miles?',
@@ -580,7 +580,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Sterling City, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Sterling City, TX. Reliable service for Sterling County ranching and oil businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Sterling City, TX. Reliable service for Sterling County ranching and oil businesses. Call 325-273-2203.',
     intro: [
       'Sterling City is the county seat of Sterling County, a small ranching community located about 45 miles west of San Angelo on US-87. With fewer than 1,000 residents, Sterling City is one of the smallest county seats in Texas, but it still supports essential commercial services that require professional cleaning. Master Commercial Clean is proud to serve this hardworking community.',
       'The Sterling City economy revolves around ranching and oil and gas production. Sheep, goat, and cattle operations have defined Sterling County for over a century, while oil production provides additional economic activity. The town\'s commercial facilities include county government offices, a small business district, and oil field-related offices that all benefit from scheduled professional cleaning.',
@@ -602,7 +602,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you really come all the way to Sterling City?',
-        answer: 'Yes. Sterling City is about 45 miles from San Angelo on US-87, which is well within our regular service radius. We include Sterling City on our western route to keep service consistent and costs reasonable. Call (325) 249-5191 to schedule.'
+        answer: 'Yes. Sterling City is about 45 miles from San Angelo on US-87, which is well within our regular service radius. We include Sterling City on our western route to keep service consistent and costs reasonable. Call 325-273-2203 to schedule.'
       },
       {
         question: 'What is the minimum service you offer for Sterling City?',
@@ -631,7 +631,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Robert Lee, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Robert Lee, TX. Serving Coke County offices and lake-area businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Robert Lee, TX. Serving Coke County offices and lake-area businesses. Call 325-273-2203.',
     intro: [
       'Robert Lee is the county seat of Coke County, a small community located about 40 miles northwest of San Angelo. The town sits near Lake E.V. Spence, which provides recreational opportunities and has historically supported tourism-related businesses. Master Commercial Clean serves Robert Lee with scheduled commercial cleaning on our northern Coke County route.',
       'The Robert Lee economy blends ranching, oil production, and lake recreation. Lake E.V. Spence, though affected by drought cycles, remains an important local asset that supports marinas, lodging, and recreational businesses when water levels permit. The town\'s commercial core includes county government offices, small retail shops, and service businesses that need reliable cleaning.',
@@ -653,7 +653,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you coordinate cleaning service in Robert Lee?',
-        answer: 'We include Robert Lee on our Coke County route, servicing the town on a regular schedule alongside nearby Bronte. This efficient routing keeps costs reasonable for our small-town clients. Call (325) 249-5191 to join our route.'
+        answer: 'We include Robert Lee on our Coke County route, servicing the town on a regular schedule alongside nearby Bronte. This efficient routing keeps costs reasonable for our small-town clients. Call 325-273-2203 to join our route.'
       },
       {
         question: 'Do you clean lake-area properties near Robert Lee?',
@@ -682,7 +682,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Bronte, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Bronte, TX. Professional cleaning for Oak Creek Reservoir area businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Bronte, TX. Professional cleaning for Oak Creek Reservoir area businesses. Call 325-273-2203.',
     intro: [
       'Bronte is a small Coke County community located about 45 miles north of San Angelo along US-277. The town sits near Oak Creek Reservoir, a popular fishing lake that brings recreational visitors to the area. Master Commercial Clean provides scheduled commercial cleaning services to Bronte businesses as part of our Coke County service route.',
       'The Bronte economy is supported by ranching, lake recreation, and the essential services that a small community needs. Oak Creek Reservoir is known for its largemouth bass fishing, and the surrounding area supports cabins, lodges, and bait shops that need professional cleaning. Downtown Bronte has a small but active business district with shops and offices that benefit from reliable janitorial service.',
@@ -704,7 +704,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you clean fishing cabins near Oak Creek Reservoir?',
-        answer: 'Yes. We clean cabins, lodges, and vacation properties around Oak Creek Reservoir. We offer turnover cleans between guests, seasonal deep cleans, and regular maintenance cleaning. Call (325) 249-5191 to discuss your property.'
+        answer: 'Yes. We clean cabins, lodges, and vacation properties around Oak Creek Reservoir. We offer turnover cleans between guests, seasonal deep cleans, and regular maintenance cleaning. Call 325-273-2203 to discuss your property.'
       },
       {
         question: 'How do you price cleaning for small Bronte businesses?',
@@ -733,7 +733,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Eden, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Eden, TX. Trusted facility cleaning for Concho County businesses and agricultural offices. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Eden, TX. Trusted facility cleaning for Concho County businesses and agricultural offices. Call 325-273-2203.',
     intro: [
       'Eden is the county seat of Concho County, a farming community located about 55 miles east of San Angelo along US-87. This small, tightly knit town serves as the commercial center for the surrounding agricultural area. Master Commercial Clean provides scheduled commercial cleaning services to Eden businesses, bringing professional equipment and trained crews on a regular route from San Angelo.',
       'The Eden economy is firmly rooted in agriculture, with cotton, grain, and cattle operations dominating the landscape. The town supports a small business district with county offices, a bank, farm supply stores, and the essential services that a farming community needs. These businesses benefit from consistent professional cleaning that helps them maintain a polished appearance for their customers.',
@@ -755,7 +755,7 @@ export const locations = [
     faqs: [
       {
         question: 'How far is Eden from your service base?',
-        answer: 'Eden is about 55 miles east of our San Angelo headquarters, roughly a one-hour drive. We service Eden on our regular eastern route and maintain competitive pricing for Concho County clients. Call (325) 249-5191 to schedule.'
+        answer: 'Eden is about 55 miles east of our San Angelo headquarters, roughly a one-hour drive. We service Eden on our regular eastern route and maintain competitive pricing for Concho County clients. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Do you clean government buildings in Eden?',
@@ -784,7 +784,7 @@ export const locations = [
     regionName: 'Concho Valley',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Winters, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Winters, TX. Office and facility cleaning for Runnels County agriculture and wind energy businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Winters, TX. Office and facility cleaning for Runnels County agriculture and wind energy businesses. Call 325-273-2203.',
     intro: [
       'Winters is a Runnels County community of about 2,500 residents located 55 miles northeast of San Angelo. Known for its agricultural heritage and growing wind energy industry, Winters is a town that blends traditional farming values with modern economic development. Master Commercial Clean provides reliable commercial cleaning services to Winters businesses on our regular Runnels County route.',
       'The Winters economy has historically depended on cotton, grain sorghum, and cattle, but the installation of large wind farm projects in the area has diversified the economic base. Wind energy companies maintain offices and operational facilities in Winters that require professional cleaning, while traditional agricultural businesses and downtown merchants continue to need dependable janitorial service.',
@@ -810,7 +810,7 @@ export const locations = [
       },
       {
         question: 'How do you coordinate service between Winters, Ballinger, and Miles?',
-        answer: 'All three communities are in Runnels County and we service them on the same route, which keeps scheduling efficient and pricing competitive. Call (325) 249-5191 to join our Runnels County route.'
+        answer: 'All three communities are in Runnels County and we service them on the same route, which keeps scheduling efficient and pricing competitive. Call 325-273-2203 to join our Runnels County route.'
       },
       {
         question: 'Can you clean the Winters school or community buildings?',
@@ -839,7 +839,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: true,
     metaTitle: 'Commercial Cleaning in Abilene, TX | Master Commercial Clean',
-    metaDescription: 'Professional commercial cleaning in Abilene, TX. Offices, medical, post-construction. Serving Taylor County businesses. Call (325) 249-5191.',
+    metaDescription: 'Professional commercial cleaning in Abilene, TX. Offices, medical, post-construction. Serving Taylor County businesses. Call 325-273-2203.',
     intro: [
       'Abilene is the largest city in the Big Country region and a major commercial center for West-Central Texas. With a population of roughly 125,000, Abilene supports a diverse economy that includes three universities — Abilene Christian University, Hardin-Simmons University, and McMurry University — plus Dyess Air Force Base and a thriving healthcare sector. Master Commercial Clean serves Abilene as one of our regional hub cities, maintaining dedicated crews for this important market.',
       'The Abilene business landscape spans everything from the bustling South 14th Street corridor and the Mall of Abilene area to the revitalized downtown district and the growing commercial zones along I-20. Hendrick Health System, the military-connected businesses near Dyess AFB, and the university campuses all generate significant demand for professional commercial cleaning. We serve clients across all of these sectors.',
@@ -861,7 +861,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you have dedicated crews in Abilene?',
-        answer: 'Yes. Abilene is one of our hub cities with regularly assigned crews. We maintain consistent staffing for our Abilene accounts to ensure reliable, familiar service. Contact us at (325) 249-5191 to schedule a walkthrough of your facility.'
+        answer: 'Yes. Abilene is one of our hub cities with regularly assigned crews. We maintain consistent staffing for our Abilene accounts to ensure reliable, familiar service. Contact us at 325-273-2203 to schedule a walkthrough of your facility.'
       },
       {
         question: 'Can you handle cleaning for defense contractors near Dyess AFB?',
@@ -890,7 +890,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Sweetwater, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Sweetwater, TX. Wind energy capital of Texas. Office and industrial facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Sweetwater, TX. Wind energy capital of Texas. Office and industrial facility cleaning. Call 325-273-2203.',
     intro: [
       'Sweetwater bills itself as the Wind Energy Capital of Texas, and for good reason — the surrounding Nolan County landscape bristles with hundreds of wind turbines that have transformed the local economy. Located along I-20 about 70 miles north of San Angelo, Sweetwater is a town where traditional West Texas industries like ranching and oil have been joined by cutting-edge renewable energy. Master Commercial Clean provides professional cleaning for Sweetwater businesses across all these sectors.',
       'The Sweetwater commercial landscape includes wind energy company offices, oil field service businesses, downtown retail, and the hospitality properties that serve I-20 travelers. The annual Sweetwater Rattlesnake Roundup, one of the largest such events in the world, draws thousands of visitors and creates peak demand for cleaning services. Our crews maintain regular schedules in Sweetwater and can scale up for events and special projects.',
@@ -916,7 +916,7 @@ export const locations = [
       },
       {
         question: 'Can you increase service during the Rattlesnake Roundup?',
-        answer: 'Absolutely. We anticipate the Roundup every year and pre-schedule additional crews for Sweetwater during this period. Hospitality properties, event venues, and restaurants can count on enhanced cleaning service during this busy time. Call (325) 249-5191 to arrange Roundup-season service.'
+        answer: 'Absolutely. We anticipate the Roundup every year and pre-schedule additional crews for Sweetwater during this period. Hospitality properties, event venues, and restaurants can count on enhanced cleaning service during this busy time. Call 325-273-2203 to arrange Roundup-season service.'
       },
       {
         question: 'How do you deal with the constant dust in Sweetwater?',
@@ -941,7 +941,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Merkel, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Merkel, TX. Reliable janitorial service for Taylor County bedroom community businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Merkel, TX. Reliable janitorial service for Taylor County bedroom community businesses. Call 325-273-2203.',
     intro: [
       'Merkel is a small Taylor County community located along I-20 about 15 miles west of Abilene. Functioning as a bedroom community for Abilene, Merkel has seen steady growth as families seek small-town living with easy big-city access. Master Commercial Clean serves Merkel businesses as part of our broader Taylor County service area, providing the same professional cleaning we deliver throughout the Big Country.',
       'The Merkel economy blends local small businesses with services that support its growing residential population. The downtown area features a historic commercial district with shops, restaurants, and professional offices. Along the I-20 corridor, newer commercial development has brought convenience stores, fuel stops, and service businesses that all require regular professional cleaning.',
@@ -963,7 +963,7 @@ export const locations = [
     faqs: [
       {
         question: 'How does Merkel service fit with your Abilene operations?',
-        answer: 'Merkel is only 15 miles from Abilene, so we service it seamlessly as part of our Taylor County operations. Our Abilene-based crews can reach Merkel in minutes. Call (325) 249-5191 to get on our schedule.'
+        answer: 'Merkel is only 15 miles from Abilene, so we service it seamlessly as part of our Taylor County operations. Our Abilene-based crews can reach Merkel in minutes. Call 325-273-2203 to get on our schedule.'
       },
       {
         question: 'Do you clean I-20 businesses in Merkel?',
@@ -992,7 +992,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Clyde, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Clyde, TX. Growing suburb of Abilene. Office and retail cleaning for Callahan County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Clyde, TX. Growing suburb of Abilene. Office and retail cleaning for Callahan County. Call 325-273-2203.',
     intro: [
       'Clyde is one of the fastest-growing communities in the Big Country, located along I-20 about 15 miles east of Abilene in Callahan County. What was once a quiet farming town has become a popular suburban community for Abilene workers, bringing new commercial development and an increasing need for professional cleaning services. Master Commercial Clean serves Clyde businesses as part of our Taylor-Callahan County operations.',
       'The Clyde commercial landscape is evolving rapidly. New retail and service businesses have joined the traditional downtown merchants to serve the growing population. Professional offices, medical clinics, and small retail centers have opened to serve residents who prefer to shop and do business close to home rather than driving to Abilene. All of these businesses benefit from consistent, professional cleaning.',
@@ -1014,7 +1014,7 @@ export const locations = [
     faqs: [
       {
         question: 'How does your Clyde service relate to your Abilene operations?',
-        answer: 'Clyde is just 15 miles east of Abilene, and we serve both areas seamlessly. Our Abilene crews handle Clyde accounts as part of their regular routes. Call (325) 249-5191 to schedule a free assessment of your Clyde facility.'
+        answer: 'Clyde is just 15 miles east of Abilene, and we serve both areas seamlessly. Our Abilene crews handle Clyde accounts as part of their regular routes. Call 325-273-2203 to schedule a free assessment of your Clyde facility.'
       },
       {
         question: 'Do you handle post-construction cleaning in Clyde?',
@@ -1043,7 +1043,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Baird, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Baird, TX. Historic county seat with dependable office and facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Baird, TX. Historic county seat with dependable office and facility cleaning. Call 325-273-2203.',
     intro: [
       'Baird is the county seat of Callahan County, a historic railroad town located along I-20 about 20 miles east of Abilene. With its beautifully preserved downtown district and active county government offices, Baird maintains a commercial presence that belies its small population of about 1,500. Master Commercial Clean provides dependable cleaning services to Baird businesses as part of our Callahan County route.',
       'Baird\'s historic downtown along Market Street features vintage commercial buildings, many dating to the early 1900s railroad era. The Callahan County Courthouse, antique shops, cafes, and professional offices occupy these characterful structures. Cleaning historic buildings requires a thoughtful approach — understanding original materials, respecting architectural details, and using products that clean effectively without causing damage.',
@@ -1069,7 +1069,7 @@ export const locations = [
       },
       {
         question: 'Is Baird on your regular service route?',
-        answer: 'Yes. Baird is on our Callahan County route, which we service regularly alongside nearby Clyde. The town is about 20 miles east of Abilene, making it easily accessible from our Big Country hub. Call (325) 249-5191 to schedule service.'
+        answer: 'Yes. Baird is on our Callahan County route, which we service regularly alongside nearby Clyde. The town is about 20 miles east of Abilene, making it easily accessible from our Big Country hub. Call 325-273-2203 to schedule service.'
       },
       {
         question: 'Can you clean the courthouse and government offices in Baird?',
@@ -1094,7 +1094,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Albany, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Albany, TX. Fort Griffin heritage town. Office and ranch facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Albany, TX. Fort Griffin heritage town. Office and ranch facility cleaning. Call 325-273-2203.',
     intro: [
       'Albany is the county seat of Shackelford County, a storied ranching community located about 30 miles northeast of Abilene. Famous for the Fort Griffin Fandangle outdoor musical and the nearby Fort Griffin State Historic Site, Albany has a rich frontier heritage that infuses its commercial district. Master Commercial Clean provides professional cleaning services to Albany businesses, reaching the town through our Big Country service network.',
       'The Albany economy is anchored by ranching, oil production, and heritage tourism. The Shackelford County Courthouse presides over a downtown square lined with professional offices, banks, and shops. The annual Fort Griffin Fandangle draws visitors from across Texas each June, and the Old Jail Art Center is a nationally recognized museum that attracts art lovers year-round. These cultural assets create cleaning demand for venues, hospitality, and support businesses.',
@@ -1116,7 +1116,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you handle the cleaning demands around Fandangle season in Albany?',
-        answer: 'Yes. We schedule additional crews for Albany during the Fandangle in June to support venue cleaning, hospitality properties, and downtown businesses that see increased traffic. Call (325) 249-5191 well in advance to arrange seasonal service.'
+        answer: 'Yes. We schedule additional crews for Albany during the Fandangle in June to support venue cleaning, hospitality properties, and downtown businesses that see increased traffic. Call 325-273-2203 well in advance to arrange seasonal service.'
       },
       {
         question: 'Do you clean museum and gallery spaces?',
@@ -1145,7 +1145,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Anson, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Anson, TX. Cowboys\' Christmas Ball town. Office and facility cleaning for Jones County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Anson, TX. Cowboys\' Christmas Ball town. Office and facility cleaning for Jones County. Call 325-273-2203.',
     intro: [
       'Anson is the county seat of Jones County, located about 25 miles north of Abilene. This small farming and ranching community is nationally known as the home of the Cowboys\' Christmas Ball, an annual event held since 1885 that celebrates the cowboy heritage of West Texas. Master Commercial Clean provides professional cleaning services to Anson businesses as part of our Jones County service area.',
       'The Anson economy is built on agriculture, government services, and the small businesses that support the Jones County population. The courthouse square anchors the commercial district, surrounded by offices, shops, and services. Cotton farming remains important to the area, and the seasonal rhythms of agriculture influence everything from foot traffic patterns to dust levels in commercial buildings.',
@@ -1167,7 +1167,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you help prepare for the Cowboys\' Christmas Ball?',
-        answer: 'Absolutely. We provide deep cleaning for Pioneer Hall before the event, maintenance cleaning during the event period, and thorough post-event cleanup. This is one of West Texas\'s most beloved traditions and we are proud to support it. Call (325) 249-5191 to arrange event cleaning.'
+        answer: 'Absolutely. We provide deep cleaning for Pioneer Hall before the event, maintenance cleaning during the event period, and thorough post-event cleanup. This is one of West Texas\'s most beloved traditions and we are proud to support it. Call 325-273-2203 to arrange event cleaning.'
       },
       {
         question: 'How do you service Anson from your hubs?',
@@ -1196,7 +1196,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Cisco, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Cisco, TX. Historic Hilton hotel town. Office and retail cleaning for Eastland County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Cisco, TX. Historic Hilton hotel town. Office and retail cleaning for Eastland County. Call 325-273-2203.',
     intro: [
       'Cisco is a historically rich Eastland County community located along I-20 about 50 miles east of Abilene. Famous as the town where Conrad Hilton opened his first hotel in 1919, Cisco wears its heritage proudly. The Mobley Hotel, now a museum and community center, anchors a downtown that blends vintage charm with working-class commerce. Master Commercial Clean provides professional cleaning services to Cisco businesses through our Big Country service network.',
       'The Cisco economy draws from a mix of sources: oil and gas legacy businesses, Lake Cisco recreation, small manufacturing, and the services that support the local population. Cisco College, a branch of Ranger College, adds an educational component. The I-20 corridor brings highway commercial activity, while downtown Cisco maintains its small-town business character with shops, offices, and eateries.',
@@ -1218,7 +1218,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you serve Cisco regularly despite the distance from San Angelo?',
-        answer: 'Yes. Cisco is served through our Abilene hub, which is about 50 miles to the west. We maintain regular routes through Eastland County and service Cisco alongside neighboring communities. Call (325) 249-5191 for scheduling.'
+        answer: 'Yes. Cisco is served through our Abilene hub, which is about 50 miles to the west. We maintain regular routes through Eastland County and service Cisco alongside neighboring communities. Call 325-273-2203 for scheduling.'
       },
       {
         question: 'Can you clean the historic Mobley Hotel or similar heritage buildings?',
@@ -1247,7 +1247,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Eastland, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Eastland, TX. County seat with reliable office and facility cleaning service. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Eastland, TX. County seat with reliable office and facility cleaning service. Call 325-273-2203.',
     intro: [
       'Eastland is the county seat of Eastland County, located along I-20 about 55 miles east of Abilene. Known for its famous courthouse horned toad "Old Rip" and its rich oil boom history, Eastland is a small city with a resilient commercial district. Master Commercial Clean provides scheduled cleaning services to Eastland businesses through our Big Country operations.',
       'The Eastland economy is supported by government services, small manufacturing, retail, and the oil and gas industry. The Eastland County Courthouse anchors a downtown square with professional offices, retail shops, and restaurants. I-20 frontage adds highway commercial businesses including hotels, restaurants, and service stations. All of these commercial spaces need reliable professional cleaning.',
@@ -1269,7 +1269,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you serve Eastland from your base operations?',
-        answer: 'Eastland is served through our Abilene hub, about 55 miles to the west. We maintain regular Eastland County routes and service multiple clients in the area on each trip. Call (325) 249-5191 to add your business to our Eastland route.'
+        answer: 'Eastland is served through our Abilene hub, about 55 miles to the west. We maintain regular Eastland County routes and service multiple clients in the area on each trip. Call 325-273-2203 to add your business to our Eastland route.'
       },
       {
         question: 'Do you clean hotels along I-20 in Eastland?',
@@ -1298,7 +1298,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Breckenridge, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Breckenridge, TX. Possum Kingdom Lake area. Office and hospitality cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Breckenridge, TX. Possum Kingdom Lake area. Office and hospitality cleaning. Call 325-273-2203.',
     intro: [
       'Breckenridge is the county seat of Stephens County, located about 55 miles northeast of Abilene in the rolling Big Country landscape. The town serves as a gateway to Possum Kingdom Lake, one of the most popular recreational lakes in Texas, which drives significant tourism and hospitality activity. Master Commercial Clean provides scheduled cleaning services to Breckenridge businesses through our Big Country service operations.',
       'The Breckenridge economy benefits from its proximity to Possum Kingdom Lake, oil and gas production, and the government and professional services typical of a county seat. The downtown area around the Stephens County Courthouse features offices, shops, and restaurants, while lake-area businesses support the tourism economy with lodging, dining, and recreation services.',
@@ -1324,7 +1324,7 @@ export const locations = [
       },
       {
         question: 'How often do you come to Breckenridge?',
-        answer: 'We maintain a regular route to Breckenridge through our Big Country operations. During peak lake season, we increase our presence in the area to handle the higher volume of hospitality cleaning. Call (325) 249-5191 to schedule.'
+        answer: 'We maintain a regular route to Breckenridge through our Big Country operations. During peak lake season, we increase our presence in the area to handle the higher volume of hospitality cleaning. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Can you scale service up during summer tourist season?',
@@ -1349,7 +1349,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Colorado City, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Colorado City, TX. Lake Colorado City area. Office and facility cleaning for Mitchell County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Colorado City, TX. Lake Colorado City area. Office and facility cleaning for Mitchell County. Call 325-273-2203.',
     intro: [
       'Colorado City is the county seat of Mitchell County, located along I-20 about 70 miles west of Abilene and 70 miles north of San Angelo. The town sits near Lake Colorado City, a state park and reservoir that provides recreational opportunities and supports local tourism. Master Commercial Clean serves Colorado City as part of our interconnected West Texas service network, reachable from both our San Angelo and Abilene operations.',
       'The Colorado City economy blends oil and gas, agriculture, government services, and lake recreation. The downtown area features the Mitchell County Courthouse, historic commercial buildings, and local businesses. Lake Colorado City State Park draws campers, anglers, and day-trippers, while the I-20 corridor supports hotels, restaurants, and travel services.',
@@ -1371,7 +1371,7 @@ export const locations = [
     faqs: [
       {
         question: 'Which of your service hubs covers Colorado City?',
-        answer: 'Colorado City is accessible from both our San Angelo headquarters and our Abilene hub, each about 70 miles away. We route Colorado City service based on crew availability and scheduling efficiency. Call (325) 249-5191 to arrange service.'
+        answer: 'Colorado City is accessible from both our San Angelo headquarters and our Abilene hub, each about 70 miles away. We route Colorado City service based on crew availability and scheduling efficiency. Call 325-273-2203 to arrange service.'
       },
       {
         question: 'Do you clean I-20 hotels in Colorado City?',
@@ -1400,7 +1400,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Stamford, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Stamford, TX. Home of the Texas Cowboy Reunion. Office and facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Stamford, TX. Home of the Texas Cowboy Reunion. Office and facility cleaning. Call 325-273-2203.',
     intro: [
       'Stamford is a proud Jones County community located about 40 miles north of Abilene, best known as the home of the Texas Cowboy Reunion, the largest amateur rodeo in the world. This ranching town maintains a strong sense of Western heritage while supporting the commercial services its residents and surrounding communities depend on. Master Commercial Clean provides professional cleaning to Stamford businesses through our Big Country operations.',
       'The Stamford economy revolves around ranching, agriculture, and the small businesses that serve the community. The downtown area features offices, banks, shops, and the venues associated with the Texas Cowboy Reunion. The Cowboy Reunion grounds themselves require extensive cleaning before and after the annual July event, and the influx of visitors boosts demand for hospitality and restaurant cleaning throughout town.',
@@ -1422,7 +1422,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you handle the cleaning surge during the Texas Cowboy Reunion?',
-        answer: 'Yes. We plan for the Cowboy Reunion every year, scheduling additional crews for Stamford in late June and July. Venues, hotels, restaurants, and downtown businesses can count on enhanced cleaning during this critical period. Call (325) 249-5191 to reserve event-season service.'
+        answer: 'Yes. We plan for the Cowboy Reunion every year, scheduling additional crews for Stamford in late June and July. Venues, hotels, restaurants, and downtown businesses can count on enhanced cleaning during this critical period. Call 325-273-2203 to reserve event-season service.'
       },
       {
         question: 'Do you clean rodeo and event venues?',
@@ -1451,7 +1451,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Hamlin, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Hamlin, TX. Reliable office and facility cleaning for Jones County farming town. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Hamlin, TX. Reliable office and facility cleaning for Jones County farming town. Call 325-273-2203.',
     intro: [
       'Hamlin is a small farming community in Jones County, located about 50 miles north of Abilene along US-83. This agricultural town has been a cotton farming center for over a century, and while the population has declined from its peak, Hamlin still supports essential commercial services and government offices that need professional cleaning. Master Commercial Clean serves Hamlin through our Big Country operations.',
       'The Hamlin economy is tied to agriculture, with cotton and grain farming providing the economic foundation. The town supports a small business district with offices, shops, and the services that farming families need. Hamlin ISD and community facilities are important local institutions. Despite the town\'s small size, these businesses and facilities deserve the same quality cleaning that larger communities receive.',
@@ -1477,7 +1477,7 @@ export const locations = [
       },
       {
         question: 'How do you handle cotton season dust in Hamlin?',
-        answer: 'Cotton season requires aggressive dust management. We use HEPA-filtered vacuums, damp-wiping techniques, and air-quality-focused cleaning sequences. For Hamlin clients experiencing heavy cotton dust, we recommend temporarily increasing cleaning frequency. Call (325) 249-5191 to adjust your schedule.'
+        answer: 'Cotton season requires aggressive dust management. We use HEPA-filtered vacuums, damp-wiping techniques, and air-quality-focused cleaning sequences. For Hamlin clients experiencing heavy cotton dust, we recommend temporarily increasing cleaning frequency. Call 325-273-2203 to adjust your schedule.'
       },
       {
         question: 'Can you clean a single small office in Hamlin?',
@@ -1502,7 +1502,7 @@ export const locations = [
     regionName: 'Big Country',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Brownwood, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Brownwood, TX. Office, medical, and facility cleaning. Lake Brownwood and Howard Payne area. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Brownwood, TX. Office, medical, and facility cleaning. Lake Brownwood and Howard Payne area. Call 325-273-2203.',
     intro: [
       'Brownwood is the largest city in Brown County, with a population of about 19,000. Located at the intersection of US-67, US-84, and US-377, Brownwood is a regional center for retail, healthcare, and education. Howard Payne University, Lake Brownwood, and a strong medical sector anchor the local economy. Master Commercial Clean provides comprehensive commercial cleaning services to Brownwood businesses.',
       'The Brownwood commercial landscape is diverse for a city its size. The downtown district has been revitalized with restaurants, boutiques, and creative office spaces. The Austin Avenue corridor is the primary retail strip, while medical offices and healthcare facilities serve the broader region. Howard Payne University adds campus buildings, event venues, and student-oriented businesses to the cleaning market.',
@@ -1524,7 +1524,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you have a regular presence in Brownwood?',
-        answer: 'Yes. Brownwood is an important market for us and we maintain regular crews in the area. As a city of 19,000, Brownwood generates sufficient cleaning demand to justify dedicated service resources. Call (325) 249-5191 to schedule.'
+        answer: 'Yes. Brownwood is an important market for us and we maintain regular crews in the area. As a city of 19,000, Brownwood generates sufficient cleaning demand to justify dedicated service resources. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Can you clean medical facilities in Brownwood?',
@@ -1557,7 +1557,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: true,
     metaTitle: 'Commercial Cleaning in Midland, TX | Master Commercial Clean',
-    metaDescription: 'Professional commercial cleaning in Midland, TX. Oil & gas offices, medical, post-construction. Permian Basin\'s trusted cleaner. Call (325) 249-5191.',
+    metaDescription: 'Professional commercial cleaning in Midland, TX. Oil & gas offices, medical, post-construction. Permian Basin\'s trusted cleaner. Call 325-273-2203.',
     intro: [
       'Midland is the white-collar capital of the Permian Basin, home to the corporate headquarters and regional offices of the world\'s largest oil and gas companies. With a skyline that rivals cities many times its size and a population of about 140,000, Midland is a city of outsized economic importance. Master Commercial Clean serves Midland as one of our regional hub cities, providing the professional-grade cleaning that the energy industry and its supporting businesses demand.',
       'The Midland business landscape is dominated by energy, but the city also supports a thriving healthcare sector anchored by Midland Memorial Hospital, an active commercial real estate market, and growing retail and dining scenes. The Midland International Air and Space Port connects the city to major hubs. From the tall office towers along Wall Street to the sprawling commercial developments on Loop 250, Midland presents a diverse and demanding commercial cleaning market.',
@@ -1579,7 +1579,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you have dedicated cleaning crews in Midland?',
-        answer: 'Yes. Midland is one of our hub cities with dedicated crews assigned to the market. We maintain consistent staffing for Midland accounts to ensure reliable, high-quality service. Contact us at (325) 249-5191 to discuss your facility needs.'
+        answer: 'Yes. Midland is one of our hub cities with dedicated crews assigned to the market. We maintain consistent staffing for Midland accounts to ensure reliable, high-quality service. Contact us at 325-273-2203 to discuss your facility needs.'
       },
       {
         question: 'Can you clean large multi-story office buildings in Midland?',
@@ -1608,7 +1608,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: true,
     metaTitle: 'Commercial Cleaning in Odessa, TX | Master Commercial Clean',
-    metaDescription: 'Professional commercial cleaning in Odessa, TX. Industrial, office, and facility cleaning for Ector County. Call (325) 249-5191.',
+    metaDescription: 'Professional commercial cleaning in Odessa, TX. Industrial, office, and facility cleaning for Ector County. Call 325-273-2203.',
     intro: [
       'Odessa is the blue-collar engine of the Permian Basin, a city of about 115,000 where oil field services, manufacturing, and industrial operations drive the economy. While sister city Midland houses the corporate offices, Odessa is where the work gets done — pipe yards, machine shops, service companies, and the businesses that support oil field workers form the backbone of the local economy. Master Commercial Clean serves Odessa as one of our regional hub cities.',
       'Beyond the oil patch, Odessa supports a growing university in UTPB (University of Texas Permian Basin), a competitive high school football culture immortalized in "Friday Night Lights," the presidential replica museum, and expanding retail and dining options. Medical Center Hospital anchors the healthcare sector. The city offers a wide variety of commercial cleaning opportunities, from industrial shop buildings to university campus facilities.',
@@ -1630,7 +1630,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you handle the heavy-duty cleaning that Odessa industrial facilities need?',
-        answer: 'Yes. Industrial and oil field facility cleaning is a core competency for us. We clean shop floors, equipment areas, break rooms, locker areas, and offices for oil field service companies throughout Ector County. We have the equipment and experience for heavy commercial environments. Call (325) 249-5191.'
+        answer: 'Yes. Industrial and oil field facility cleaning is a core competency for us. We clean shop floors, equipment areas, break rooms, locker areas, and offices for oil field service companies throughout Ector County. We have the equipment and experience for heavy commercial environments. Call 325-273-2203.'
       },
       {
         question: 'Do you serve UTPB and the university area?',
@@ -1659,7 +1659,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Big Spring, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Big Spring, TX. VA hospital area, refinery, and office cleaning for Howard County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Big Spring, TX. VA hospital area, refinery, and office cleaning for Howard County. Call 325-273-2203.',
     intro: [
       'Big Spring is a Howard County city of about 28,000 located at the intersection of I-20 and US-87, roughly midway between San Angelo and Lubbock. The city is anchored by the West Texas VA Health Care System, the Alon USA (Delek) refinery, and a mix of oil field, agricultural, and commercial businesses. Master Commercial Clean provides comprehensive cleaning services to Big Spring\'s diverse business community.',
       'The Big Spring economy is more diversified than many Permian Basin cities. The VA hospital is the largest employer, bringing healthcare-related businesses and support services. The refinery and oil field operations support industrial and energy companies. The I-20 and US-87 interchange drives hospitality and travel services. This economic diversity translates to a wide variety of cleaning needs that our crews are equipped to handle.',
@@ -1681,7 +1681,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you clean medical offices near the Big Spring VA hospital?',
-        answer: 'Yes. We provide HIPAA-compliant cleaning for medical offices, clinics, and healthcare-related businesses in the Big Spring VA hospital area. Our crews are trained in healthcare cleaning protocols and infection-control procedures. Call (325) 249-5191 to schedule.'
+        answer: 'Yes. We provide HIPAA-compliant cleaning for medical offices, clinics, and healthcare-related businesses in the Big Spring VA hospital area. Our crews are trained in healthcare cleaning protocols and infection-control procedures. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Can you handle industrial facility cleaning in Big Spring?',
@@ -1710,7 +1710,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Andrews, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Andrews, TX. Oil-rich Andrews County office and facility cleaning. Permian Basin service. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Andrews, TX. Oil-rich Andrews County office and facility cleaning. Permian Basin service. Call 325-273-2203.',
     intro: [
       'Andrews is the county seat of one of the most oil-rich counties in Texas. Located about 30 miles north of Odessa, this Permian Basin city of roughly 13,000 is deeply connected to the petroleum industry. Oil company offices, service companies, and the businesses that support energy workers form the core of the Andrews economy. Master Commercial Clean provides professional cleaning services to Andrews through our Permian Basin hub operations.',
       'Andrews County consistently ranks among the top oil-producing counties in Texas, and this wealth supports a commercial infrastructure that includes modern office buildings, retail centers, restaurants, and healthcare facilities. The Andrews County courthouse anchors a downtown that serves government and professional services. Along the US-385 corridor and in the commercial districts, businesses need reliable cleaning to maintain professional environments.',
@@ -1732,7 +1732,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you have experience cleaning oil company offices?',
-        answer: 'Yes. Oil and gas industry cleaning is one of our core competencies. We clean corporate offices, field offices, service company facilities, and man camps throughout the Permian Basin. We understand the industry\'s standards and schedules. Call (325) 249-5191.'
+        answer: 'Yes. Oil and gas industry cleaning is one of our core competencies. We clean corporate offices, field offices, service company facilities, and man camps throughout the Permian Basin. We understand the industry\'s standards and schedules. Call 325-273-2203.'
       },
       {
         question: 'How do you reach Andrews for regular service?',
@@ -1761,7 +1761,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Crane, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Crane, TX. Oil field office and facility cleaning for Crane County. Permian Basin service. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Crane, TX. Oil field office and facility cleaning for Crane County. Permian Basin service. Call 325-273-2203.',
     intro: [
       'Crane is a small Permian Basin community in Crane County, located about 35 miles south of Odessa along SH-385. Named after the construction crane used to drill one of the area\'s first oil wells, this town\'s identity is inseparable from the petroleum industry. Master Commercial Clean provides professional cleaning services to Crane businesses through our Permian Basin operations.',
       'The Crane economy is almost entirely driven by oil and gas production. The town supports oil company field offices, service company shops, and the small businesses — restaurants, convenience stores, lodging — that serve oil field workers. The Crane County courthouse and school district round out the commercial landscape. Despite its small size, Crane generates meaningful cleaning demand from its concentrated energy industry presence.',
@@ -1783,7 +1783,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you clean man camps and worker housing in Crane?',
-        answer: 'Yes. We provide cleaning and turnover services for man camps, worker housing, and temporary living quarters in Crane County. We handle room cleaning, common area maintenance, kitchen and dining sanitation, and laundry facility cleaning. Call (325) 249-5191.'
+        answer: 'Yes. We provide cleaning and turnover services for man camps, worker housing, and temporary living quarters in Crane County. We handle room cleaning, common area maintenance, kitchen and dining sanitation, and laundry facility cleaning. Call 325-273-2203.'
       },
       {
         question: 'How frequently should oil field offices in Crane be cleaned?',
@@ -1812,7 +1812,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Kermit, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Kermit, TX. Oil industry office and facility cleaning for Winkler County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Kermit, TX. Oil industry office and facility cleaning for Winkler County. Call 325-273-2203.',
     intro: [
       'Kermit is the county seat of Winkler County, a Permian Basin oil town located about 35 miles west of Odessa near the New Mexico border. With a population of about 6,000, Kermit is a working oil field community where the energy industry touches virtually every aspect of local commerce. Master Commercial Clean provides scheduled cleaning services to Kermit businesses through our Permian Basin hub operations.',
       'The Kermit economy is driven by oil and gas production and the service industries that support it. Winkler County is one of the most productive oil counties in the Permian Basin, and Kermit supports a full complement of field offices, service companies, supply houses, and worker support businesses. The Winkler County courthouse, school system, and community facilities add institutional cleaning demand.',
@@ -1834,7 +1834,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you handle sandstorm cleanup in Kermit?',
-        answer: 'Sandstorms are a fact of life in Winkler County. We provide emergency post-storm cleaning that includes sand removal from all surfaces, HVAC filter coordination, and deep vacuuming of upholstered surfaces. Contact us at (325) 249-5191 after a storm for rapid response.'
+        answer: 'Sandstorms are a fact of life in Winkler County. We provide emergency post-storm cleaning that includes sand removal from all surfaces, HVAC filter coordination, and deep vacuuming of upholstered surfaces. Contact us at 325-273-2203 after a storm for rapid response.'
       },
       {
         question: 'Is Kermit within your regular service area?',
@@ -1863,7 +1863,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Monahans, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Monahans, TX. Sandhills area office and facility cleaning for Ward County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Monahans, TX. Sandhills area office and facility cleaning for Ward County. Call 325-273-2203.',
     intro: [
       'Monahans is the county seat of Ward County, located along I-20 about 30 miles west of Odessa in the heart of the Permian Basin. Known for the Monahans Sandhills State Park — where massive sand dunes rise from the desert floor — Monahans is a community where oil production and natural beauty coexist. Master Commercial Clean provides professional cleaning services to Monahans businesses through our Permian Basin operations.',
       'The Monahans economy is centered on oil and gas production, with Ward County being one of the Permian Basin\'s most productive areas. The town supports oil company offices, service companies, and the restaurants, hotels, and shops that serve energy workers. The I-20 corridor adds highway traveler traffic to the local commercial mix. Monahans Sandhills State Park brings tourists who patronize local hospitality businesses.',
@@ -1885,7 +1885,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you handle the sand problem in Monahans?',
-        answer: 'Sand management is our top priority in Monahans. We use industrial HEPA vacuums, aggressive entrance matting programs, and sand-specific cleaning sequences. For businesses near the Sandhills, we may recommend daily vacuuming and weekly deep cleaning. Call (325) 249-5191 to discuss your situation.'
+        answer: 'Sand management is our top priority in Monahans. We use industrial HEPA vacuums, aggressive entrance matting programs, and sand-specific cleaning sequences. For businesses near the Sandhills, we may recommend daily vacuuming and weekly deep cleaning. Call 325-273-2203 to discuss your situation.'
       },
       {
         question: 'Do you clean hotels and travel centers in Monahans?',
@@ -1914,7 +1914,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Pecos, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Pecos, TX. Oil & gas and agricultural facility cleaning for Reeves County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Pecos, TX. Oil & gas and agricultural facility cleaning for Reeves County. Call 325-273-2203.',
     intro: [
       'Pecos is the county seat of Reeves County, located along I-20 in the far western Permian Basin. Known historically as the Cantaloupe Capital of the World and more recently as a hotbed of oil and gas activity in the Delaware Basin, Pecos is a city of about 9,000 where agriculture and energy coexist. Master Commercial Clean provides professional cleaning services to Pecos businesses through our Permian Basin service network.',
       'The Pecos economy has experienced dramatic growth driven by Delaware Basin oil development, which has brought an influx of energy companies, service businesses, and workers to Reeves County. This growth has strained local services, including cleaning — making a professional, reliable cleaning company especially valuable. Hotels, restaurants, office buildings, and worker housing all need consistent cleaning to serve the expanding population.',
@@ -1936,7 +1936,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you keep up with cleaning demand during a Pecos oil boom?',
-        answer: 'Yes. We have operated through multiple Permian Basin boom cycles and know how to scale our workforce to meet surging demand. We maintain strong staffing and can add crews for Pecos when activity levels increase. Call (325) 249-5191 to discuss your needs.'
+        answer: 'Yes. We have operated through multiple Permian Basin boom cycles and know how to scale our workforce to meet surging demand. We maintain strong staffing and can add crews for Pecos when activity levels increase. Call 325-273-2203 to discuss your needs.'
       },
       {
         question: 'Do you clean man camps and temporary worker housing in Pecos?',
@@ -1965,7 +1965,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Fort Stockton, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Fort Stockton, TX. I-10 corridor and oil field facility cleaning for Pecos County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Fort Stockton, TX. I-10 corridor and oil field facility cleaning for Pecos County. Call 325-273-2203.',
     intro: [
       'Fort Stockton is the county seat of Pecos County, the largest county in Texas by area. Located at the junction of I-10 and I-20/US-285, Fort Stockton is a critical crossroads for West Texas commerce and travel. With about 8,500 residents, the city serves as a service hub for a vast surrounding area. Master Commercial Clean provides professional cleaning to Fort Stockton businesses through our southern Permian Basin operations.',
       'The Fort Stockton economy blends highway hospitality, oil and gas production, and the government services expected of a county seat for a county larger than some states. Historic Comanche Springs, once the third-largest spring in Texas, attracted settlement and gave the city its historic character. Today, hotels, restaurants, and fuel stations along I-10 serve thousands of travelers daily, while oil field offices and service companies support Pecos County\'s energy production.',
@@ -1987,7 +1987,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you manage service to Fort Stockton given its remote location?',
-        answer: 'Fort Stockton is served through dedicated Permian Basin routes. We group our Fort Stockton clients for efficient service and send fully equipped, self-sufficient crews. The I-10 and US-285 access makes Fort Stockton readily reachable. Call (325) 249-5191 to get started.'
+        answer: 'Fort Stockton is served through dedicated Permian Basin routes. We group our Fort Stockton clients for efficient service and send fully equipped, self-sufficient crews. The I-10 and US-285 access makes Fort Stockton readily reachable. Call 325-273-2203 to get started.'
       },
       {
         question: 'Do you clean the large hotels along I-10 in Fort Stockton?',
@@ -2016,7 +2016,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in McCamey, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in McCamey, TX. Wind energy and oil field facility cleaning for Upton County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in McCamey, TX. Wind energy and oil field facility cleaning for Upton County. Call 325-273-2203.',
     intro: [
       'McCamey is a small Upton County community located about 95 miles west of San Angelo, where the Concho Valley transitions into the Permian Basin. Once known primarily as an oil boom town, McCamey has reinvented itself as a wind energy center while maintaining its oil production heritage. Master Commercial Clean serves McCamey businesses on our western service route, bridging our Concho Valley and Permian Basin operations.',
       'The McCamey economy uniquely combines oil and gas production with wind energy generation. The surrounding mesas and ridges are ideal for wind turbines, and several large wind farms operate in Upton County. Oil production continues from legacy wells and new drilling. This dual-energy economy supports offices, maintenance facilities, and worker support businesses that all need professional cleaning.',
@@ -2038,7 +2038,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you serve both wind and oil companies in McCamey?',
-        answer: 'Yes. We clean offices and facilities for both wind energy and oil and gas companies in Upton County. Both industries have similar cleaning needs for offices, break rooms, and maintenance buildings, and we handle both competently. Call (325) 249-5191.'
+        answer: 'Yes. We clean offices and facilities for both wind energy and oil and gas companies in Upton County. Both industries have similar cleaning needs for offices, break rooms, and maintenance buildings, and we handle both competently. Call 325-273-2203.'
       },
       {
         question: 'How does McCamey fit into your service area?',
@@ -2067,7 +2067,7 @@ export const locations = [
     regionName: 'Permian Basin',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Stanton, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Stanton, TX. Small oil town between Midland and Big Spring. Facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Stanton, TX. Small oil town between Midland and Big Spring. Facility cleaning. Call 325-273-2203.',
     intro: [
       'Stanton is the county seat of Martin County, a small community of about 2,800 located along I-20 between Midland and Big Spring. Despite its modest size, Stanton serves as the commercial center for one of the most oil-productive counties in the Permian Basin. Master Commercial Clean provides professional cleaning services to Stanton businesses through our Permian Basin and western route operations.',
       'Martin County consistently ranks among Texas\'s top oil-producing counties, and this production supports the Stanton commercial landscape. Oil company offices, supply companies, and related businesses operate alongside the traditional small-town establishments — the courthouse, bank, school, and local shops. All of these facilities benefit from scheduled professional cleaning.',
@@ -2089,7 +2089,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you serve Stanton in relation to Midland and Big Spring?',
-        answer: 'Stanton is conveniently located between our Midland hub and Big Spring service area on I-20. We can service Stanton from either direction, depending on scheduling efficiency. The town is typically about 20 minutes from Midland. Call (325) 249-5191 to schedule.'
+        answer: 'Stanton is conveniently located between our Midland hub and Big Spring service area on I-20. We can service Stanton from either direction, depending on scheduling efficiency. The town is typically about 20 minutes from Midland. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Do you clean oil company offices in Stanton?',
@@ -2122,7 +2122,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: true,
     metaTitle: 'Commercial Cleaning in Lubbock, TX | Master Commercial Clean',
-    metaDescription: 'Professional commercial cleaning in Lubbock, TX. Office, medical, and facility cleaning. Texas Tech area. Call (325) 249-5191.',
+    metaDescription: 'Professional commercial cleaning in Lubbock, TX. Office, medical, and facility cleaning. Texas Tech area. Call 325-273-2203.',
     intro: [
       'Lubbock is the largest city in our service territory, a vibrant metropolis of about 260,000 that serves as the economic and cultural capital of the South Plains. Texas Tech University, a world-class medical hub anchored by UMC Health System and Covenant Health, and the nation\'s most productive cotton-growing region converge in Lubbock. Master Commercial Clean serves Lubbock as our South Plains hub city, providing comprehensive commercial cleaning across the metro area.',
       'The Lubbock commercial landscape is extensive and diverse. The Texas Tech campus and surrounding University Avenue corridor, the South Loop 289 retail district, the medical district along Quaker Avenue, the downtown revitalization area, and the growing commercial zones on the city\'s west and south sides all present distinct cleaning demands. From multi-story office buildings to specialty medical clinics, Lubbock offers every type of commercial cleaning opportunity.',
@@ -2144,7 +2144,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you have a full-time presence in Lubbock?',
-        answer: 'Yes. Lubbock is our South Plains hub with dedicated crews assigned to the metro area. We serve clients across the entire city and surrounding Lubbock County. Call (325) 249-5191 to schedule a facility walkthrough.'
+        answer: 'Yes. Lubbock is our South Plains hub with dedicated crews assigned to the metro area. We serve clients across the entire city and surrounding Lubbock County. Call 325-273-2203 to schedule a facility walkthrough.'
       },
       {
         question: 'Can you handle the dust storms that hit Lubbock?',
@@ -2173,7 +2173,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Wolfforth, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Wolfforth, TX. Fast-growing Lubbock suburb. Office and retail facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Wolfforth, TX. Fast-growing Lubbock suburb. Office and retail facility cleaning. Call 325-273-2203.',
     intro: [
       'Wolfforth is one of the fastest-growing communities in the Lubbock metro area, located just southwest of Lubbock along US-62/82. This booming suburb has seen rapid residential and commercial development as families and businesses seek the benefits of small-town living with big-city access. Master Commercial Clean serves Wolfforth seamlessly as part of our Lubbock area operations.',
       'The Wolfforth commercial landscape has expanded dramatically in recent years. New shopping centers, restaurants, medical clinics, and professional offices have followed the residential growth. Frenship ISD, one of the top-rated school districts in the region, draws families to Wolfforth and supports the commercial development that serves them. All of these new and growing businesses need professional cleaning.',
@@ -2195,7 +2195,7 @@ export const locations = [
     faqs: [
       {
         question: 'How does your Wolfforth service connect to your Lubbock operations?',
-        answer: 'Wolfforth is just minutes southwest of Lubbock and we serve it as a natural extension of our Lubbock metro operations. Our crews reach Wolfforth easily and service it alongside our Lubbock accounts. Call (325) 249-5191 to schedule.'
+        answer: 'Wolfforth is just minutes southwest of Lubbock and we serve it as a natural extension of our Lubbock metro operations. Our crews reach Wolfforth easily and service it alongside our Lubbock accounts. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Can you handle the post-construction cleaning for new Wolfforth businesses?',
@@ -2224,7 +2224,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Shallowater, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Shallowater, TX. Lubbock bedroom community office and facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Shallowater, TX. Lubbock bedroom community office and facility cleaning. Call 325-273-2203.',
     intro: [
       'Shallowater is a small bedroom community northwest of Lubbock in Lubbock County, home to about 2,500 residents who enjoy small-town living with convenient access to the city. Shallowater ISD and a small but growing commercial district serve the community. Master Commercial Clean provides cleaning services to Shallowater businesses as part of our Lubbock metropolitan operations.',
       'The Shallowater economy is built on agriculture and the services that support its residential community. Cotton farming dominates the surrounding landscape, while the town itself supports a few small businesses, professional offices, and community facilities. As Lubbock continues to grow, Shallowater is beginning to see new commercial development that needs professional cleaning from day one.',
@@ -2246,7 +2246,7 @@ export const locations = [
     faqs: [
       {
         question: 'Is Shallowater too small for you to service regularly?',
-        answer: 'Not at all. Shallowater is just minutes from Lubbock and we include it in our regular Lubbock County service area. We serve businesses of every size in communities of every size. Call (325) 249-5191 to discuss your needs.'
+        answer: 'Not at all. Shallowater is just minutes from Lubbock and we include it in our regular Lubbock County service area. We serve businesses of every size in communities of every size. Call 325-273-2203 to discuss your needs.'
       },
       {
         question: 'Do you clean farm-related businesses in Shallowater?',
@@ -2275,7 +2275,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Slaton, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Slaton, TX. Railroad town south of Lubbock. Office and facility cleaning for local businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Slaton, TX. Railroad town south of Lubbock. Office and facility cleaning for local businesses. Call 325-273-2203.',
     intro: [
       'Slaton is a railroad town of about 6,100 residents located southeast of Lubbock in Lubbock County. Founded by the Santa Fe Railway, Slaton maintains its railroad heritage while serving as a residential community for Lubbock workers and a commercial center for the surrounding agricultural area. Master Commercial Clean provides cleaning services to Slaton businesses as part of our South Plains operations.',
       'The Slaton economy blends agriculture, small manufacturing, and the commercial services that support its community. The historic downtown district reflects the town\'s railroad origins with vintage commercial buildings that house shops, offices, and restaurants. Slaton ISD, community facilities, and the businesses along the US-84 corridor round out the commercial landscape.',
@@ -2297,7 +2297,7 @@ export const locations = [
     faqs: [
       {
         question: 'How does Slaton fit into your Lubbock service area?',
-        answer: 'Slaton is about 15 miles southeast of Lubbock and we service it as part of our South Plains operations. Our Lubbock crews reach Slaton quickly and efficiently. Call (325) 249-5191 to add your Slaton business to our schedule.'
+        answer: 'Slaton is about 15 miles southeast of Lubbock and we service it as part of our South Plains operations. Our Lubbock crews reach Slaton quickly and efficiently. Call 325-273-2203 to add your Slaton business to our schedule.'
       },
       {
         question: 'Do you clean historic buildings in Slaton?',
@@ -2326,7 +2326,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Levelland, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Levelland, TX. South Plains College town. Office and facility cleaning for Hockley County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Levelland, TX. South Plains College town. Office and facility cleaning for Hockley County. Call 325-273-2203.',
     intro: [
       'Levelland is the county seat of Hockley County, located about 30 miles west of Lubbock on the South Plains. With a population of approximately 14,000, Levelland is home to South Plains College, one of the top community colleges in Texas, and serves as the commercial hub for Hockley County\'s agricultural and oil-producing economy. Master Commercial Clean provides comprehensive cleaning services to Levelland businesses.',
       'The Levelland economy is powered by South Plains College, cotton and grain agriculture, and oil production. The college brings students, faculty, and campus facilities that need professional cleaning. Downtown Levelland features the Hockley County Courthouse, professional offices, banks, and retail businesses. Along the US-385 corridor, newer commercial development serves the broader community.',
@@ -2348,7 +2348,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you serve South Plains College in Levelland?',
-        answer: 'We serve commercial and institutional facilities in Levelland, including those associated with South Plains College. Campus-adjacent businesses, offices, and commercial properties are all within our scope. Call (325) 249-5191 to discuss your facility.'
+        answer: 'We serve commercial and institutional facilities in Levelland, including those associated with South Plains College. Campus-adjacent businesses, offices, and commercial properties are all within our scope. Call 325-273-2203 to discuss your facility.'
       },
       {
         question: 'How do you handle Hockley County\'s intense dust?',
@@ -2377,7 +2377,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Brownfield, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Brownfield, TX. Agriculture and oil. Office and facility cleaning for Terry County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Brownfield, TX. Agriculture and oil. Office and facility cleaning for Terry County. Call 325-273-2203.',
     intro: [
       'Brownfield is the county seat of Terry County, located about 40 miles southwest of Lubbock on the South Plains. With a population of roughly 9,600, Brownfield serves as the agricultural and commercial center for Terry County\'s extensive cotton, peanut, and grain farming operations. Oil production adds another economic dimension. Master Commercial Clean provides professional cleaning to Brownfield businesses through our South Plains operations.',
       'The Brownfield commercial district is anchored by the Terry County Courthouse and includes a mix of agricultural services, retail, professional offices, and healthcare facilities. The city serves as the shopping and services destination for the surrounding farming communities. Terry County Medical Center and associated clinics provide healthcare for the region, creating demand for medical-grade cleaning.',
@@ -2399,7 +2399,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you serve Brownfield from your Lubbock hub?',
-        answer: 'Brownfield is about 40 miles southwest of Lubbock, and we service it on our regular South Plains route. We have multiple Brownfield clients and maintain consistent, scheduled service to the area. Call (325) 249-5191 to schedule.'
+        answer: 'Brownfield is about 40 miles southwest of Lubbock, and we service it on our regular South Plains route. We have multiple Brownfield clients and maintain consistent, scheduled service to the area. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Can you clean medical facilities in Brownfield?',
@@ -2428,7 +2428,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Littlefield, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Littlefield, TX. Agriculture hub. Office and facility cleaning for Lamb County businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Littlefield, TX. Agriculture hub. Office and facility cleaning for Lamb County businesses. Call 325-273-2203.',
     intro: [
       'Littlefield is the county seat of Lamb County, located about 35 miles northwest of Lubbock on the South Plains. This agricultural community of roughly 6,300 is a center for cotton, grain, and cattle production. The city serves as the commercial hub for Lamb County farmers and ranchers, supporting a range of businesses that need professional cleaning. Master Commercial Clean serves Littlefield through our South Plains operations.',
       'The Littlefield commercial landscape includes the Lamb County Courthouse, agricultural supply businesses, professional offices, banks, and the retail shops that serve the farming community. Lamb Healthcare Center provides medical services to the county and requires healthcare-grade cleaning. The city\'s position on US-84 and US-385 makes it accessible to surrounding communities.',
@@ -2450,7 +2450,7 @@ export const locations = [
     faqs: [
       {
         question: 'How far is Littlefield from your nearest service hub?',
-        answer: 'Littlefield is about 35 miles northwest of Lubbock, our South Plains hub. We service Littlefield on our regular Lamb County route and maintain consistent scheduling for all our Littlefield clients. Call (325) 249-5191 to join our route.'
+        answer: 'Littlefield is about 35 miles northwest of Lubbock, our South Plains hub. We service Littlefield on our regular Lamb County route and maintain consistent scheduling for all our Littlefield clients. Call 325-273-2203 to join our route.'
       },
       {
         question: 'Do you clean the Lamb Healthcare Center facilities?',
@@ -2479,7 +2479,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Plainview, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Plainview, TX. Wayland Baptist University. Office and facility cleaning for Hale County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Plainview, TX. Wayland Baptist University. Office and facility cleaning for Hale County. Call 325-273-2203.',
     intro: [
       'Plainview is the county seat of Hale County, a city of about 20,000 located 50 miles north of Lubbock on the South Plains. Home to Wayland Baptist University and one of the most productive agricultural regions in Texas, Plainview serves as a major commercial center for the northern South Plains. Master Commercial Clean provides professional cleaning services to Plainview businesses through our South Plains operations.',
       'The Plainview economy is driven by agriculture, food processing, education, and healthcare. Wayland Baptist University brings academic facilities, athletics venues, and student-oriented businesses. Covenant Health Plainview provides regional healthcare. Major agricultural operations including feedlots, dairies, and crop processing facilities support a network of offices and commercial businesses that need regular cleaning.',
@@ -2501,7 +2501,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you serve Plainview regularly from your Lubbock hub?',
-        answer: 'Yes. Plainview is about 50 miles north of Lubbock and we maintain a regular Hale County route. We have multiple Plainview clients and service the area on a consistent schedule. Call (325) 249-5191 to get on our route.'
+        answer: 'Yes. Plainview is about 50 miles north of Lubbock and we maintain a regular Hale County route. We have multiple Plainview clients and service the area on a consistent schedule. Call 325-273-2203 to get on our route.'
       },
       {
         question: 'Can you clean Wayland Baptist University-area businesses?',
@@ -2530,7 +2530,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Post, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Post, TX. Caprock Escarpment town. Office and facility cleaning for Garza County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Post, TX. Caprock Escarpment town. Office and facility cleaning for Garza County. Call 325-273-2203.',
     intro: [
       'Post is the county seat of Garza County, a unique South Plains community situated on the edge of the Caprock Escarpment about 40 miles southeast of Lubbock. Founded by cereal magnate C.W. Post in 1907, the town has a distinctive planned-community heritage. Today, Post blends agriculture, wind energy, and tourism into a resilient economy. Master Commercial Clean serves Post through our South Plains operations.',
       'The Post economy has diversified significantly with the growth of wind energy in Garza County. Wind farms on the Caprock generate clean electricity and bring maintenance offices and support facilities that need cleaning. Traditional cotton farming continues on the surrounding plains, while Post\'s unique history and Caprock scenery attract visitors to its downtown shops, the Garza Theatre, and nearby outdoor recreation.',
@@ -2552,7 +2552,7 @@ export const locations = [
     faqs: [
       {
         question: 'Do you clean wind energy facilities near Post?',
-        answer: 'Yes. We clean offices, maintenance buildings, control rooms, and support facilities for wind energy operations on the Caprock near Post. We schedule around operational needs and crew rotations. Call (325) 249-5191 to arrange service.'
+        answer: 'Yes. We clean offices, maintenance buildings, control rooms, and support facilities for wind energy operations on the Caprock near Post. We schedule around operational needs and crew rotations. Call 325-273-2203 to arrange service.'
       },
       {
         question: 'How do you reach Post for regular cleaning service?',
@@ -2581,7 +2581,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Tahoka, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Tahoka, TX. Cotton country. Office and facility cleaning for Lynn County businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Tahoka, TX. Cotton country. Office and facility cleaning for Lynn County businesses. Call 325-273-2203.',
     intro: [
       'Tahoka is the county seat of Lynn County, a cotton farming community of about 2,600 located 30 miles south of Lubbock on US-87. Lynn County is one of the top cotton-producing counties in Texas, and Tahoka serves as the commercial center for this productive agricultural area. Master Commercial Clean provides cleaning services to Tahoka businesses as part of our South Plains operations.',
       'The Tahoka economy is deeply rooted in cotton. Gins, warehouses, farm supply stores, and agricultural service businesses form the commercial core alongside the Lynn County Courthouse, banks, and small retail shops. The cotton harvest season from September through December is the most intense period for Tahoka businesses, bringing increased activity and significantly increased dust.',
@@ -2603,7 +2603,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you increase cleaning frequency during Tahoka\'s cotton harvest?',
-        answer: 'Yes. We routinely increase service frequency for Tahoka clients during the September through December harvest period when dust levels spike dramatically. We can add extra visits or expand the scope of each cleaning to manage harvest-season conditions. Call (325) 249-5191 to plan ahead.'
+        answer: 'Yes. We routinely increase service frequency for Tahoka clients during the September through December harvest period when dust levels spike dramatically. We can add extra visits or expand the scope of each cleaning to manage harvest-season conditions. Call 325-273-2203 to plan ahead.'
       },
       {
         question: 'How do you handle cotton fiber in commercial buildings?',
@@ -2632,7 +2632,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Snyder, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Snyder, TX. Wind energy and oil history. Office and facility cleaning for Scurry County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Snyder, TX. Wind energy and oil history. Office and facility cleaning for Scurry County. Call 325-273-2203.',
     intro: [
       'Snyder is the county seat of Scurry County, a community of about 11,000 located at the intersection of US-84 and US-180, roughly 85 miles north of San Angelo. Snyder has a storied oil history — the Canyon Reef oil field discovery in 1948 transformed the town — and more recently has become a significant wind energy center. Master Commercial Clean serves Snyder from both our San Angelo and South Plains operations.',
       'The Snyder economy blends legacy oil production, wind energy, agriculture, and the services expected of a county seat. Western Texas College, a community college, adds an educational component. The Scurry County Courthouse anchors downtown, while commercial development along the highway corridors serves the local population and surrounding rural communities.',
@@ -2654,7 +2654,7 @@ export const locations = [
     faqs: [
       {
         question: 'Which of your hubs serves Snyder?',
-        answer: 'Snyder is accessible from both San Angelo (85 miles south) and our Lubbock operations. We route Snyder service based on scheduling efficiency, ensuring consistent coverage regardless of direction. Call (325) 249-5191 to discuss your needs.'
+        answer: 'Snyder is accessible from both San Angelo (85 miles south) and our Lubbock operations. We route Snyder service based on scheduling efficiency, ensuring consistent coverage regardless of direction. Call 325-273-2203 to discuss your needs.'
       },
       {
         question: 'Do you clean wind energy facilities near Snyder?',
@@ -2683,7 +2683,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Seminole, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Seminole, TX. Agriculture and oil. Office and facility cleaning for Gaines County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Seminole, TX. Agriculture and oil. Office and facility cleaning for Gaines County. Call 325-273-2203.',
     intro: [
       'Seminole is the county seat of Gaines County, located in the southwestern South Plains where agriculture and oil production converge. With a population of about 7,500, Seminole is the commercial hub for one of the most agriculturally and petroleum-productive counties in Texas. Master Commercial Clean provides professional cleaning to Seminole businesses through our western South Plains and Permian Basin operations.',
       'The Seminole economy draws from two powerhouse industries: irrigated agriculture and oil and gas production. Gaines County is one of the state\'s top producers of both cotton and crude oil, creating a diverse commercial landscape of farm offices, oil company facilities, and the retail, financial, and professional services that support them. The Gaines County Courthouse, hospital, and school district add institutional cleaning demand.',
@@ -2705,7 +2705,7 @@ export const locations = [
     faqs: [
       {
         question: 'How does Seminole fit into your service area geographically?',
-        answer: 'Seminole sits at the intersection of our South Plains and Permian Basin service areas. We can reach Seminole from Lubbock, Midland, or Odessa depending on routing. This flexibility ensures reliable, consistent service. Call (325) 249-5191 to arrange cleaning.'
+        answer: 'Seminole sits at the intersection of our South Plains and Permian Basin service areas. We can reach Seminole from Lubbock, Midland, or Odessa depending on routing. This flexibility ensures reliable, consistent service. Call 325-273-2203 to arrange cleaning.'
       },
       {
         question: 'Can you clean the hospital and medical offices in Seminole?',
@@ -2734,7 +2734,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Denver City, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Denver City, TX. Oil industry town. Office and facility cleaning for Yoakum County. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Denver City, TX. Oil industry town. Office and facility cleaning for Yoakum County. Call 325-273-2203.',
     intro: [
       'Denver City is the county seat of Yoakum County, an oil-driven community of about 4,700 located near the Texas-New Mexico border. The Wasson oil field, one of the largest in the Permian Basin, provides the economic foundation for Denver City and Yoakum County. Master Commercial Clean provides professional cleaning services to Denver City through our western South Plains and Permian Basin service network.',
       'The Denver City economy is dominated by oil and gas production and the service industries that support it. Oil company offices, field service companies, and worker support businesses form the commercial core. The Yoakum County courthouse, hospital, schools, and local retail add to the commercial cleaning market. The city\'s remote location means professional cleaning services are highly valued when available.',
@@ -2756,7 +2756,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you provide reliable service to a remote location like Denver City?',
-        answer: 'We plan Denver City service carefully, grouping it with nearby communities like Seminole for efficient routing. Our crews arrive fully self-sufficient with all equipment and supplies. The distance does not compromise our service quality. Call (325) 249-5191 to schedule.'
+        answer: 'We plan Denver City service carefully, grouping it with nearby communities like Seminole for efficient routing. Our crews arrive fully self-sufficient with all equipment and supplies. The distance does not compromise our service quality. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Do you clean oil field offices and man camps near Denver City?',
@@ -2785,7 +2785,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Idalou, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Idalou, TX. Farming community east of Lubbock. Office and facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Idalou, TX. Farming community east of Lubbock. Office and facility cleaning. Call 325-273-2203.',
     intro: [
       'Idalou is a farming community of about 2,200 located just east of Lubbock in Lubbock County. This close-knit agricultural town maintains its rural character while benefiting from its proximity to Lubbock\'s urban amenities. Master Commercial Clean serves Idalou businesses as a natural extension of our Lubbock metro operations, providing professional cleaning that supports the community\'s commercial needs.',
       'The Idalou economy centers on cotton farming and the businesses that serve the agricultural community. Idalou ISD is one of the community\'s most important institutions, and the town supports a small commercial district with essential services. As Lubbock\'s eastern suburbs gradually approach Idalou, some new commercial development has begun to appear.',
@@ -2807,7 +2807,7 @@ export const locations = [
     faqs: [
       {
         question: 'Can you service Idalou on the same route as Lubbock?',
-        answer: 'Yes. Idalou is just east of Lubbock and we service it seamlessly as part of our Lubbock County operations. There is no practical separation between our Lubbock and Idalou service. Call (325) 249-5191 to schedule.'
+        answer: 'Yes. Idalou is just east of Lubbock and we service it seamlessly as part of our Lubbock County operations. There is no practical separation between our Lubbock and Idalou service. Call 325-273-2203 to schedule.'
       },
       {
         question: 'Do you clean farm offices and agricultural businesses in Idalou?',
@@ -2836,7 +2836,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Abernathy, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Abernathy, TX. Agriculture community north of Lubbock. Office and facility cleaning. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Abernathy, TX. Agriculture community north of Lubbock. Office and facility cleaning. Call 325-273-2203.',
     intro: [
       'Abernathy is a small agricultural community of about 2,800 in Hale County, located along I-27 about 20 miles north of Lubbock. This farming town serves as a bedroom community for Lubbock workers and a commercial center for surrounding cotton and grain operations. Master Commercial Clean provides cleaning services to Abernathy businesses through our South Plains operations.',
       'The Abernathy economy is built on agriculture and the services that support its residents and the surrounding farming community. The town\'s I-27 location provides convenient highway access and supports a few commercial businesses along the frontage road. Abernathy ISD, churches, and community organizations anchor the social fabric, and all maintain facilities that benefit from professional cleaning.',
@@ -2858,7 +2858,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you include Abernathy in your service routes?',
-        answer: 'Abernathy is on I-27 between Lubbock and Plainview, two of our South Plains service areas. We include Abernathy on routes serving both communities, keeping scheduling efficient and pricing competitive. Call (325) 249-5191 to get started.'
+        answer: 'Abernathy is on I-27 between Lubbock and Plainview, two of our South Plains service areas. We include Abernathy on routes serving both communities, keeping scheduling efficient and pricing competitive. Call 325-273-2203 to get started.'
       },
       {
         question: 'Do you clean I-27 frontage businesses in Abernathy?',
@@ -2887,7 +2887,7 @@ export const locations = [
     regionName: 'South Plains',
     isHub: false,
     metaTitle: 'Commercial Cleaning in Lamesa, TX | Master Commercial Clean',
-    metaDescription: 'Commercial cleaning in Lamesa, TX. Cotton capital. Office and facility cleaning for Dawson County businesses. Call (325) 249-5191.',
+    metaDescription: 'Commercial cleaning in Lamesa, TX. Cotton capital. Office and facility cleaning for Dawson County businesses. Call 325-273-2203.',
     intro: [
       'Lamesa is the county seat of Dawson County, a community of about 9,500 that proudly bills itself as a cotton capital. Located about 60 miles south of Lubbock on US-87, Lamesa sits in one of the most productive cotton-growing regions in the world. Master Commercial Clean provides professional cleaning services to Lamesa businesses through our South Plains and western route operations.',
       'The Lamesa economy is anchored by cotton farming and the industries it supports — gins, warehouses, seed companies, and agricultural supply businesses. Oil production in Dawson County adds energy industry offices to the commercial mix. The Dawson County Courthouse, Medical Arts Hospital, banks, and retail businesses round out a commercial landscape that needs dependable professional cleaning.',
@@ -2909,7 +2909,7 @@ export const locations = [
     faqs: [
       {
         question: 'How do you handle cotton season cleaning in Lamesa?',
-        answer: 'We prepare for Lamesa\'s intense cotton season by pre-scheduling increased cleaning frequency, deploying HEPA-filtered equipment, and using lint-specific removal techniques. We work with our Lamesa clients to adjust service levels based on current gin activity. Call (325) 249-5191 to plan your harvest-season cleaning.'
+        answer: 'We prepare for Lamesa\'s intense cotton season by pre-scheduling increased cleaning frequency, deploying HEPA-filtered equipment, and using lint-specific removal techniques. We work with our Lamesa clients to adjust service levels based on current gin activity. Call 325-273-2203 to plan your harvest-season cleaning.'
       },
       {
         question: 'Do you clean Medical Arts Hospital in Lamesa?',

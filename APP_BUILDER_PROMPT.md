@@ -30,7 +30,7 @@ Keep it dead simple. No fancy auth for v1. One Veribest route, two workers, one 
 ### Company (the business sending invoices)
 - **Name:** John W. Johnson
 - **Company:** Master Commercial Clean
-- **Phone:** 325-249-5191
+- **Phone:** 325-273-2203
 - **Email:** john@mastercleanhq.com
 - **Website:** mastercleanhq.com
 
@@ -448,7 +448,7 @@ Use this exact HTML/CSS for every invoice. Replace `{{...}}` placeholders with r
       <div class="info-label">FROM</div>
       <div class="info-line"><span class="k">Name</span><span class="v bold">John W. Johnson</span></div>
       <div class="info-line"><span class="k">Company</span><span class="v">Master Commercial Clean</span></div>
-      <div class="info-line"><span class="k">Phone</span><span class="v">325-249-5191</span></div>
+      <div class="info-line"><span class="k">Phone</span><span class="v">325-273-2203</span></div>
       <div class="info-line"><span class="k">Email</span><span class="v">john@mastercleanhq.com</span></div>
     </div>
     <div class="info-col">
@@ -558,7 +558,7 @@ Use this exact HTML/CSS for every invoice. Replace `{{...}}` placeholders with r
       <h3>PAYMENT INSTRUCTIONS</h3>
       <p>Make checks payable to: <strong>John W. Johnson</strong></p>
       <p>For questions about this invoice, contact John directly:</p>
-      <p>325-249-5191 &nbsp;•&nbsp; john@mastercleanhq.com</p>
+      <p>325-273-2203 &nbsp;•&nbsp; john@mastercleanhq.com</p>
     </div>
     <div class="pay-card">
       <h3>AMOUNT &amp; DUE DATE</h3>
@@ -581,7 +581,7 @@ Use this exact HTML/CSS for every invoice. Replace `{{...}}` placeholders with r
   <!-- FOOTER -->
   <div class="footer">
     <div class="thanks">Thank you, {{contact_name_first}} — it was a pleasure serving the {{facility}}.</div>
-    <div class="contact">Master Commercial Clean &nbsp;•&nbsp; 325-249-5191 &nbsp;•&nbsp; john@mastercleanhq.com &nbsp;•&nbsp; mastercleanhq.com</div>
+    <div class="contact">Master Commercial Clean &nbsp;•&nbsp; 325-273-2203 &nbsp;•&nbsp; john@mastercleanhq.com &nbsp;•&nbsp; mastercleanhq.com</div>
   </div>
 
 </div>

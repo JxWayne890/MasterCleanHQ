@@ -12,7 +12,7 @@ const ServicesIndex = () => {
         <div style={{ backgroundColor: 'var(--off-white)', minHeight: '100vh' }}>
             <SEO
                 title="Commercial Cleaning Services | Master Commercial Clean"
-                description="Professional commercial cleaning, post-construction cleanup, and specialized janitorial services for West Texas businesses. Call (325) 249-5191."
+                description="Professional commercial cleaning, post-construction cleanup, and specialized janitorial services for West Texas businesses. Call 325-273-2203."
                 path="/services"
                 schemas={[
                     ...buildBaseSchemas(),

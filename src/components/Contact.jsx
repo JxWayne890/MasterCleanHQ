@@ -42,7 +42,7 @@ const Contact = () => {
                                 lineHeight: 1.7
                             }}
                         >
-                            To request a free commercial cleaning estimate from Master Commercial Clean, call (325) 249-5191 or fill out the form below. We serve businesses across San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas cities. Most quotes are provided within 24 hours.
+                            To request a free commercial cleaning estimate from Master Commercial Clean, call 325-273-2203 or fill out the form below. We serve businesses across San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas cities. Most quotes are provided within 24 hours.
                         </motion.p>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -57,13 +57,13 @@ const Contact = () => {
                                 <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
                                     Direct Line
                                 </p>
-                                <a href="tel:+13252495191" onClick={() => { if (typeof gtag === 'function') { gtag('event', 'click_to_call', { event_category: 'contact', event_label: 'phone_hero' }); } }} style={{
+                                <a href="tel:+13252732203" onClick={() => { if (typeof gtag === 'function') { gtag('event', 'click_to_call', { event_category: 'contact', event_label: 'phone_hero' }); } }} style={{
                                     fontFamily: 'var(--font-serif)',
                                     fontSize: '2.5rem',
                                     color: 'var(--navy)',
                                     textDecoration: 'none'
                                 }}>
-                                    (325) 249-5191
+                                    325-273-2203
                                 </a>
                             </motion.div>
 

@@ -39,7 +39,7 @@ export const costGuides = [
         heading: 'How to Get an Accurate Quote',
         paragraphs: [
           'The best way to understand commercial cleaning costs for your specific facility is to schedule a free on-site walk-through. During the visit, the cleaning company will assess the square footage, facility type, current condition, traffic patterns, and any special requirements.',
-          'Master Commercial Clean provides free estimates for businesses throughout West Texas. Call (325) 249-5191 or fill out our contact form to schedule a walkthrough. Most quotes are delivered within 24 hours of the site visit.',
+          'Master Commercial Clean provides free estimates for businesses throughout West Texas. Call 325-273-2203 or fill out our contact form to schedule a walkthrough. Most quotes are delivered within 24 hours of the site visit.',
         ],
       },
     ],
@@ -47,7 +47,7 @@ export const costGuides = [
       {
         question: 'How much does commercial cleaning cost per square foot?',
         answer:
-          'Commercial cleaning costs per square foot vary based on facility type, cleaning frequency, scope of work, and location. Rather than relying on generic per-square-foot estimates, we recommend scheduling a free walk-through so the quote reflects your actual facility. Call (325) 249-5191 for a free estimate.',
+          'Commercial cleaning costs per square foot vary based on facility type, cleaning frequency, scope of work, and location. Rather than relying on generic per-square-foot estimates, we recommend scheduling a free walk-through so the quote reflects your actual facility. Call 325-273-2203 for a free estimate.',
       },
       {
         question:
@@ -64,7 +64,7 @@ export const costGuides = [
         question:
           'Can I get a free commercial cleaning estimate in West Texas?',
         answer:
-          'Yes. Master Commercial Clean offers free on-site estimates throughout San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas communities. Call (325) 249-5191 to schedule a walk-through.',
+          'Yes. Master Commercial Clean offers free on-site estimates throughout San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas communities. Call 325-273-2203 to schedule a walk-through.',
       },
     ],
     relatedServices: ['commercial-cleaning'],
@@ -131,7 +131,7 @@ export const costGuides = [
         paragraphs: [
           'The most reliable way to get accurate pricing for post-construction cleanup is to schedule a site visit while the project is still in progress. This allows the cleaning company to see the actual scope — the building size, the types of materials and residues present, the condition of surfaces, and any access challenges.',
           'When requesting a quote, have your project timeline, floor plans, and a list of any specialty finishes ready. This information helps the cleaning company build a detailed scope of work and allocate the right crew size and equipment.',
-          'Master Commercial Clean provides free on-site estimates for post-construction projects throughout West Texas. Call (325) 249-5191 to schedule a walk-through with our estimating team. We work with general contractors, property managers, and building owners to deliver move-in-ready results on your schedule.',
+          'Master Commercial Clean provides free on-site estimates for post-construction projects throughout West Texas. Call 325-273-2203 to schedule a walk-through with our estimating team. We work with general contractors, property managers, and building owners to deliver move-in-ready results on your schedule.',
         ],
       },
     ],
@@ -140,7 +140,7 @@ export const costGuides = [
         question:
           'How much does post-construction cleaning cost for a commercial building?',
         answer:
-          'Post-construction cleaning costs depend on the building size, number of cleaning phases required, types of construction materials and residues, and timeline. Every project is different, which is why we provide free on-site estimates. Call (325) 249-5191 to schedule a walk-through.',
+          'Post-construction cleaning costs depend on the building size, number of cleaning phases required, types of construction materials and residues, and timeline. Every project is different, which is why we provide free on-site estimates. Call 325-273-2203 to schedule a walk-through.',
       },
       {
         question:
@@ -157,7 +157,7 @@ export const costGuides = [
         question:
           'How far in advance should I schedule post-construction cleaning?',
         answer:
-          'Schedule your cleaning company as early in the project as possible — ideally during the planning phase. This ensures crew availability, allows time for a proper site visit and scope development, and typically results in better pricing than last-minute requests. Call (325) 249-5191 to get on our schedule.',
+          'Schedule your cleaning company as early in the project as possible — ideally during the planning phase. This ensures crew availability, allows time for a proper site visit and scope development, and typically results in better pricing than last-minute requests. Call 325-273-2203 to get on our schedule.',
       },
     ],
     relatedServices: ['post-construction-cleaning'],
@@ -223,7 +223,7 @@ export const costGuides = [
         paragraphs: [
           'Because specialized cleaning is defined by the unique requirements of your facility, an accurate quote always begins with an on-site assessment. During the walk-through, the estimator will evaluate the facility type, current condition, surface materials, sanitation requirements, and any regulatory or compliance needs.',
           'Be prepared to share information about your facility operations — traffic patterns, operating hours, any sensitive areas or restricted zones, and the outcomes you need from the cleaning program. The more context the estimator has, the more accurate and useful the quote will be.',
-          'Master Commercial Clean provides free on-site assessments for specialized cleaning projects throughout West Texas. Call (325) 249-5191 to schedule a consultation. We will develop a scope of work tailored to your facility and deliver a transparent quote with no hidden fees.',
+          'Master Commercial Clean provides free on-site assessments for specialized cleaning projects throughout West Texas. Call 325-273-2203 to schedule a consultation. We will develop a scope of work tailored to your facility and deliver a transparent quote with no hidden fees.',
         ],
       },
     ],
@@ -232,7 +232,7 @@ export const costGuides = [
         question:
           'How much does specialized cleaning cost compared to regular janitorial?',
         answer:
-          'Specialized cleaning typically involves more labor time per square foot, higher-grade products, and additional equipment compared to standard janitorial. The exact cost difference depends on your facility type and requirements. Contact us at (325) 249-5191 for a free assessment and quote tailored to your facility.',
+          'Specialized cleaning typically involves more labor time per square foot, higher-grade products, and additional equipment compared to standard janitorial. The exact cost difference depends on your facility type and requirements. Contact us at 325-273-2203 for a free assessment and quote tailored to your facility.',
       },
       {
         question:
@@ -244,13 +244,13 @@ export const costGuides = [
         question:
           'Can specialized cleaning be scheduled outside of business hours?',
         answer:
-          'Yes. Most specialized cleaning is performed after hours or during low-occupancy periods to avoid disrupting operations. We work with your schedule to find the optimal time window. Call (325) 249-5191 to discuss scheduling options for your facility.',
+          'Yes. Most specialized cleaning is performed after hours or during low-occupancy periods to avoid disrupting operations. We work with your schedule to find the optimal time window. Call 325-273-2203 to discuss scheduling options for your facility.',
       },
       {
         question:
           'Do you provide specialized cleaning for one-time projects or only recurring contracts?',
         answer:
-          'Master Commercial Clean handles both one-time deep cleans and ongoing specialized cleaning programs. Whether you need a single facility restoration or a recurring sanitation schedule, we will scope the project based on your specific needs. Call (325) 249-5191 for a free estimate.',
+          'Master Commercial Clean handles both one-time deep cleans and ongoing specialized cleaning programs. Whether you need a single facility restoration or a recurring sanitation schedule, we will scope the project based on your specific needs. Call 325-273-2203 for a free estimate.',
       },
     ],
     relatedServices: ['specialized-cleaning'],
