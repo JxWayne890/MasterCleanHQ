@@ -193,6 +193,13 @@ h4 {
     gap: 1rem;
 }
 
+.ops-title-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
 .ops-invoice-summary {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -377,6 +384,12 @@ h4 {
     box-shadow: 0 28px 70px rgba(2, 24, 43, 0.24);
 }
 
+.ops-modal-wide {
+    width: min(100%, 760px);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+}
+
 .ops-modal-header {
     display: flex;
     align-items: flex-start;
@@ -490,6 +503,52 @@ h4 {
 .ops-payment-preview strong {
     color: #02182b;
     font-size: 1.45rem;
+}
+
+.ops-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.ops-field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.ops-field-wide {
+    grid-column: 1 / -1;
+}
+
+.ops-field span {
+    color: #68727f;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.ops-field input,
+.ops-field select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border: 1px solid #d7dde3;
+    border-radius: 8px;
+    background: #fff;
+    color: #17202a;
+    font: inherit;
+}
+
+.ops-field input:focus,
+.ops-field select:focus {
+    outline: 2px solid rgba(240, 138, 28, 0.25);
+    border-color: var(--orange);
+}
+
+.ops-error {
+    margin-top: 0.85rem;
+    color: #b42318;
+    font-weight: 800;
 }
 
 .ops-modal-actions {
@@ -943,9 +1002,20 @@ h4 {
     .ops-stats,
     .ops-worker-grid,
     .ops-invoice-summary,
+    .ops-form-grid,
     .mc-info-row,
     .mc-pay-row {
         grid-template-columns: 1fr;
+    }
+
+    .ops-title-actions,
+    .ops-title-actions .ops-link-button,
+    .ops-title-actions .ops-primary-action {
+        width: 100%;
+    }
+
+    .ops-field-wide {
+        grid-column: auto;
     }
 
     .ops-worker-button {

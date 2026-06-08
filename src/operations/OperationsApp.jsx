@@ -57,25 +57,11 @@ const routePackage = {
 };
 
 const DELETABLE_INVOICE_STATUSES = new Set(['draft', 'sent', 'overdue']);
+const INVOICE_STATUSES = ['draft', 'sent', 'paid', 'overdue'];
+const RETIRED_INVOICE_IDS = new Set(['inv-vbhs-003']);
+const RETIRED_INVOICE_NUMBER_FLOOR = 3;
 
 const defaultInvoices = [
-    {
-        id: 'inv-vbhs-003',
-        invoiceNumber: 'VBHS-INV-003',
-        locationId: 'veribest-ag-classroom',
-        servicePackageId: null,
-        periodStart: '2026-05-11',
-        periodEnd: '2026-05-11',
-        subtotal: 400,
-        tax: 0,
-        total: 400,
-        status: 'draft',
-        issueDate: '2026-05-12',
-        dueDate: '2026-06-15',
-        paymentTerms: 'June district check run',
-        serviceLabel: 'One-Time Deep Clean',
-        createdAt: '2026-05-12T12:00:00.000Z',
-    },
     {
         id: 'inv-vbhs-002',
         invoiceNumber: 'VBHS-INV-002',
@@ -113,17 +99,6 @@ const defaultInvoices = [
 ];
 
 const defaultLineItems = [
-    {
-        id: 'li-vbhs-003-1',
-        invoiceId: 'inv-vbhs-003',
-        description: 'Deep Clean - Agriculture Classroom',
-        subtitle: 'Heavy-duty deep cleaning beyond standard maintenance scope: full floor service, trash and liners, high-touch surfaces, offices/common areas, and restroom sanitization.',
-        visitDate: '',
-        workerId: '',
-        qty: 1,
-        rate: 400,
-        amount: 400,
-    },
     ...['2026-04-20', '2026-04-23', '2026-04-28', '2026-04-30', '2026-05-05', '2026-05-07'].map((visitDate) => ({
         id: `li-vbhs-002-${visitDate}`,
         invoiceId: 'inv-vbhs-002',
@@ -331,6 +306,14 @@ function buildDefaultState() {
     };
 }
 
+function removeRetiredInvoices(state) {
+    return {
+        ...state,
+        invoices: state.invoices.filter((invoice) => !RETIRED_INVOICE_IDS.has(invoice.id)),
+        lineItems: state.lineItems.filter((item) => !RETIRED_INVOICE_IDS.has(item.invoiceId)),
+    };
+}
+
 function mergeById(defaultItems, savedItems) {
     const merged = new Map(defaultItems.map((item) => [item.id, item]));
     if (Array.isArray(savedItems)) {
@@ -352,11 +335,11 @@ function normalizeState(savedState) {
         })
         : defaults.visits;
 
-    return {
+    return removeRetiredInvoices({
         visits,
         invoices: mergeById(defaults.invoices, savedState?.invoices),
         lineItems: mergeById(defaults.lineItems, savedState?.lineItems),
-    };
+    });
 }
 
 function readSavedState() {
@@ -379,7 +362,7 @@ function nextInvoiceNumber(invoices) {
     const lastNumber = invoices.reduce((max, invoice) => {
         const match = invoice.invoiceNumber?.match(/^VBHS-INV-(\d+)$/);
         return match ? Math.max(max, Number(match[1])) : max;
-    }, 0);
+    }, RETIRED_INVOICE_NUMBER_FLOOR);
 
     return `${CLIENT_CODE}-INV-${String(lastNumber + 1).padStart(3, '0')}`;
 }
@@ -499,6 +482,68 @@ export function OperationsProvider({ children }) {
                     ...current,
                     invoices: [createdInvoice, ...current.invoices],
                     lineItems: [...current.lineItems, ...lineItems],
+                };
+            });
+
+            return createdInvoice;
+        },
+        createManualInvoice(input) {
+            let createdInvoice = null;
+
+            setState((current) => {
+                const amount = Number(input?.amount || 0);
+                if (amount <= 0) return current;
+
+                const tax = Number(input?.tax || 0);
+                const issueDate = input?.issueDate || todayInCentral();
+                const periodStart = input?.periodStart || issueDate;
+                const periodEnd = input?.periodEnd || periodStart;
+                const isRouteInvoice = input?.facilityId === routePackage.id;
+                const locationId = isRouteInvoice ? null : input?.facilityId || locations[0].id;
+                const servicePackageId = isRouteInvoice ? routePackage.id : null;
+                const serviceLabel = input?.serviceLabel?.trim()
+                    || (servicePackageId ? 'Recurring Cleanup Service' : 'One-Time Deep Clean');
+                const status = INVOICE_STATUSES.includes(input?.status) ? input.status : 'draft';
+                const invoiceId = `inv-${Date.now()}`;
+                const facilityLabel = servicePackageId
+                    ? routePackage.facilityLabel
+                    : getLocation(locationId)?.facility || routePackage.facilityLabel;
+                const description = input?.description?.trim() || `${serviceLabel} - ${facilityLabel}`;
+
+                const lineItem = {
+                    id: `li-${Date.now()}-manual`,
+                    invoiceId,
+                    description,
+                    subtitle: '',
+                    visitDate: '',
+                    workerId: '',
+                    qty: 1,
+                    rate: amount,
+                    amount,
+                };
+
+                createdInvoice = recalculateInvoice({
+                    id: invoiceId,
+                    invoiceNumber: nextInvoiceNumber(current.invoices),
+                    locationId,
+                    servicePackageId,
+                    periodStart,
+                    periodEnd,
+                    subtotal: 0,
+                    tax,
+                    total: 0,
+                    status,
+                    issueDate,
+                    dueDate: input?.dueDate || nextMonthlyCheckDate(issueDate),
+                    paymentTerms: input?.paymentTerms?.trim() || 'Monthly district check run',
+                    serviceLabel,
+                    createdAt: new Date().toISOString(),
+                }, [lineItem]);
+
+                return {
+                    ...current,
+                    invoices: [createdInvoice, ...current.invoices],
+                    lineItems: [...current.lineItems, lineItem],
                 };
             });
 
@@ -829,6 +874,8 @@ export function DashboardPage() {
 
 export function InvoiceListPage() {
     const { state, actions } = useOperations();
+    const navigate = useNavigate();
+    const [isNewInvoiceOpen, setIsNewInvoiceOpen] = useState(false);
     const invoices = [...state.invoices].sort((a, b) => {
         const dateSort = b.issueDate.localeCompare(a.issueDate);
         return dateSort || b.invoiceNumber.localeCompare(a.invoiceNumber);
@@ -841,6 +888,14 @@ export function InvoiceListPage() {
         .reduce((total, invoice) => total + Number(invoice.total || 0), 0);
     const lifetimeBilled = paidTotal + outstandingTotal;
 
+    function handleCreateInvoice(input) {
+        const invoice = actions.createManualInvoice(input);
+        setIsNewInvoiceOpen(false);
+        setTimeout(() => {
+            if (invoice) navigate(`/invoices/${invoice.id}`);
+        }, 0);
+    }
+
     return (
         <section className="ops-page">
             <div className="ops-page-title ops-title-row">
@@ -848,7 +903,12 @@ export function InvoiceListPage() {
                     <h1>Invoices</h1>
                     <p>Every invoice you've ever generated, with status.</p>
                 </div>
-                <Link className="ops-link-button" to="/dashboard">Back to dashboard</Link>
+                <div className="ops-title-actions">
+                    <Link className="ops-link-button" to="/dashboard">Back to dashboard</Link>
+                    <button className="ops-primary-action" type="button" onClick={() => setIsNewInvoiceOpen(true)}>
+                        New Invoice
+                    </button>
+                </div>
             </div>
 
             <div className="ops-invoice-summary">
@@ -914,7 +974,239 @@ export function InvoiceListPage() {
                     </tbody>
                 </table>
             </div>
+
+            {isNewInvoiceOpen && (
+                <ManualInvoiceModal
+                    onClose={() => setIsNewInvoiceOpen(false)}
+                    onCreate={handleCreateInvoice}
+                />
+            )}
         </section>
+    );
+}
+
+function ManualInvoiceModal({ onClose, onCreate }) {
+    const currentDate = todayInCentral();
+    const [form, setForm] = useState(() => ({
+        facilityId: routePackage.id,
+        serviceLabel: 'Recurring Cleanup Service',
+        issueDate: currentDate,
+        dueDate: nextMonthlyCheckDate(currentDate),
+        periodStart: currentDate,
+        periodEnd: currentDate,
+        paymentTerms: 'Monthly district check run',
+        amount: '',
+        tax: '0',
+        status: 'draft',
+        description: '',
+    }));
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === 'Escape') onClose();
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    function updateField(field, value) {
+        setError('');
+        setForm((current) => {
+            if (field !== 'facilityId') return { ...current, [field]: value };
+
+            const isRouteInvoice = value === routePackage.id;
+            return {
+                ...current,
+                facilityId: value,
+                serviceLabel: isRouteInvoice ? 'Recurring Cleanup Service' : 'One-Time Deep Clean',
+                paymentTerms: isRouteInvoice ? 'Monthly district check run' : 'Net 15',
+            };
+        });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const amount = Number(form.amount);
+        const tax = Number(form.tax || 0);
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            setError('Enter an amount greater than $0.');
+            return;
+        }
+
+        if (!Number.isFinite(tax) || tax < 0) {
+            setError('Enter a valid tax amount.');
+            return;
+        }
+
+        if (form.periodStart && form.periodEnd && form.periodEnd < form.periodStart) {
+            setError('The period end date must be after the start date.');
+            return;
+        }
+
+        onCreate({ ...form, amount, tax });
+    }
+
+    return (
+        <div
+            className="ops-modal-backdrop"
+            onMouseDown={(event) => {
+                if (event.target === event.currentTarget) onClose();
+            }}
+        >
+            <form
+                aria-labelledby="ops-manual-invoice-title"
+                aria-modal="true"
+                className="ops-modal ops-modal-wide"
+                role="dialog"
+                onSubmit={handleSubmit}
+            >
+                <div className="ops-modal-header">
+                    <div>
+                        <span>Manual invoice</span>
+                        <h2 id="ops-manual-invoice-title">New invoice</h2>
+                    </div>
+                    <button
+                        aria-label="Close invoice form"
+                        className="ops-icon-button"
+                        type="button"
+                        onClick={onClose}
+                    >
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <div className="ops-form-grid">
+                    <label className="ops-field">
+                        <span>Facility</span>
+                        <select
+                            value={form.facilityId}
+                            onChange={(event) => updateField('facilityId', event.target.value)}
+                        >
+                            <option value={routePackage.id}>{routePackage.facilityLabel}</option>
+                            {locations.map((location) => (
+                                <option key={location.id} value={location.id}>
+                                    {location.facility}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Status</span>
+                        <select
+                            value={form.status}
+                            onChange={(event) => updateField('status', event.target.value)}
+                        >
+                            {INVOICE_STATUSES.map((status) => (
+                                <option key={status} value={status}>
+                                    {status.charAt(0).toUpperCase() + status.slice(1)}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Invoice date</span>
+                        <input
+                            type="date"
+                            value={form.issueDate}
+                            onChange={(event) => updateField('issueDate', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Due date</span>
+                        <input
+                            type="date"
+                            value={form.dueDate}
+                            onChange={(event) => updateField('dueDate', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Period start</span>
+                        <input
+                            type="date"
+                            value={form.periodStart}
+                            onChange={(event) => updateField('periodStart', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Period end</span>
+                        <input
+                            type="date"
+                            value={form.periodEnd}
+                            onChange={(event) => updateField('periodEnd', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Amount</span>
+                        <input
+                            min="0"
+                            step="0.01"
+                            type="number"
+                            value={form.amount}
+                            onChange={(event) => updateField('amount', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field">
+                        <span>Tax</span>
+                        <input
+                            min="0"
+                            step="0.01"
+                            type="number"
+                            value={form.tax}
+                            onChange={(event) => updateField('tax', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field ops-field-wide">
+                        <span>Service</span>
+                        <input
+                            type="text"
+                            value={form.serviceLabel}
+                            onChange={(event) => updateField('serviceLabel', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field ops-field-wide">
+                        <span>Line item</span>
+                        <input
+                            type="text"
+                            value={form.description}
+                            onChange={(event) => updateField('description', event.target.value)}
+                        />
+                    </label>
+
+                    <label className="ops-field ops-field-wide">
+                        <span>Payment terms</span>
+                        <input
+                            type="text"
+                            value={form.paymentTerms}
+                            onChange={(event) => updateField('paymentTerms', event.target.value)}
+                        />
+                    </label>
+                </div>
+
+                {error && <p className="ops-error">{error}</p>}
+
+                <div className="ops-modal-actions">
+                    <button className="ops-secondary-action" type="button" onClick={onClose}>
+                        Cancel
+                    </button>
+                    <button className="ops-primary-action" type="submit">
+                        Create Invoice
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 }
 
