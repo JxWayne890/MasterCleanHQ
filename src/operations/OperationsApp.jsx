@@ -56,6 +56,8 @@ const routePackage = {
     ratePerVisit: locations.reduce((total, location) => total + location.recurringRate, 0),
 };
 
+const DELETABLE_INVOICE_STATUSES = new Set(['draft', 'sent', 'overdue']);
+
 const defaultInvoices = [
     {
         id: 'inv-vbhs-003',
@@ -511,11 +513,18 @@ export function OperationsProvider({ children }) {
             }));
         },
         deleteInvoice(invoiceId) {
-            setState((current) => ({
-                ...current,
-                invoices: current.invoices.filter((invoice) => invoice.id !== invoiceId || invoice.status !== 'draft'),
-                lineItems: current.lineItems.filter((item) => item.invoiceId !== invoiceId),
-            }));
+            setState((current) => {
+                const invoiceToDelete = current.invoices.find((invoice) => invoice.id === invoiceId);
+                if (!invoiceToDelete || !DELETABLE_INVOICE_STATUSES.has(invoiceToDelete.status)) {
+                    return current;
+                }
+
+                return {
+                    ...current,
+                    invoices: current.invoices.filter((invoice) => invoice.id !== invoiceId),
+                    lineItems: current.lineItems.filter((item) => item.invoiceId !== invoiceId),
+                };
+            });
         },
     }), []);
 
@@ -893,7 +902,7 @@ export function InvoiceListPage() {
                                                 Mark Paid
                                             </button>
                                         )}
-                                        {invoice.status === 'draft' && (
+                                        {DELETABLE_INVOICE_STATUSES.has(invoice.status) && (
                                             <button type="button" onClick={() => actions.deleteInvoice(invoice.id)}>
                                                 Delete
                                             </button>
@@ -911,6 +920,7 @@ export function InvoiceListPage() {
 
 export function InvoiceDetailPage() {
     const { invoiceId } = useParams();
+    const navigate = useNavigate();
     const { state, actions } = useOperations();
     const invoice = state.invoices.find((item) => item.id === invoiceId);
     const lineItems = state.lineItems.filter((item) => item.invoiceId === invoiceId);
@@ -942,6 +952,17 @@ export function InvoiceDetailPage() {
                 {invoice.status !== 'paid' && (
                     <button type="button" onClick={() => actions.updateInvoiceStatus(invoice.id, 'paid')}>
                         Mark as Paid
+                    </button>
+                )}
+                {DELETABLE_INVOICE_STATUSES.has(invoice.status) && (
+                    <button
+                        type="button"
+                        onClick={() => {
+                            actions.deleteInvoice(invoice.id);
+                            navigate('/invoices');
+                        }}
+                    >
+                        Delete
                     </button>
                 )}
             </div>
