@@ -34,6 +34,7 @@ const Footer = () => {
                             <li><Link to="/reviews" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Reviews</Link></li>
                             <li><Link to="/guides" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Cost Guides</Link></li>
                             <li><Link to="/faq" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>FAQ</Link></li>
+                            <li><Link to="/apply" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>Apply to Join Our Team</Link></li>
                         </ul>
                     </div>
 
@@ -72,6 +73,7 @@ const Footer = () => {
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)' }}>
                             <li><a href="tel:+13252495191" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>(325) 249-5191</a></li>
                             <li><HashLink smooth to="/#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Request Quote</HashLink></li>
+                            <li><Link to="/apply" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>Careers / Apply</Link></li>
                             <li>San Angelo, TX 76901</li>
                             <li style={{ fontSize: '0.9rem' }}>Mon–Fri: 7am–6pm</li>
                             <li style={{ fontSize: '0.9rem' }}>Sat–Sun: 8am–2pm</li>
