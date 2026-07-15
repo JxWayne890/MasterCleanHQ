@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Contact from '../components/Contact';
@@ -36,6 +37,9 @@ const ContactPage = () => {
                     >
                         Get a free estimate for commercial cleaning services anywhere in West Texas.
                     </motion.p>
+                    <Link to="/apply" style={{ display: 'inline-flex', marginTop: '1.5rem', color: 'var(--white)', borderBottom: '1px solid var(--orange)', paddingBottom: '0.35rem', fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.8px', textTransform: 'uppercase', fontSize: '0.8rem' }}>
+                        Interested in joining our cleaning team? Apply here →
+                    </Link>
                 </div>
             </section>
 
