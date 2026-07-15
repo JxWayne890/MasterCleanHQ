@@ -104,6 +104,7 @@ const AppRoutes = () => {
                 {/* Contact */}
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/apply" element={<ApplyPage />} />
+                <Route path="/apply/start" element={<ApplyPage />} />
 
                 {/* Catch-all */}
                 <Route path="*" element={<Navigate to="/" replace />} />

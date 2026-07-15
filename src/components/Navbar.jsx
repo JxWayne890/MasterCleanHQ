@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HashLink } from 'react-router-hash-link';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { servicePages } from '../data/servicePages';
 
 const desktopLinks = [
@@ -28,9 +28,11 @@ const mobileLinks = [
 ];
 
 const Navbar = () => {
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280);
+    const applicationRoute = location.pathname.startsWith('/apply');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -77,11 +79,11 @@ const Navbar = () => {
                     left: 0,
                     width: '100%',
                     zIndex: 50,
-                    padding: scrolled ? '1rem 0' : '2rem 0',
+                    padding: scrolled || applicationRoute ? '0.7rem 0' : '2rem 0',
                     transition: 'padding 0.4s ease',
-                    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
-                    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-                    borderBottom: scrolled ? '1px solid rgba(0,0,0,0.05)' : 'none'
+                    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : applicationRoute ? 'rgba(20, 22, 24, 0.98)' : 'transparent',
+                    backdropFilter: scrolled || applicationRoute ? 'blur(10px)' : 'none',
+                    borderBottom: scrolled ? '1px solid rgba(0,0,0,0.05)' : applicationRoute ? '1px solid rgba(255,255,255,0.12)' : 'none'
                 }}
             >
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -154,7 +156,7 @@ const Navbar = () => {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '2rem', flex: 1 }}>
                         <a href="tel:+13252495191" style={{
                             fontWeight: 600,
-                            color: isOpen ? 'var(--white)' : 'var(--navy)',
+                            color: isOpen ? 'var(--white)' : scrolled ? 'var(--navy)' : 'var(--white)',
                             display: width > 1200 ? 'block' : 'none',
                             transition: 'color 0.4s',
                             textDecoration: 'none',
@@ -172,7 +174,7 @@ const Navbar = () => {
                                 display: width > 992 ? 'none' : 'flex',
                                 alignItems: 'center',
                                 gap: '0.5rem',
-                                color: isOpen ? 'var(--white)' : 'var(--navy)',
+                                color: isOpen ? 'var(--white)' : scrolled ? 'var(--navy)' : 'var(--white)',
                                 fontFamily: 'var(--font-sans)',
                                 fontWeight: 500,
                                 textTransform: 'uppercase',

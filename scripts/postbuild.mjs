@@ -44,6 +44,7 @@ const prerenderRoutes = [
     { path: '/specialized-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
     { path: '/apply', priority: '0.5', changefreq: 'monthly' },
+    { path: '/apply/start', priority: '0.3', changefreq: 'monthly' },
 ];
 
 // Core pages are prerendered first; dynamic routes are prerendered below
