@@ -43,6 +43,7 @@ const prerenderRoutes = [
     { path: '/post-construction-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/specialized-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
+    { path: '/apply', priority: '0.5', changefreq: 'monthly' },
 ];
 
 const privatePrerenderRoutes = [
