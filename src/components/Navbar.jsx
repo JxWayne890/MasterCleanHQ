@@ -11,6 +11,7 @@ const desktopLinks = [
     { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },
     { name: 'FAQ', href: '/faq' },
+    { name: 'Apply', href: '/apply' },
     { name: 'Connect', href: '/#contact' },
 ];
 
@@ -22,7 +23,8 @@ const mobileLinks = [
     { name: 'Blog', href: '/blog', number: '05' },
     { name: 'Reviews', href: '/reviews', number: '06' },
     { name: 'FAQ', href: '/faq', number: '07' },
-    { name: 'Connect', href: '/#contact', number: '08' },
+    { name: 'Apply', href: '/apply', number: '08' },
+    { name: 'Connect', href: '/#contact', number: '09' },
 ];
 
 const Navbar = () => {
@@ -97,7 +99,7 @@ const Navbar = () => {
                     {width > 992 && (
                         <nav style={{
                             display: 'flex',
-                            gap: '2.5rem',
+                            gap: 'clamp(1rem, 2vw, 2.5rem)',
                             alignItems: 'center',
                             justifyContent: 'center',
                             flex: 2

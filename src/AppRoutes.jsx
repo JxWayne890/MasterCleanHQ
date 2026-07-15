@@ -16,6 +16,7 @@ import AboutProcessPage from './pages/AboutProcessPage';
 import WhyChooseUsPage from './pages/WhyChooseUsPage';
 import ReviewsPage from './pages/ReviewsPage';
 import ContactPage from './pages/ContactPage';
+import ApplyPage from './pages/ApplyPage';
 import {
     CheckInPage,
     DashboardPage,
@@ -117,6 +118,7 @@ const AppRoutes = () => {
 
                 {/* Contact */}
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/apply" element={<ApplyPage />} />
 
                 {/* Catch-all */}
                 <Route path="*" element={<Navigate to="/" replace />} />
