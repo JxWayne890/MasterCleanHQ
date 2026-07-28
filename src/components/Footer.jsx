@@ -71,7 +71,7 @@ const Footer = () => {
                             fontSize: '0.9rem'
                         }}>Contact</h4>
                         <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.7)' }}>
-                            <li><a href="tel:+13252495191" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>(325) 249-5191</a></li>
+                            <li><a href="tel:+13252732203" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>(325) 273-2203</a></li>
                             <li><HashLink smooth to="/#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Request Quote</HashLink></li>
                             <li><Link to="/apply" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>Careers / Apply</Link></li>
                             <li>San Angelo, TX 76901</li>

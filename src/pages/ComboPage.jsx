@@ -24,7 +24,7 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
     const path = `/service-areas/${location.slug}/${service.slug}`;
     const title = `${service.navLabel} in ${location.name}, TX`;
     const metaTitle = `${service.navLabel} in ${location.name}, TX | Master Commercial Clean`;
-    const metaDescription = `Professional ${service.navLabel.toLowerCase()} services in ${location.name}, ${location.county}. Serving businesses across the ${location.regionName}. Call (325) 249-5191.`;
+    const metaDescription = `Professional ${service.navLabel.toLowerCase()} services in ${location.name}, ${location.county}. Serving businesses across the ${location.regionName}. Call (325) 273-2203.`;
 
     const otherServicesInCity = servicePages.filter((s) => s.slug !== service.slug);
     const otherCitiesForService = locations

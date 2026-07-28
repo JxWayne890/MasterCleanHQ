@@ -10,8 +10,8 @@ const ContactPage = () => {
     return (
         <div style={{ backgroundColor: 'var(--off-white)', minHeight: '100vh' }}>
             <SEO
-                title="Contact Master Commercial Clean | Free Estimate | (325) 249-5191"
-                description="Request a free commercial cleaning estimate for your West Texas business. Call (325) 249-5191 or fill out our contact form."
+                title="Contact Master Commercial Clean | Free Estimate | (325) 273-2203"
+                description="Request a free commercial cleaning estimate for your West Texas business. Call (325) 273-2203 or fill out our contact form."
                 path="/contact"
                 schemas={[
                     ...buildBaseSchemas(),

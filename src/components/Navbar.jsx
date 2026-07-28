@@ -154,7 +154,7 @@ const Navbar = () => {
                     )}
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '2rem', flex: 1 }}>
-                        <a href="tel:+13252495191" style={{
+                        <a href="tel:+13252732203" style={{
                             fontWeight: 600,
                             color: isOpen ? 'var(--white)' : scrolled ? 'var(--navy)' : 'var(--white)',
                             display: width > 1200 ? 'block' : 'none',
@@ -162,7 +162,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                             fontSize: '0.9rem'
                         }}>
-                            (325) 249-5191
+                            (325) 273-2203
                         </a>
 
                         <button
@@ -342,7 +342,7 @@ const Navbar = () => {
                             </div>
                             <div>
                                 <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Direct Line</p>
-                                <p><a href="tel:+13252495191" style={{ color: 'inherit' }}>(325) 249-5191</a></p>
+                                <p><a href="tel:+13252732203" style={{ color: 'inherit' }}>(325) 273-2203</a></p>
                             </div>
                         </motion.div>
                     </motion.div>

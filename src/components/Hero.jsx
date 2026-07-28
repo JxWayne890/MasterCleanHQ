@@ -129,7 +129,7 @@ const Hero = () => {
                             </a>
 
                             <a
-                                href="tel:+13252495191"
+                                href="tel:+13252732203"
                                 style={{
                                     color: 'var(--white)',
                                     fontFamily: 'var(--font-sans)',
@@ -147,7 +147,7 @@ const Hero = () => {
                                 onMouseEnter={(e) => e.currentTarget.style.borderBottomColor = 'var(--orange)'}
                                 onMouseLeave={(e) => e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
                             >
-                                Call (325) 249-5191 <span>&rarr;</span>
+                                Call (325) 273-2203 <span>&rarr;</span>
                             </a>
                         </motion.div>
                     </div>

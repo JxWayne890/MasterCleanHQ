@@ -114,7 +114,7 @@ const KeyTakeaways = () => {
                             Get a Free Estimate
                         </HashLink>
                         <a
-                            href="tel:+13252495191"
+                            href="tel:+13252732203"
                             style={{
                                 color: 'rgba(255,255,255,0.7)',
                                 fontFamily: 'var(--font-sans)',
@@ -129,7 +129,7 @@ const KeyTakeaways = () => {
                             onMouseEnter={(e) => e.currentTarget.style.color = 'var(--white)'}
                             onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
                         >
-                            Or call (325) 249-5191 <span>→</span>
+                            Or call (325) 273-2203 <span>→</span>
                         </a>
                     </div>
                 </motion.div>

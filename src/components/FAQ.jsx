@@ -13,7 +13,7 @@ const faqData = [
             },
             {
                 q: 'Does Master Commercial Clean travel to remote West Texas locations?',
-                a: 'Yes. We regularly serve businesses in smaller communities and remote West Texas locations between our major service hubs. If your facility is within the region, contact us at (325) 249-5191 to confirm service availability and scheduling for your area.',
+                a: 'Yes. We regularly serve businesses in smaller communities and remote West Texas locations between our major service hubs. If your facility is within the region, contact us at (325) 273-2203 to confirm service availability and scheduling for your area.',
                 link: { to: '/#contact', text: 'Contact us to confirm your area' }
             }
         ]
@@ -23,7 +23,7 @@ const faqData = [
         questions: [
             {
                 q: 'How much does commercial cleaning cost in West Texas?',
-                a: 'Commercial cleaning costs in West Texas vary based on facility size, cleaning frequency, and service type. Master Commercial Clean provides free, no-obligation walk-through estimates for every business. Most offices between 1,000–5,000 sq ft can expect competitive monthly rates. Contact us at (325) 249-5191 for a custom quote.',
+                a: 'Commercial cleaning costs in West Texas vary based on facility size, cleaning frequency, and service type. Master Commercial Clean provides free, no-obligation walk-through estimates for every business. Most offices between 1,000–5,000 sq ft can expect competitive monthly rates. Contact us at (325) 273-2203 for a custom quote.',
                 link: { to: '/#contact', text: 'Request a free quote' }
             },
             {
@@ -32,7 +32,7 @@ const faqData = [
             },
             {
                 q: 'How quickly can Master Commercial Clean start service?',
-                a: 'In most West Texas cities, Master Commercial Clean can begin service within 48 hours of your initial consultation. Emergency and same-day cleaning is available for urgent situations such as post-event cleanup or unexpected inspections. Call (325) 249-5191 to discuss your timeline.'
+                a: 'In most West Texas cities, Master Commercial Clean can begin service within 48 hours of your initial consultation. Emergency and same-day cleaning is available for urgent situations such as post-event cleanup or unexpected inspections. Call (325) 273-2203 to discuss your timeline.'
             }
         ]
     },
