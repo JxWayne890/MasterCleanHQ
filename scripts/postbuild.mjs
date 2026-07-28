@@ -44,42 +44,34 @@ const prerenderRoutes = [
     { path: '/specialized-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
     { path: '/apply', priority: '0.5', changefreq: 'monthly' },
-    { path: '/apply/start', priority: '0.3', changefreq: 'monthly' },
+    // This saved-progress route must resolve on a direct visit, but it is not
+    // public search content. Its canonical is /apply and it is noindexed.
+    { path: '/apply/start', canonicalPath: '/apply', sitemap: false, noindex: true },
 ];
 
 // Core pages are prerendered first; dynamic routes are prerendered below
 // after allRoutes is fully assembled.
 
-// Build all sitemap routes using the SSR-bundled modules
-// Import from the server bundle instead of raw source (avoids Node ESM resolution issues)
-const serverModule = await import(pathToFileURL(serverEntryFile).href);
-
-// We need to read the data from the bundled server entry.
-// Since we can't easily import specific exports, let's build the sitemap from the data files directly.
-// Read the compiled JS to extract route data.
+// These are data-only modules. Importing them directly is more reliable than
+// parsing source text with a regex, which can pair one city's slug with a later
+// city's `isHub` flag and produce non-routes in the sitemap.
+const [{ locations }, { blogPosts }, { costGuides }] = await Promise.all([
+    import(pathToFileURL(path.join(projectRoot, 'src/data/locations.js')).href),
+    import(pathToFileURL(path.join(projectRoot, 'src/data/blogPosts.js')).href),
+    import(pathToFileURL(path.join(projectRoot, 'src/data/costGuides.js')).href),
+]);
 
 // Service slugs
 const serviceSlugs = ['commercial-cleaning', 'post-construction-cleaning', 'specialized-cleaning'];
 
-// Read locations from source (it's a pure data file with no problematic imports)
-const locationsContent = await fs.readFile(path.join(projectRoot, 'src/data/locations.js'), 'utf8');
-const locationSlugsMatch = locationsContent.matchAll(/slug:\s*'([^']+)'/g);
-const locationSlugs = [...locationSlugsMatch].map(m => m[1]);
-const hubSlugsMatch = locationsContent.matchAll(/slug:\s*'([^']+)'[\s\S]*?isHub:\s*true/g);
-const hubSlugs = [...hubSlugsMatch].map(m => m[1]);
-
-// Read blog posts slugs
-const blogContent = await fs.readFile(path.join(projectRoot, 'src/data/blogPosts.js'), 'utf8');
-const blogSlugsMatch = blogContent.matchAll(/slug:\s*'([^']+)'/g);
-const blogSlugs = [...blogSlugsMatch].map(m => m[1]);
-
-// Read cost guide slugs
-const costContent = await fs.readFile(path.join(projectRoot, 'src/data/costGuides.js'), 'utf8');
-const costSlugsMatch = costContent.matchAll(/slug:\s*'([^']+)'/g);
-const costGuideSlugs = [...costSlugsMatch].map(m => m[1]);
+const locationSlugs = locations.map(({ slug }) => slug);
+const hubSlugs = locations.filter(({ isHub }) => isHub).map(({ slug }) => slug);
+const blogSlugs = blogPosts.map(({ slug }) => slug);
+const costGuideSlugs = costGuides.map(({ slug }) => slug);
 
 // Build all sitemap routes
-const allRoutes = [...prerenderRoutes];
+const allRoutes = prerenderRoutes.filter((route) => route.sitemap !== false);
+const nonSitemapRoutes = prerenderRoutes.filter((route) => route.sitemap === false);
 
 // Service area pages
 locationSlugs.forEach(slug => {
@@ -127,16 +119,33 @@ costGuideSlugs.forEach(slug => {
     });
 });
 
-// Prerender ALL routes to static HTML
+const uniqueRoutes = [...new Map(allRoutes.map((route) => [route.path, route])).values()];
+if (uniqueRoutes.length !== allRoutes.length) {
+    throw new Error('Duplicate sitemap routes detected. Every sitemap URL must be unique.');
+}
+
+// Prerender sitemap routes to static HTML. A route is accepted only when its
+// own SSR output carries the matching canonical URL, preventing client-side
+// redirect shells or invalid routes from being advertised as indexable pages.
 let prerenderSuccess = 0;
 let prerenderFail = 0;
-for (const route of allRoutes) {
+const successfulRoutes = [];
+for (const route of [...uniqueRoutes, ...nonSitemapRoutes]) {
     try {
         const rendered = render(route.path);
+        const canonicalUrl = new URL(route.canonicalPath || route.path, SITE_URL).toString();
+        const canonicalTag = rendered.head.match(/<link\b[^>]*\brel="canonical"[^>]*>/)?.[0];
+        if (!canonicalTag || !canonicalTag.includes(`href="${canonicalUrl}"`)) {
+            throw new Error(`missing matching canonical tag for ${route.path}`);
+        }
+        if (route.noindex && !rendered.head.includes('noindex')) {
+            throw new Error(`missing noindex directive for ${route.path}`);
+        }
         const outputFile = getOutputFile(route.path);
         await fs.mkdir(path.dirname(outputFile), { recursive: true });
         await fs.writeFile(outputFile, injectMarkup(template, rendered), 'utf8');
         prerenderSuccess++;
+        if (route.sitemap !== false) successfulRoutes.push(route);
     } catch (e) {
         prerenderFail++;
         console.warn(`Warning: Failed to prerender ${route.path}:`, e.message);
@@ -144,10 +153,14 @@ for (const route of allRoutes) {
 }
 console.log(`Prerendered ${prerenderSuccess} pages (${prerenderFail} failed)`);
 
+if (prerenderFail > 0) {
+    throw new Error('Refusing to generate a sitemap because one or more routes are not canonical, indexable pages.');
+}
+
 // Generate sitemap
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allRoutes.map((route) => `  <url>
+${successfulRoutes.map((route) => `  <url>
     <loc>${new URL(route.path, SITE_URL).toString()}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
@@ -157,7 +170,7 @@ ${allRoutes.map((route) => `  <url>
 `;
 
 await fs.writeFile(path.join(distDir, 'sitemap.xml'), sitemap, 'utf8');
-console.log(`Sitemap generated with ${allRoutes.length} URLs`);
+console.log(`Sitemap generated with ${successfulRoutes.length} URLs`);
 
 // Generate enhanced robots.txt
 await fs.writeFile(

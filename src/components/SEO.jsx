@@ -13,6 +13,7 @@ const SEO = ({
     image = DEFAULT_OG_IMAGE,
     type = 'website',
     schemas = [],
+    noIndex = false,
 }) => {
     const canonicalUrl = buildAbsoluteUrl(path);
     const normalizedSchemas = Array.isArray(schemas) ? schemas : [schemas];
@@ -22,6 +23,7 @@ const SEO = ({
             <title>{title}</title>
             <meta name="description" content={description} />
             <link rel="canonical" href={canonicalUrl} />
+            {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
             <meta property="og:type" content={type} />
             <meta property="og:title" content={title} />

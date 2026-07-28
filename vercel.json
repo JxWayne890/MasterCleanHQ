@@ -1,0 +1,67 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "mastercleanhq.com" }],
+      "destination": "https://www.mastercleanhq.com/:path*",
+      "permanent": true
+    },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    {
+      "source": "/blogs/flu-season-cleaning.html",
+      "destination": "/blog/fall-flu-season-office-cleaning-strategies-texas",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/Blog-2.html",
+      "destination": "/blog/facility-managers-guide-green-cleaning-commercial-buildings",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/Blog-1.html",
+      "destination": "/blog/why-san-angelo-businesses-switching-professional-janitorial",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/new-blog.html",
+      "destination": "/post-construction-cleaning",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/Blog-3.html",
+      "destination": "/blog/roi-professional-commercial-cleaning-by-the-numbers",
+      "permanent": true
+    },
+    {
+      "source": "/guides/commercial-cleaning-cost/ballinger",
+      "destination": "/guides/commercial-cleaning-cost",
+      "permanent": true
+    },
+    {
+      "source": "/guides/commercial-cleaning-cost/sweetwater",
+      "destination": "/guides/commercial-cleaning-cost",
+      "permanent": true
+    },
+    {
+      "source": "/guides/commercial-cleaning-cost/big-spring",
+      "destination": "/guides/commercial-cleaning-cost",
+      "permanent": true
+    },
+    {
+      "source": "/guides/post-construction-cleaning-cost/ballinger",
+      "destination": "/guides/post-construction-cleaning-cost",
+      "permanent": true
+    },
+    {
+      "source": "/guides/post-construction-cleaning-cost/big-spring",
+      "destination": "/guides/post-construction-cleaning-cost",
+      "permanent": true
+    },
+    {
+      "source": "/guides/specialized-cleaning-cost/sweetwater",
+      "destination": "/guides/specialized-cleaning-cost",
+      "permanent": true
+    }
+  ]
+}

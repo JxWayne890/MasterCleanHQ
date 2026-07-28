@@ -283,7 +283,7 @@ const ApplyPage = () => {
         </div>;
     }
 
-    const seo = <SEO title="Apply to Work With Master Commercial Clean | West Texas" description="Start, save, and submit a secure employment application for commercial cleaning work with Master Commercial Clean." path="/apply" schemas={[...buildBaseSchemas(), buildWebPageSchema({ path: '/apply', title: 'Apply to Work With Master Commercial Clean', description: 'Start and save a secure employment application for commercial cleaning work.' }), buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Apply', path: '/apply' }])]} />;
+    const seo = <SEO title="Apply to Work With Master Commercial Clean | West Texas" description="Start, save, and submit a secure employment application for commercial cleaning work with Master Commercial Clean." path="/apply" noIndex={startPath} schemas={[...buildBaseSchemas(), buildWebPageSchema({ path: '/apply', title: 'Apply to Work With Master Commercial Clean', description: 'Start and save a secure employment application for commercial cleaning work.' }), buildBreadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Apply', path: '/apply' }])]} />;
 
     if (portal) {
         const approved = portalStatus.data?.applicationStatus === 'approved';
