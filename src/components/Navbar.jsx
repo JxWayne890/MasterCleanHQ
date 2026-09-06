@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link, useLocation } from 'react-router-dom';
 import { servicePages } from '../data/servicePages';
+import './Navbar.css';
 
 const desktopLinks = [
     { name: 'Home', href: '/' },
@@ -27,12 +27,22 @@ const mobileLinks = [
     { name: 'Connect', href: '/#contact', number: '09' },
 ];
 
+const homeLinks = [
+    { name: 'Services', href: '/services' },
+    { name: 'Service Areas', href: '/service-areas' },
+    { name: 'About', href: '/about' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Free Estimate', href: '/#contact' },
+];
+
 const Navbar = () => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280);
+    const [width, setWidth] = useState(1280);
+    const menuRef = useRef(null);
     const applicationRoute = location.pathname.startsWith('/apply');
+    const homeRoute = location.pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,6 +52,8 @@ const Navbar = () => {
             setWidth(window.innerWidth);
             if (window.innerWidth > 992) setIsOpen(false);
         };
+        handleScroll();
+        handleResize();
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
         return () => {
@@ -50,25 +62,20 @@ const Navbar = () => {
         };
     }, []);
 
-    const menuVariants = {
-        closed: {
-            y: '-100%',
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
-        },
-        open: {
-            y: 0,
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+    useEffect(() => {
+        const menu = menuRef.current;
+        if (!isOpen) {
+            menu.close();
+            return;
         }
-    };
-
-    const linkVariants = {
-        closed: { y: 100, opacity: 0 },
-        open: (i) => ({
-            y: 0,
-            opacity: 1,
-            transition: { delay: 0.3 + i * 0.1, duration: 0.6, ease: [0.76, 0, 0.24, 1] }
-        })
-    };
+        const previousOverflow = document.body.style.overflow;
+        menu.showModal();
+        document.body.style.overflow = 'hidden';
+        return () => {
+            menu.close();
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [isOpen]);
 
     return (
         <>
@@ -79,9 +86,9 @@ const Navbar = () => {
                     left: 0,
                     width: '100%',
                     zIndex: 50,
-                    padding: scrolled || applicationRoute ? '0.7rem 0' : '2rem 0',
+                    padding: scrolled || applicationRoute || homeRoute ? '0.7rem 0' : '2rem 0',
                     transition: 'padding 0.4s ease',
-                    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : applicationRoute ? 'rgba(20, 22, 24, 0.98)' : 'transparent',
+                    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : applicationRoute ? 'rgba(20, 22, 24, 0.98)' : homeRoute ? 'var(--navy)' : 'transparent',
                     backdropFilter: scrolled || applicationRoute ? 'blur(10px)' : 'none',
                     borderBottom: scrolled ? '1px solid rgba(0,0,0,0.05)' : applicationRoute ? '1px solid rgba(255,255,255,0.12)' : 'none'
                 }}
@@ -106,7 +113,7 @@ const Navbar = () => {
                             justifyContent: 'center',
                             flex: 2
                         }}>
-                            {desktopLinks.map((link) => (
+                            {(homeRoute ? homeLinks : desktopLinks).map((link) => (
                                 link.href.startsWith('/#') ? (
                                     <HashLink
                                         key={link.name}
@@ -167,6 +174,9 @@ const Navbar = () => {
 
                         <button
                             onClick={() => setIsOpen(!isOpen)}
+                            aria-expanded={isOpen}
+                            aria-controls="mobile-navigation"
+                            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
                             style={{
                                 background: 'none',
                                 border: 'none',
@@ -199,155 +209,44 @@ const Navbar = () => {
                 </div>
             </header>
 
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        variants={menuVariants}
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100vh',
-                            backgroundColor: 'var(--navy)',
-                            zIndex: 40,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            padding: '0 5%'
-                        }}
-                    >
-                        <nav style={{ display: 'flex', flexDirection: 'column', gap: '2vh' }}>
-                            {mobileLinks.map((link, i) => (
-                                <div key={link.name} style={{ overflow: 'hidden' }}>
-                                    {link.href.startsWith('/#') ? (
-                                        <motion.a
-                                            custom={i}
-                                            variants={linkVariants}
-                                            href={link.href}
-                                            onClick={() => setIsOpen(false)}
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'baseline',
-                                                gap: '2rem',
-                                                color: 'var(--white)',
-                                                fontFamily: 'var(--font-serif)',
-                                                fontSize: 'clamp(3rem, 8vw, 6rem)',
-                                                lineHeight: 1,
-                                                textDecoration: 'none'
-                                            }}
-                                        >
-                                            <span style={{
-                                                fontFamily: 'var(--font-sans)',
-                                                fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                                                color: 'var(--orange)',
-                                                fontWeight: 500,
-                                                transform: 'translateY(-2vh)'
-                                            }}>
-                                                {link.number}
-                                            </span>
-                                            <span style={{
-                                                transition: 'color 0.3s, margin-left 0.3s',
-                                                cursor: 'pointer'
-                                            }}
-                                                onMouseEnter={(e) => {
-                                                    e.currentTarget.style.color = 'var(--orange)';
-                                                    e.currentTarget.style.marginLeft = '20px';
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    e.currentTarget.style.color = 'var(--white)';
-                                                    e.currentTarget.style.marginLeft = '0px';
-                                                }}
-                                            >
-                                                {link.name}
-                                            </span>
-                                        </motion.a>
-                                    ) : (
-                                        <motion.div
-                                            custom={i}
-                                            variants={linkVariants}
-                                            style={{ display: 'flex' }}
-                                        >
-                                            <Link
-                                                to={link.href}
-                                                onClick={() => setIsOpen(false)}
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'baseline',
-                                                    gap: '2rem',
-                                                    color: 'var(--white)',
-                                                    fontFamily: 'var(--font-serif)',
-                                                    fontSize: 'clamp(3rem, 8vw, 6rem)',
-                                                    lineHeight: 1,
-                                                    textDecoration: 'none'
-                                                }}
-                                            >
-                                                <span style={{
-                                                    fontFamily: 'var(--font-sans)',
-                                                    fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                                                    color: 'var(--orange)',
-                                                    fontWeight: 500,
-                                                    transform: 'translateY(-2vh)'
-                                                }}>
-                                                    {link.number}
-                                                </span>
-                                                <span style={{
-                                                    transition: 'color 0.3s, margin-left 0.3s',
-                                                    cursor: 'pointer'
-                                                }}
-                                                    onMouseEnter={(e) => {
-                                                        e.currentTarget.style.color = 'var(--orange)';
-                                                        e.currentTarget.style.marginLeft = '20px';
-                                                    }}
-                                                    onMouseLeave={(e) => {
-                                                        e.currentTarget.style.color = 'var(--white)';
-                                                        e.currentTarget.style.marginLeft = '0px';
-                                                    }}
-                                                >
-                                                    {link.name}
-                                                </span>
-                                            </Link>
-                                        </motion.div>
-                                    )}
-                                </div>
-                            ))}
-                        </nav>
-
-                        <motion.div
-                            custom={6}
-                            variants={linkVariants}
-                            style={{
-                                position: 'absolute',
-                                bottom: '10%',
-                                left: '5%',
-                                display: 'flex',
-                                gap: '4rem',
-                                color: 'var(--off-white)',
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: '0.9rem',
-                                letterSpacing: '1px',
-                                textTransform: 'uppercase'
-                            }}
-                        >
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Core Services</p>
-                                <p>{servicePages.map((service) => service.navLabel).join(', ')}</p>
-                            </div>
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Location</p>
-                                <p>San Angelo, Texas<br />Serving the Concho Valley</p>
-                            </div>
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Direct Line</p>
-                                <p><a href="tel:+13252732203" style={{ color: 'inherit' }}>(325) 273-2203</a></p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence >
+            <dialog
+                ref={menuRef}
+                id="mobile-navigation"
+                className="mobile-navigation"
+                aria-label="Navigation menu"
+                onCancel={() => setIsOpen(false)}
+                onKeyDown={(event) => {
+                    if (event.key !== 'Tab') return;
+                    const controls = Array.from(event.currentTarget.querySelectorAll('button, a[href]'));
+                    const first = controls[0];
+                    const last = controls[controls.length - 1];
+                    if (event.shiftKey && document.activeElement === first) {
+                        event.preventDefault();
+                        last.focus();
+                    } else if (!event.shiftKey && document.activeElement === last) {
+                        event.preventDefault();
+                        first.focus();
+                    }
+                }}
+            >
+                <div className="mobile-navigation-top">
+                    <span>Master Commercial Clean</span>
+                    <button type="button" onClick={() => setIsOpen(false)} aria-label="Close navigation menu">Close ×</button>
+                </div>
+                <nav aria-label="Main navigation">
+                    {(homeRoute ? [{ name: 'Home', href: '/' }, ...homeLinks] : mobileLinks).map((link, index) => (
+                        <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)}>
+                            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                            {link.name}
+                        </Link>
+                    ))}
+                </nav>
+                <div className="mobile-navigation-details">
+                    <div><p>Core Services</p><span>{servicePages.map((service) => service.navLabel).join(', ')}</span></div>
+                    <div><p>Location</p><span>San Angelo, Texas<br />Serving West Texas</span></div>
+                    <div><p>Direct Line</p><a href="tel:+13252732203">(325) 273-2203</a></div>
+                </div>
+            </dialog>
         </>
     );
 };

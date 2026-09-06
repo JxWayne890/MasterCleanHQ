@@ -4,3 +4,8 @@ dist
 .env
 .gemini
 .vercel
+.playwright-cli/
+
+.env.*
+!.env.example
+output/

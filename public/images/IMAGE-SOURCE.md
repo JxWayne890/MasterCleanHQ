@@ -1,0 +1,7 @@
+# Homepage imagery
+
+`commercial-office-team.png` is the original image generated with the built in image generation tool on September 5, 2026. `commercial-office-team.webp` is the optimized website version. This is illustrative imagery, not a photograph of a client site or the actual company team.
+
+## Generation prompt
+
+Use case: photorealistic-natural. Asset type: commercial cleaning business website hero, wide landscape photograph. Create a polished but believable editorial architectural photo inside a spotless contemporary West Texas professional office with warm daylight, floor to ceiling windows, glass meeting room partitions, natural oak desks and neutral stone flooring. Two professional cleaners in simple navy work shirts and dark trousers are working quietly in the right half of the frame, one using a realistic flat mop on the floor and one wiping a desk with a microfiber cloth. View from behind or side with faces not visible. Realistic human anatomy, practical equipment and tidy surfaces. Compose with a spacious calm left third and strong architectural depth, team visible toward the right, enough environment above and around the subjects for responsive cropping. Natural warm white, muted navy and subtle terracotta accents. Premium architectural photography, grounded service business, 28mm lens, eye level, horizontal 3:2 image. No text, no logos, no watermark, no futuristic elements, no luxury mansion, no exaggerated shine. This is illustrative marketing imagery and must not imply a specific client.

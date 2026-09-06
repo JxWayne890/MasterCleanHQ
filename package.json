@@ -9,7 +9,8 @@
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "build": "npm run build:client && npm run build:ssr && node scripts/postbuild.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test scripts/quote-intake.test.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.0.8",
