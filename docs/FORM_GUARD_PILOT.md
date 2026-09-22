@@ -1,6 +1,8 @@
 # Master Clean HQ observation pilot
 
-Status: implementation prepared, not deployed to production.
+Status: implementation prepared and Vercel preview built successfully, not deployed to production.
+
+Preview: https://master-clean-hq-git-codex-form-guard-pilot-jxwayne890s-projects.vercel.app
 
 The public quote form currently shows a success alert without saving or sending the request. The repaired form collects the fields required by the existing CRM intake, including business, city and facility type, and posts to the website’s server endpoint.
 
@@ -10,7 +12,7 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 
 ## Configuration before release
 
-1. Confirm that the registered Vercel website project serves `www.mastercleanhq.com` from `JxWayne890/MasterCleanHQ`. This branch does not update the platform monorepo or any hiring flow.
+1. Verified Vercel project `master-clean-hq`, `prj_NArudA2LATO6B5HXZYhjA90nVigC`, belongs to the same JxWayne890 team and has verified `mastercleanhq.com` and `www.mastercleanhq.com` domains. Its Git integration built this branch successfully. This branch does not update the platform monorepo or any hiring flow.
 2. Create a source in the founder’s Agency Guardrail workspace for `mastercleanhq.com`, with commercial cleaning business context and observation mode.
 3. Store its secret only as `FORM_GUARD_SOURCE_KEY` in the website’s server environment. Set `FORM_GUARD_API_URL` to the approved deployed Agency Guardrail origin. Never use a VITE variable for the key.
 4. Run a clearly labeled synthetic request through the deployed candidate and verify the exact CRM lead and Form Guard observation. The current checks mock those upstream responses and do not prove production delivery.
