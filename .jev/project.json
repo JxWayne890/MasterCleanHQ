@@ -1,0 +1,12 @@
+{
+  "client": {"client_id": "master_commercial_clean", "display_name": "Master Commercial Clean"},
+  "project": {"project_id": "mastercleanhq_website", "project_type": "website"},
+  "blueprint": {
+    "business_goal": "Repair quote persistence and prepare the founder approved Agency Guardrail observation pilot.",
+    "scope": {"required": ["quote form persistence", "observation after CRM save", "failure and retry checks"], "excluded": ["hiring changes", "CRM schema changes", "production deployment"]},
+    "definition_of_done": ["CRM failure cannot report success", "JEV failure cannot lose CRM inquiry", "source key stays on server", "tests and build pass", "draft reviewed before production"]
+  },
+  "services": {"github": {"owner": "JxWayne890", "repository": "MasterCleanHQ", "expected_login": "JxWayne890"}},
+  "environments": {"default": "development", "production": "https://www.mastercleanhq.com"},
+  "policy": {"production_requires_confirmation": true, "destructive_actions": "block_without_explicit_request"}
+}
