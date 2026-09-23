@@ -1,5 +1,6 @@
 const CRM_ENDPOINT = 'https://siipmaubrftdkbttsnbu.supabase.co/functions/v1/website-lead-intake';
 const WEBSITE_ORIGIN = 'https://www.mastercleanhq.com';
+export const FORM_GUARD_CONNECTOR_VERSION = 'master-clean-hq/1.1.0';
 const fields = {full_name:150,business_name:200,phone:40,email:254,city:100,preferred_contact_method:20,facility_type:100,service_type:100,message:2500,source_page:500,referrer:1000,company_website:200};
 const clean = (value, max) => typeof value === 'string' ? value.trim().slice(0,max) : '';
 
@@ -22,7 +23,7 @@ export async function submitQuote(raw, {fetcher = fetch, guardKey, guardUrl, add
   try {
     const url = new URL(guardUrl);
     if(url.protocol!=='https:' || url.username || url.password || url.search || url.hash || !/^fg_[a-f0-9]{64}$/.test(guardKey)) throw new Error('Invalid observation configuration');
-    const observed=await fetcher(new URL('/api/forms/submit',url),{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${guardKey}`},body:JSON.stringify({idempotencyKey:`mchq-quote-${result.submissionId}`,name:payload.full_name,email:payload.email,message:[`Business: ${payload.business_name}`,`City: ${payload.city}`,`Facility: ${payload.facility_type}`,`Service: ${payload.service_type}`,payload.message || 'Please contact me about a cleaning quote.'].join('\n'),isTest:false}),signal:AbortSignal.timeout(4000)});
+    const observed=await fetcher(new URL('/api/forms/submit',url),{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${guardKey}`,'X-Form-Guard-Connector-Version':FORM_GUARD_CONNECTOR_VERSION},body:JSON.stringify({idempotencyKey:`mchq-quote-${result.submissionId}`,name:payload.full_name,email:payload.email,message:[`Business: ${payload.business_name}`,`City: ${payload.city}`,`Facility: ${payload.facility_type}`,`Service: ${payload.service_type}`,payload.message || 'Please contact me about a cleaning quote.'].join('\n'),isTest:/^\s*\[FORM GUARD TEST\]/i.test(payload.message)}),signal:AbortSignal.timeout(4000)});
     return {...success,observation:observed.ok?'recorded':'retry_required'};
   } catch { return {...success,observation:'retry_required'}; }
 }

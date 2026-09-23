@@ -2,6 +2,8 @@
 
 Status: implementation prepared and Vercel preview built successfully, not deployed to production.
 
+Connector version: `master-clean-hq/1.1.0`
+
 Preview: https://master-clean-hq-git-codex-form-guard-pilot-jxwayne890s-projects.vercel.app
 
 The public quote form currently shows a success alert without saving or sending the request. The repaired form collects the fields required by the existing CRM intake, including business, city and facility type, and posts to the website’s server endpoint.
@@ -19,12 +21,21 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 5. Verify the original client address survives the proxy when testing rate limits. Vercel documents its trusted overwrite of the incoming forwarding header at https://vercel.com/docs/headers/request-headers. The existing Supabase function owns rate limits and deduplication; confirm its gateway handling during the connected check.
 6. Approve the production change. Then compare Form Guard decisions against founder labels before enabling filtering in any later phase.
 
+## Connector compatibility and operations
+
+1. The connector runs only in the Vercel server function at `api/quote.js`. It is compatible with this repository's Vite client and Vercel Node server function deployment. No source credential is included in browser JavaScript.
+2. Rotate the Form Guard source key in Agency Guardrail, replace only the server environment value `FORM_GUARD_SOURCE_KEY`, redeploy, and run a labeled connection test. The previous key stops working after rotation.
+3. To disconnect Form Guard without interrupting quote delivery, remove `FORM_GUARD_SOURCE_KEY` and `FORM_GUARD_API_URL`, then redeploy. The CRM save remains active and the server records that observation is not configured.
+4. To remove the connector completely, remove the optional observation block after the confirmed CRM save. Do not remove the CRM request, validation, or success confirmation path.
+5. A labeled diagnostic begins its message with `[FORM GUARD TEST]`. Connector version 1.1.0 forwards that label as a test record so it stays out of production reports.
+6. Every retry for the same CRM lead uses `mchq-quote-<lead id>` as its Form Guard idempotency key. Replays can update connection evidence without creating a second Form Guard submission.
+
 ## Recovery and data handling
 
 The CRM retains phone and contact information. Form Guard receives name, email and a message containing business, city, facility, service and inquiry text. Phone and network address are not included in that observation. Personal data a visitor writes into the message can still reach the model.
 
 Observation uses the CRM lead identifier for idempotency. A failed observer call logs only its status and CRM lead identifier, without contact details or credentials. An operator must review those failures and replay from the saved CRM record if needed. Durable automatic observer retries are not implemented in this pilot.
 
-Five focused automated tests cover save order, sensitive field minimization, CRM failure, invalid input, honeypot handling and model outage recovery. The production site build prerenders 302 pages with zero failures.
+Six focused automated tests cover save order, sensitive field minimization, labeled test isolation, CRM failure, invalid input, honeypot handling, and model outage recovery. The production site build prerenders 302 pages with zero failures.
 
 No customer emails were sent. No production quote, applicant, employee or billing records were modified by this branch.

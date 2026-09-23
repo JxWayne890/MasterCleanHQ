@@ -397,7 +397,7 @@ const Contact = () => {
                                     />
                                 </div>
 
-                                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', lineHeight: 1.6 }}>Your request is saved in our CRM. We use Agency Guardrail to review messages for unwanted traffic. <a href="https://agrail.vercel.app/data-handling" target="_blank" rel="noreferrer">Learn how messages are processed</a>.</p>
+                                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', lineHeight: 1.6 }}>Your request is saved in our CRM. We use Agency Guardrail to review messages for unwanted traffic. <a href="https://agencyguardrail.com/data-handling" target="_blank" rel="noreferrer">Learn how messages are processed</a>.</p>
 
                                 {/* Elevated Submit Button */}
                                 <button
