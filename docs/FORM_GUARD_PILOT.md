@@ -1,10 +1,10 @@
 # Master Clean HQ observation pilot
 
-Status: implementation prepared and Vercel preview built successfully, not deployed to production.
+Status: connected preview verified in observation mode, not yet deployed to production.
 
 Connector version: `master-clean-hq/1.1.1`
 
-Preview: https://master-clean-hq-git-codex-form-guard-pilot-jxwayne890s-projects.vercel.app
+Verified preview: https://master-clean-ki6ajuhpe-jxwayne890s-projects.vercel.app
 
 The public quote form currently shows a success alert without saving or sending the request. The repaired form collects the fields required by the existing CRM intake, including business, city and facility type, and posts to the website’s server endpoint.
 
@@ -21,6 +21,18 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 5. Verify the original client address survives the proxy when testing rate limits. Vercel documents its trusted overwrite of the incoming forwarding header at https://vercel.com/docs/headers/request-headers. The existing Supabase function owns rate limits and deduplication; confirm its gateway handling during the connected check.
 6. Approve the production change. Then compare Form Guard decisions against founder labels before enabling filtering in any later phase.
 
+## Connected preview evidence
+
+1. Three synthetic CRM records were created with visible `FORM GUARD TEST` labels and deletion instructions. No real inquiry or customer recipient was used.
+2. Exact website replays returned the same CRM identifiers with `duplicate: true`. Form Guard retained one record for each stable CRM identifier.
+3. The legitimate label originally received an uncertain decision with 0.56 confidence in 3,377 milliseconds. It was corrected to legitimate and recorded as one false negative.
+4. The unwanted solicitation received a spam decision with 0.93 confidence in 691 milliseconds. The expected label matched.
+5. The ambiguous inquiry received an uncertain decision with 0.91 confidence in 474 milliseconds. The expected label matched.
+6. All three Form Guard records were labeled as tests, remained observed, and created zero delivery jobs. The existing CRM path remained authoritative.
+7. Three initial observation attempts reported retry required while the branch environment was being verified. Every attempt happened after a confirmed CRM save, and all three were replayed from their saved CRM identifiers and recovered.
+8. False positive feedback is zero. False negative feedback is one. No decision provider outage occurred during the connected run.
+9. The source remains in observation copy mode. Protection is not enabled or eligible for this pilot.
+
 ## Connector compatibility and operations
 
 1. The connector runs only in the Vercel server function at `api/quote.js`. It is compatible with this repository's Vite client and Vercel Node server function deployment. No source credential is included in browser JavaScript.
@@ -34,7 +46,9 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 
 The CRM retains phone and contact information. Form Guard receives name, email and a message containing business, city, facility, service and inquiry text. Phone and network address are not included in that observation. Personal data a visitor writes into the message can still reach the model.
 
-Observation uses the CRM lead identifier for idempotency. A failed observer call logs only its status and CRM lead identifier, without contact details or credentials. An operator must review those failures and replay from the saved CRM record if needed. Durable automatic observer retries are not implemented in this pilot.
+Observation uses the CRM lead identifier for idempotency. A failed observer call logs only its status and CRM lead identifier, without contact details or credentials. An operator must review those failures and replay from the saved CRM record if needed. Durable automatic observer retries are not implemented in this pilot. The connected run proved that manual replay recovers the observation without creating a second CRM or Form Guard record.
+
+The three CRM test records remain clearly labeled because this repository and its available service account do not have an authorized CRM deletion interface. Form Guard test records are removable through the Agency Guardrail service account after final production evidence is recorded.
 
 Six focused automated tests cover save order, sensitive field minimization, labeled test isolation, CRM failure, invalid input, honeypot handling, and model outage recovery. The production site build prerenders 302 pages with zero failures.
 
