@@ -2,7 +2,7 @@
 
 Status: implementation prepared and Vercel preview built successfully, not deployed to production.
 
-Connector version: `master-clean-hq/1.1.0`
+Connector version: `master-clean-hq/1.1.1`
 
 Preview: https://master-clean-hq-git-codex-form-guard-pilot-jxwayne890s-projects.vercel.app
 
@@ -27,7 +27,7 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 2. Rotate the Form Guard source key in Agency Guardrail, replace only the server environment value `FORM_GUARD_SOURCE_KEY`, redeploy, and run a labeled connection test. The previous key stops working after rotation.
 3. To disconnect Form Guard without interrupting quote delivery, remove `FORM_GUARD_SOURCE_KEY` and `FORM_GUARD_API_URL`, then redeploy. The CRM save remains active and the server records that observation is not configured.
 4. To remove the connector completely, remove the optional observation block after the confirmed CRM save. Do not remove the CRM request, validation, or success confirmation path.
-5. A labeled diagnostic begins its message with `[FORM GUARD TEST]`. Connector version 1.1.0 forwards that label as a test record so it stays out of production reports.
+5. A labeled diagnostic begins its message with `[FORM GUARD TEST]`. Connector version 1.1.1 forwards that label as a test record so it stays out of production reports.
 6. Every retry for the same CRM lead uses `mchq-quote-<lead id>` as its Form Guard idempotency key. Replays can update connection evidence without creating a second Form Guard submission.
 
 ## Recovery and data handling
