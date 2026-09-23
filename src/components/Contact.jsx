@@ -1,6 +1,44 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+
+function formatPhoneNumber(value) {
+    const digits = String(value || '').replace(/\D/g, '').slice(0, 10);
+    if (digits.length < 4) return digits;
+    if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
 
 const Contact = () => {
+    const [submission, setSubmission] = useState({ state: 'idle', message: '' });
+
+    async function submitQuoteRequest(event) {
+        event.preventDefault();
+        setSubmission({ state: 'submitting', message: '' });
+        const form = event.currentTarget;
+        const values = Object.fromEntries(new FormData(form).entries());
+        const endpoint = '/api/quote';
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...values,
+                    source_page: `${window.location.pathname}${window.location.search}`,
+                    referrer: document.referrer || '',
+                }),
+            });
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(result.error || 'We could not send your request.');
+            form.reset();
+            setSubmission({ state: 'success', message: 'Thank you. Your quote request is in our CRM. We will contact you within one business day.' });
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'quote_form_submit' });
+            }
+        } catch (error) {
+            setSubmission({ state: 'error', message: error instanceof Error ? error.message : 'We could not send your request. Please call (325) 273-2203.' });
+        }
+    }
+
     return (
         <section id="contact" style={{ backgroundColor: 'var(--off-white)', padding: '8rem 0' }}>
             <div className="container">
@@ -129,19 +167,10 @@ const Contact = () => {
                             boxShadow: '0 20px 40px rgba(2, 24, 43, 0.05)'
                         }}>
                             <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    // GA4: Track form submission
-                                    if (typeof gtag === 'function') {
-                                        gtag('event', 'generate_lead', {
-                                            event_category: 'contact',
-                                            event_label: 'quote_form_submit'
-                                        });
-                                    }
-                                    alert('Thank you for your message. We will get back to you shortly!');
-                                }}
+                                onSubmit={submitQuoteRequest}
                                 style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}
                             >
+                                <input name="company_website" tabIndex="-1" autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px' }} />
                                 {/* Form Group: Full Name */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
                                     <label htmlFor="name" style={{
@@ -158,6 +187,7 @@ const Contact = () => {
                                     <input
                                         type="text"
                                         id="name"
+                                        name="full_name"
                                         required
                                         placeholder="Enter your name"
                                         style={{
@@ -174,6 +204,11 @@ const Contact = () => {
                                         onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
                                         onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
                                     />
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
+                                    <label htmlFor="business_name" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>Business Name</label>
+                                    <input type="text" id="business_name" name="business_name" required placeholder="Your company or facility" style={{ padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }} onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'} onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'} />
                                 </div>
 
                                 {/* Form Group: Email & Phone */}
@@ -193,7 +228,7 @@ const Contact = () => {
                                         <input
                                             type="email"
                                             id="email"
-                                            required
+                                            name="email"
                                             placeholder="email@example.com"
                                             style={{
                                                 padding: '0.5rem 0',
@@ -226,6 +261,7 @@ const Contact = () => {
                                         <input
                                             type="tel"
                                             id="phone"
+                                            name="phone"
                                             required
                                             placeholder="(325) 000-0000"
                                             style={{
@@ -241,7 +277,21 @@ const Contact = () => {
                                             }}
                                             onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
                                             onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
+                                            onChange={(e) => { e.currentTarget.value = formatPhoneNumber(e.currentTarget.value); }}
                                         />
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                        <label htmlFor="city" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>City</label>
+                                        <input id="city" name="city" required placeholder="San Angelo" style={{ padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }} onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'} onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'} />
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                        <label htmlFor="facility_type" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>Facility Type</label>
+                                        <select id="facility_type" name="facility_type" required defaultValue="" style={{ width: '100%', padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }}>
+                                            <option value="" disabled>Select facility</option><option>Office</option><option>School</option><option>Medical</option><option>Retail</option><option>Industrial</option><option>Church</option><option>Other Commercial</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -261,6 +311,7 @@ const Contact = () => {
                                     <div style={{ position: 'relative' }}>
                                         <select
                                             id="service"
+                                            name="service_type"
                                             required
                                             defaultValue=""
                                             style={{
@@ -326,6 +377,7 @@ const Contact = () => {
                                     </label>
                                     <textarea
                                         id="message"
+                                        name="message"
                                         rows="3"
                                         placeholder="Tell us about your facility and cleaning needs..."
                                         style={{
@@ -345,9 +397,12 @@ const Contact = () => {
                                     />
                                 </div>
 
+                                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', lineHeight: 1.6 }}>Your request is saved in our CRM. We use Agency Guardrail to review messages for unwanted traffic. <a href="https://agencyguardrail.com/data-handling" target="_blank" rel="noreferrer">Learn how messages are processed</a>.</p>
+
                                 {/* Elevated Submit Button */}
                                 <button
                                     type="submit"
+                                    disabled={submission.state === 'submitting'}
                                     style={{
                                         backgroundColor: 'var(--navy)',
                                         color: 'var(--white)',
@@ -377,9 +432,10 @@ const Contact = () => {
                                         e.currentTarget.style.boxShadow = 'none';
                                     }}
                                 >
-                                    Send Request
+                                    {submission.state === 'submitting' ? 'Sending…' : 'Send Request'}
                                     <span style={{ fontSize: '1.2rem', transition: 'transform 0.4s ease' }}>&rarr;</span>
                                 </button>
+                                {submission.message ? <p role="status" style={{ margin: '-1.5rem 0 0', fontFamily: 'var(--font-sans)', color: submission.state === 'success' ? '#166534' : '#b91c1c', lineHeight: 1.5 }}>{submission.message}</p> : null}
                             </form>
                         </div>
 
