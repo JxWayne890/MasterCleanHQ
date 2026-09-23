@@ -1,12 +1,14 @@
 # Master Clean HQ observation pilot
 
-Status: connected preview verified in observation mode, not yet deployed to production.
+Status: deployed and verified in production in observation copy mode. Live protection is not enabled.
 
 Connector version: `master-clean-hq/1.1.1`
 
 Verified preview: https://master-clean-ki6ajuhpe-jxwayne890s-projects.vercel.app
 
-The public quote form currently shows a success alert without saving or sending the request. The repaired form collects the fields required by the existing CRM intake, including business, city and facility type, and posts to the website’s server endpoint.
+Production: https://www.mastercleanhq.com
+
+The previous public quote form showed a success alert without reliably saving or sending the request. The repaired production form collects the fields required by the existing CRM intake, including business, city and facility type, and posts to the website’s server endpoint.
 
 The endpoint first saves the request through the existing `website-lead-intake` function in project `siipmaubrftdkbttsnbu`. Only an explicit successful response containing a lead identifier allows the website to show success. CRM errors preserve the form so the visitor can retry or call the published phone number.
 
@@ -32,6 +34,8 @@ After CRM persistence, the endpoint sends an observation to Agency Guardrail. A 
 7. Three initial observation attempts reported retry required while the branch environment was being verified. Every attempt happened after a confirmed CRM save, and all three were replayed from their saved CRM identifiers and recovered.
 8. False positive feedback is zero. False negative feedback is one. No decision provider outage occurred during the connected run.
 9. The source remains in observation copy mode. Protection is not enabled or eligible for this pilot.
+10. Pull request 4 merged as `831b71a34a3943fd99800eb7050dd1e8555b7921`. The public production form has no console errors or page overflow at desktop and 390 pixel mobile widths.
+11. A production replay returned the existing CRM identifier with `duplicate: true` in 1.283 seconds. Form Guard stayed at three test records and zero delivery jobs, and production emitted no connector warning.
 
 ## Connector compatibility and operations
 
@@ -48,8 +52,8 @@ The CRM retains phone and contact information. Form Guard receives name, email a
 
 Observation uses the CRM lead identifier for idempotency. A failed observer call logs only its status and CRM lead identifier, without contact details or credentials. An operator must review those failures and replay from the saved CRM record if needed. Durable automatic observer retries are not implemented in this pilot. The connected run proved that manual replay recovers the observation without creating a second CRM or Form Guard record.
 
-The three CRM test records remain clearly labeled because this repository and its available service account do not have an authorized CRM deletion interface. Form Guard test records are removable through the Agency Guardrail service account after final production evidence is recorded.
+The three CRM test records remain clearly labeled because this repository and its available service account do not have an authorized CRM deletion interface. The matching Form Guard records and all temporary Agency Guardrail preview records were removed after final production evidence was recorded.
 
 Six focused automated tests cover save order, sensitive field minimization, labeled test isolation, CRM failure, invalid input, honeypot handling, and model outage recovery. The production site build prerenders 302 pages with zero failures.
 
-No customer emails were sent. No production quote, applicant, employee or billing records were modified by this branch.
+No customer emails were sent. No real quote, applicant, employee, or billing record was modified by this branch. The only new CRM records are the three visibly labeled synthetic quote tests described above.
