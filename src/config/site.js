@@ -5,6 +5,12 @@ export const PHONE_DISPLAY = '(325) 273-2203';
 export const PHONE_E164 = '+13252732203';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/img/logo.png`;
 
+export const MAILING_ADDRESS = {
+    recipient: 'Master Clean HQ LLC',
+    street: '12 E Twohig Ave',
+    cityStateZip: 'San Angelo, TX 76903',
+};
+
 export const PRIMARY_SERVICE_CITIES = [
     'San Angelo',
     'Abilene',

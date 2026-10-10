@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { MAILING_ADDRESS } from '../config/site';
 
 function formatPhoneNumber(value) {
     const digits = String(value || '').replace(/\D/g, '').slice(0, 10);
@@ -124,6 +125,23 @@ const Contact = () => {
                                     San Angelo, Texas<br />
                                     Serving All of West Texas
                                 </p>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.35 }}
+                                style={{ borderLeft: '2px solid var(--navy)', paddingLeft: '1.5rem' }}
+                            >
+                                <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                                    Mailing address
+                                </p>
+                                <address style={{ fontFamily: 'var(--font-sans)', fontSize: '1.1rem', color: 'var(--navy)', fontWeight: 500, fontStyle: 'normal', lineHeight: 1.6 }}>
+                                    {MAILING_ADDRESS.recipient}<br />
+                                    {MAILING_ADDRESS.street}<br />
+                                    {MAILING_ADDRESS.cityStateZip}
+                                </address>
                             </motion.div>
 
                             <motion.div
