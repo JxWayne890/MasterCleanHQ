@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import { servicePages } from '../data/servicePages';
+import { MAILING_ADDRESS } from '../config/site';
 
 const Footer = () => {
     return (
@@ -75,6 +76,14 @@ const Footer = () => {
                             <li><HashLink smooth to="/#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Request Quote</HashLink></li>
                             <li><Link to="/apply" style={{ color: 'var(--orange)', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = 'var(--white)'} onMouseLeave={(e) => e.target.style.color = 'var(--orange)'}>Careers / Apply</Link></li>
                             <li>San Angelo, TX 76901</li>
+                            <li>
+                                <span style={{ display: 'block', color: 'var(--white)', fontWeight: 600, marginBottom: '0.35rem' }}>Mailing address</span>
+                                <address style={{ fontStyle: 'normal', lineHeight: 1.6 }}>
+                                    {MAILING_ADDRESS.recipient}<br />
+                                    {MAILING_ADDRESS.street}<br />
+                                    {MAILING_ADDRESS.cityStateZip}
+                                </address>
+                            </li>
                             <li style={{ fontSize: '0.9rem' }}>Mon–Fri: 7am–6pm</li>
                             <li style={{ fontSize: '0.9rem' }}>Sat–Sun: 8am–2pm</li>
                         </ul>
