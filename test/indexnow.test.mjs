@@ -11,7 +11,7 @@ import { publishGuide } from '../scripts/publish-guide.mjs';
 
 const liveUrl = `${CANONICAL_ORIGIN}/guides/office-cleaning-scope`;
 
-test('IndexNow submits only the verified guide and changed guide catalog after an exact ownership check', async () => {
+test('IndexNow submits only the verified guide, changed guide catalog and sitemap after an exact ownership check', async () => {
   const calls = [];
   const result = await submitGuideIndexNow(liveUrl, { fetchImpl: async (url, options) => {
     calls.push({ url, options });
@@ -29,7 +29,7 @@ test('IndexNow submits only the verified guide and changed guide catalog after a
   assert.equal(calls[1].options.method, 'POST');
   assert.deepEqual(JSON.parse(calls[1].options.body), {
     host: INDEXNOW.host, key: INDEXNOW.key, keyLocation: INDEXNOW.keyLocation,
-    urlList: [liveUrl, `${CANONICAL_ORIGIN}/guides`],
+    urlList: [liveUrl, `${CANONICAL_ORIGIN}/guides`, `${CANONICAL_ORIGIN}/sitemap.xml`],
   });
 });
 
@@ -186,6 +186,8 @@ test('the real publication worker retains a verified published receipt during an
     GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'JxWayne890/MasterCleanHQ', GITHUB_REF: 'refs/heads/main',
     GITHUB_WORKFLOW_REF: 'JxWayne890/MasterCleanHQ/.github/workflows/mcc-guide-publish.yml@refs/heads/main',
     MCC_GUIDES_LAUNCH_APPROVED: 'true', MCC_GUIDE_COMMIT_NAME: 'Fixture owner', MCC_GUIDE_COMMIT_EMAIL: 'fixture@example.test',
+    // Optional workflow metadata cannot turn a verified publication into failure.
+    GITHUB_OUTPUT: directory,
     RUNNER_TEMP: directory, MCC_GUIDE_PAYLOAD: JSON.stringify(payload), MCC_GUIDE_REQUEST_ID: payload.requestId,
     MCC_GUIDE_CONTENT_HASH: hashGuidePayload(payload), MCC_GUIDE_SLUG: payload.slug,
   }, fetchImpl: async (url, options) => {

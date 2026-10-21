@@ -50,6 +50,7 @@ jobs:
       - name: Install the trusted locked dependencies
         run: npm ci
       - name: Validate, publish and verify one guide
+        id: publish
         run: node scripts/publish-guide.mjs
         env:
           MCC_GUIDES_LAUNCH_APPROVED: ${{ vars.MCC_GUIDES_LAUNCH_APPROVED }}
@@ -59,6 +60,8 @@ jobs:
           MCC_GUIDE_REQUEST_ID: ${{ inputs.request_id }}
           MCC_GUIDE_CONTENT_HASH: ${{ inputs.content_hash }}
           MCC_GUIDE_SLUG: ${{ inputs.slug }}
+      - name: "IndexNow notification: ${{ steps.publish.outputs.indexnow_status || 'unavailable' }}"
+        run: ':'
       - name: Preserve the publication receipt and submitted draft
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

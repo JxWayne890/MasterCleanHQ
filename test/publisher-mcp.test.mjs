@@ -23,8 +23,11 @@ const payload = () => validateGuidePayload({
 const env = { MCC_GUIDE_PUBLISHER_TOKEN: secret, MCC_PUBLISHER_GITHUB_TOKEN: 'private-github-credential', MCC_GUIDES_PUBLISHING_ENABLED: 'true' };
 const json = (value, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'Content-Type': 'application/json' } });
 const text = (value, status = 200) => new Response(value, { status });
+const indexNowStep = (status = 'accepted', overrides = {}) => ({ name: `IndexNow notification: ${status}`, status: 'completed', conclusion: 'success', ...overrides });
+const publishJob = (steps = [], overrides = {}) => ({ id: 73, run_id: 42, run_attempt: 1, name: 'publish', status: 'completed', conclusion: 'success', steps, ...overrides });
+const jobData = (job = publishJob()) => ({ total_count: 1, jobs: [job] });
 
-function fixture({ runs = [], refreshedRun, source, liveValid = true, setupReady = true, manifestHash, liveCommit = 'b'.repeat(40) } = {}) {
+function fixture({ runs = [], refreshedRun, source, liveValid = true, setupReady = true, manifestHash, liveCommit = 'b'.repeat(40), jobs = jobData(), jobsResponse } = {}) {
   const calls = [];
   const guide = payload();
   const liveUrl = `${CANONICAL_ORIGIN}/guides/${guide.slug}`;
@@ -37,6 +40,7 @@ function fixture({ runs = [], refreshedRun, source, liveValid = true, setupReady
         assert.equal(options.headers.Authorization, 'Bearer private-github-credential');
         assert.ok(parsed.pathname.startsWith('/repos/JxWayne890/MasterCleanHQ/'));
         if (parsed.pathname.endsWith('/git/ref/heads/main')) return json({ object: { sha: 'b'.repeat(40) } });
+        if (/\/actions\/runs\/[0-9]+\/attempts\/[0-9]+\/jobs$/.test(parsed.pathname)) return jobsResponse ? jobsResponse() : json(jobs);
         if (/\/actions\/runs\/[0-9]+\/rerun$/.test(parsed.pathname)) return new Response(null, { status: 201 });
         if (/\/actions\/runs\/[0-9]+$/.test(parsed.pathname)) return json(refreshedRun || runs.find((run) => String(run.id) === parsed.pathname.split('/').at(-1)));
         if (parsed.pathname.endsWith('/dispatches')) return new Response(null, { status: 204 });
@@ -190,9 +194,74 @@ test('published status requires successful workflow exact committed source and a
   assert.equal(result.commit, 'b'.repeat(40));
   assert.equal(result.liveUrl, `${CANONICAL_ORIGIN}/guides/${guide.slug}`);
   assert.ok(result.verifiedAt);
+  assert.deepEqual(result.indexNow, { status: 'not_recorded' });
   for (const options of [{ liveValid: false }, { manifestHash: 'c'.repeat(64) }, { liveCommit: '' }]) {
     const invalid = fixture({ runs: [runFor(guide)], source: serializeGuide(guide), ...options });
     assert.equal((await createGuidePublisher({ env, fetchImpl: invalid.fetchImpl }).publicationStatus({ requestId })).status, 'verification_pending');
+    assert.equal(invalid.calls.some((call) => String(call.url).includes('/jobs?')), false);
+  }
+});
+
+test('published status reads only fixed IndexNow outcomes from the selected successful attempt without writes', async () => {
+  const guide = payload();
+  for (const status of ['accepted', 'validation_pending', 'retry_required']) {
+    const mock = fixture({ runs: [runFor(guide, { run_attempt: 2 })], source: serializeGuide(guide), jobs: jobData(publishJob([indexNowStep(status)], { run_attempt: 2 })) });
+    const result = await createGuidePublisher({ env, fetchImpl: mock.fetchImpl }).publicationStatus({ requestId });
+    assert.equal(result.status, 'published');
+    assert.deepEqual(result.indexNow, { status });
+    const metadataCalls = mock.calls.filter((call) => String(call.url).includes('/jobs?'));
+    assert.equal(metadataCalls.length, 1);
+    assert.equal(metadataCalls[0].url, 'https://api.github.com/repos/JxWayne890/MasterCleanHQ/actions/runs/42/attempts/2/jobs?per_page=100');
+    assert.ok(mock.calls.every((call) => !call.method || call.method === 'GET'));
+    assert.equal(mock.calls.some((call) => new URL(call.url).hostname === 'api.indexnow.org'), false);
+    assert.ok(mock.calls.findIndex((call) => String(call.url).includes('/jobs?')) > mock.calls.findLastIndex((call) => String(call.url).includes('/guide-publication-manifest.json')));
+  }
+});
+
+test('old or invalid IndexNow metadata cannot claim acceptance or undo a verified publication', async () => {
+  const guide = payload();
+  const variants = [
+    { jobs: jobData(), expected: 'not_recorded' },
+    { jobs: jobData(publishJob([indexNowStep('unavailable')])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep('accepted\ninjected')])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep('accepted\n')])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep('accepted', { conclusion: 'failure' })])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep('accepted', { status: 'in_progress' })])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep(), indexNowStep()])), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep()], { conclusion: 'failure' })), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep()], { name: 'other' })), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep()], { run_id: 43 })), expected: 'unavailable' },
+    { jobs: jobData(publishJob([indexNowStep()], { run_attempt: 2 })), expected: 'unavailable' },
+    { jobs: { total_count: 2, jobs: [publishJob([indexNowStep()])] }, expected: 'unavailable' },
+    { jobs: { total_count: 2, jobs: [publishJob([indexNowStep()]), publishJob([indexNowStep()])] }, expected: 'unavailable' },
+    { jobs: {}, expected: 'unavailable' },
+    { jobsResponse: () => json({}, 403), expected: 'unavailable' },
+    { jobsResponse: () => json({}, 404), expected: 'unavailable' },
+    { jobsResponse: () => text('not JSON'), expected: 'unavailable' },
+    { jobsResponse: () => { throw new Error('Metadata connection unavailable'); }, expected: 'unavailable' },
+  ];
+  for (const variant of variants) {
+    const mock = fixture({ runs: [runFor(guide)], source: serializeGuide(guide), ...variant });
+    const result = await createGuidePublisher({ env, fetchImpl: mock.fetchImpl }).publicationStatus({ requestId });
+    assert.equal(result.status, 'published');
+    assert.deepEqual(result.indexNow, { status: variant.expected });
+    assert.ok(mock.calls.every((call) => !call.method || call.method === 'GET'));
+  }
+});
+
+test('invalid run identities and other workflow metadata never influence the IndexNow result', async () => {
+  const guide = payload();
+  for (const identity of [
+    { id: '42' }, { id: -42 }, { id: Number.MAX_SAFE_INTEGER + 1 },
+    { run_attempt: undefined }, { run_attempt: '1' }, { run_attempt: 0 },
+    { path: '.github/workflows/unrelated.yml' }, { event: 'push' },
+    { head_branch: 'preview' }, { repository: { full_name: 'other/repository' } },
+  ]) {
+    const mock = fixture({ runs: [runFor(guide, identity)], source: serializeGuide(guide), jobs: jobData(publishJob([indexNowStep()])) });
+    const result = await createGuidePublisher({ env, fetchImpl: mock.fetchImpl }).publicationStatus({ requestId });
+    assert.equal(result.status, 'published');
+    assert.deepEqual(result.indexNow, { status: 'unavailable' });
+    assert.equal(mock.calls.some((call) => String(call.url).includes('/jobs?')), false);
   }
 });
 

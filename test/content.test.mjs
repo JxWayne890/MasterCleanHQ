@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT, loadGuides, loadCities, md } from '../scripts/content.mjs';
+import { locations } from '../src/data/locations.js';
+import { costGuides } from '../src/data/costGuides.js';
 
 const dist = path.join(ROOT, 'dist');
 const read = (route) => fs.readFile(path.join(dist, route.slice(1), 'index.html'), 'utf8');
@@ -54,13 +56,26 @@ test('city pages show referral scope, qualification, disclosure and no local add
   }
 });
 
-test('sitemap includes every new public page once and excludes form confirmation', async () => {
+test('sitemap includes every guide, city and service page once and excludes form confirmation', async () => {
   const sitemap = await fs.readFile(path.join(dist, 'sitemap.xml'), 'utf8');
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
   assert.equal(new Set(urls).size, urls.length);
   const guides = await loadGuides();
   const cities = await loadCities();
-  for (const route of ['/guides', '/partner-network', '/partner-network/become-a-partner', ...guides.map((g) => `/guides/${g.slug}`), ...cities.map((c) => `/partner-network/${c.slug}`)]) assert.ok(urls.includes(`https://www.mastercleanhq.com${route}`), route);
+  const expectedRoutes = [
+    '/guides', '/partner-network', '/partner-network/become-a-partner',
+    ...guides.map((guide) => `/guides/${guide.slug}`),
+    ...cities.map((city) => `/partner-network/${city.slug}`),
+    ...locations.flatMap((location) => [
+      `/service-areas/${location.slug}`,
+      ...['commercial-cleaning', 'post-construction-cleaning', 'specialized-cleaning'].map((service) => `/service-areas/${location.slug}/${service}`),
+    ]),
+    ...costGuides.flatMap((guide) => [
+      `/guides/${guide.slug}`,
+      ...locations.filter((location) => location.isHub).map((location) => `/guides/${guide.slug}/${location.slug}`),
+    ]),
+  ];
+  for (const route of expectedRoutes) assert.ok(urls.includes(`https://www.mastercleanhq.com${route}`), route);
   assert.ok(!urls.some((url) => url.includes('thank-you')));
   assert.match(await read('/partner-network/thank-you'), /content="noindex, follow"/);
   assert.match(await fs.readFile(path.join(dist, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/www\.mastercleanhq\.com\/sitemap\.xml/);

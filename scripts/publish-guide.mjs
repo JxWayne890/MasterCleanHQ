@@ -101,6 +101,17 @@ async function runChecks(cwd) {
   return checks;
 }
 
+export async function recordIndexNowOutput(status, env = process.env) {
+  if (!env.GITHUB_OUTPUT || !['accepted', 'validation_pending', 'retry_required'].includes(status)) return false;
+  try {
+    await fs.appendFile(env.GITHUB_OUTPUT, `indexnow_status=${status}\n`, 'utf8');
+    return true;
+  } catch {
+    // Optional workflow metadata cannot undo an already verified publication.
+    return false;
+  }
+}
+
 export async function publishGuide({ cwd = process.cwd(), env = process.env, fetchImpl = fetch, runValidation = runChecks } = {}) {
   const payload = validateGuidePayload(JSON.parse(env.MCC_GUIDE_PAYLOAD || 'null'));
   validateDispatchInput(payload, env);
@@ -148,6 +159,7 @@ export async function publishGuide({ cwd = process.cwd(), env = process.env, fet
     Object.assign(receipt, { ...verified, checks: [...receipt.checks, ...verified.checks, 'exact production build commit and publication tuple'], status: 'published' });
     receipt.indexNow = await submitGuideIndexNow(receipt.liveUrl, { fetchImpl });
     await writeReceipt();
+    await recordIndexNowOutput(receipt.indexNow.status, env);
     return receipt;
   } catch (error) {
     receipt.status = receipt.status === 'awaiting_deployment' ? 'deployment_unverified' : 'failed';

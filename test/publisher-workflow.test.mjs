@@ -7,7 +7,7 @@ import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 import { md } from '../scripts/content.mjs';
 import { validateGuidePayload, serializeGuide, hashGuidePayload } from '../lib/guide-publishing/contract.mjs';
-import { validateRunnerEnvironment, validateDispatchInput, inspectTrustedCheckout, inspectPublicationRequest, checkPreparedRelease, publishGuide } from '../scripts/publish-guide.mjs';
+import { validateRunnerEnvironment, validateDispatchInput, inspectTrustedCheckout, inspectPublicationRequest, checkPreparedRelease, publishGuide, recordIndexNowOutput } from '../scripts/publish-guide.mjs';
 import { readPublicationManifest, verifyLaunchReadiness, verifyPublicGuide, waitForPublication, PUBLISH_TARGET } from '../scripts/verify-guide-publication.mjs';
 
 const payload = () => validateGuidePayload({
@@ -159,6 +159,18 @@ test('production commit and payload mismatches stay unverified and polling is bo
   await assert.rejects(verifyLaunchReadiness('b'.repeat(40), fixture), /fresh production branch/);
 });
 
+test('optional workflow output records only fixed IndexNow status values and tolerates unwritable destinations', async (t) => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'mcc-indexnow-output-'));
+  t.after(() => fs.rm(directory, { recursive: true, force: true }));
+  const output = path.join(directory, 'output');
+  for (const status of ['accepted', 'validation_pending', 'retry_required']) assert.equal(await recordIndexNowOutput(status, { GITHUB_OUTPUT: output }), true);
+  assert.equal(await fs.readFile(output, 'utf8'), 'indexnow_status=accepted\nindexnow_status=validation_pending\nindexnow_status=retry_required\n');
+  for (const status of [undefined, null, 'unavailable', 'accepted\nother=value', {}]) assert.equal(await recordIndexNowOutput(status, { GITHUB_OUTPUT: output }), false);
+  assert.equal(await recordIndexNowOutput('accepted', {}), false);
+  assert.equal(await recordIndexNowOutput('accepted', { GITHUB_OUTPUT: directory }), false);
+  assert.equal(await fs.readFile(output, 'utf8'), 'indexnow_status=accepted\nindexnow_status=validation_pending\nindexnow_status=retry_required\n');
+});
+
 test('workflow is dispatch only, pinned to official actions, serialized and never interpolates inputs into commands', async () => {
   const source = await fs.readFile(new URL('../.github/workflows/mcc-guide-publish.yml', import.meta.url), 'utf8');
   const workflow = parseYaml(source);
@@ -168,6 +180,8 @@ test('workflow is dispatch only, pinned to official actions, serialized and neve
   const steps = workflow.jobs.publish.steps;
   assert.equal(steps[0].with.repository, 'JxWayne890/MasterCleanHQ');
   assert.equal(steps[0].with.ref, 'main');
+  assert.equal(steps.find((step) => step.run === 'node scripts/publish-guide.mjs').id, 'publish');
+  assert.deepEqual(steps.find((step) => step.name.startsWith('IndexNow notification:')), { name: "IndexNow notification: ${{ steps.publish.outputs.indexnow_status || 'unavailable' }}", run: ':' });
   for (const step of steps) {
     if (step.uses) assert.match(step.uses, /^actions\/(?:checkout|setup-node|upload-artifact)@[a-f0-9]{40}$/);
     if (step.run) assert.ok(!step.run.includes('${{'));
