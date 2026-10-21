@@ -1,3 +1,5 @@
+import { notifySavedQuote } from '../server/lib/network-intake.js';
+
 const CRM_ENDPOINT = 'https://siipmaubrftdkbttsnbu.supabase.co/functions/v1/website-lead-intake';
 const WEBSITE_ORIGIN = 'https://www.mastercleanhq.com';
 export const FORM_GUARD_CONNECTOR_VERSION = 'master-clean-hq/1.1.1';
@@ -5,7 +7,7 @@ const fields = {full_name:150,business_name:200,phone:40,email:254,city:100,pref
 const clean = (value, max) => typeof value === 'string' ? value.trim().slice(0,max) : '';
 
 /** Save the CRM lead before optional observation. Form Guard never gates this pilot's CRM delivery. */
-export async function submitQuote(raw, {fetcher = fetch, guardKey, guardUrl, address = '', userAgent = ''} = {}) {
+export async function submitQuote(raw, {fetcher = fetch, guardKey, guardUrl, address = '', userAgent = '', onSaved} = {}) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {status:400,body:{error:'Send a valid quote request.'}};
   const payload = Object.fromEntries(Object.entries(fields).map(([name,max])=>[name,clean(raw[name],max)]));
   if (payload.company_website) return {status:200,body:{submissionId:'received',duplicate:false},observation:'honeypot'};
@@ -19,6 +21,10 @@ export async function submitQuote(raw, {fetcher = fetch, guardKey, guardUrl, add
   if(!response.ok) return {status:response.status===429?429:response.status===422?422:503,body:{error:response.status===429?'Please wait before sending another request, or call (325) 273-2203.':'Your request could not be saved. Check the fields and retry, or call (325) 273-2203.'}};
   if(!/^[a-f0-9-]{36}$/i.test(result.submissionId || '')) return {status:503,body:{error:'We could not confirm your request was saved. Please call (325) 273-2203.'}};
   const success={status:200,body:{submissionId:result.submissionId,duplicate:Boolean(result.duplicate)}};
+  if(!success.body.duplicate && typeof onSaved==='function') {
+    try { onSaved(payload,result.submissionId); }
+    catch { console.warn('Saved CRM quote needs notification scheduling recovery',result.submissionId); }
+  }
   if (!guardKey || !guardUrl) return {...success,observation:'not_configured'};
   try {
     const url = new URL(guardUrl);
@@ -39,7 +45,9 @@ export default async function handler(req,res) {
   let payload;
   try {payload=typeof req.body==='string'?JSON.parse(req.body):req.body;if(Buffer.byteLength(JSON.stringify(payload),'utf8')>12000) return res.status(413).json({error:'Request is too large.'});}
   catch {return res.status(400).json({error:'Send valid JSON.'});}
-  const result=await submitQuote(payload,{guardKey:process.env.FORM_GUARD_SOURCE_KEY,guardUrl:process.env.FORM_GUARD_API_URL,address:clean(req.headers['x-forwarded-for'],100),userAgent:clean(req.headers['user-agent'],500)});
+  let quoteNotification;
+  const result=await submitQuote(payload,{onSaved:(saved,id)=>{quoteNotification=notifySavedQuote(saved,id);},guardKey:process.env.FORM_GUARD_SOURCE_KEY,guardUrl:process.env.FORM_GUARD_API_URL,address:clean(req.headers['x-forwarded-for'],100),userAgent:clean(req.headers['user-agent'],500)});
   if(result.observation==='retry_required' || result.observation==='not_configured') console.warn('Form Guard observation',result.observation,'CRM lead',result.body.submissionId);
+  if(quoteNotification) await quoteNotification;
   return res.status(result.status).json(result.body);
 }

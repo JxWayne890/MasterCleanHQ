@@ -91,6 +91,12 @@ const ServiceAreasIndex = () => {
                         { name: 'Service Areas', path: '/service-areas' },
                     ]} />
 
+                    <aside style={{ background: "var(--white)", borderLeft: "3px solid var(--orange)", padding: "2rem", marginBottom: "3rem" }}>
+                        <h2 style={{ fontSize: "1.75rem", marginBottom: "1rem" }}>Need a commercial cleaning partner elsewhere in Texas?</h2>
+                        <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>For Greater Houston and Dallas Fort Worth, our referral network reviews requests from established commercial businesses and seeks a suitable local cleaning partner. Partner availability is confirmed separately from our direct West Texas service.</p>
+                        <a href="/partner-network" style={{ color: "var(--navy)", textDecoration: "underline", fontWeight: 700 }}>Explore the Texas partner network →</a>
+                    </aside>
+
                     {regions.map((region) => {
                         const regionLocations = getLocationsByRegion(region.key);
                         if (regionLocations.length === 0) return null;

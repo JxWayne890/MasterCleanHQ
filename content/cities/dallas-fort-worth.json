@@ -1,0 +1,41 @@
+{
+  "name": "Dallas Fort Worth",
+  "description": "Commercial cleaning referrals across Dallas Fort Worth for established businesses, branch networks, office portfolios and commercial property owners.",
+  "intro": "A North Texas portfolio can span Dallas, Fort Worth, Irving and the northern suburbs. Get the locations, service windows and reporting needs into one clear request. We review the scope and seek a reputable local cleaning partner with the right coverage.",
+  "partnerStatus": "Partner availability is being confirmed. Submit your requirements for review. A referral and a quote depend on a suitable partner accepting the scope.",
+  "partnerName": null,
+  "partnerVettingNotes": null,
+  "suburbs": ["Plano", "Frisco", "Irving", "Arlington", "Richardson", "Grapevine", "Carrollton", "Lewisville", "McKinney", "Denton"],
+  "buildingTypes": ["Banks and credit union branches", "National and regional retail locations", "Corporate and regional offices", "Medical office common and administrative areas", "Managed commercial properties", "Commercial real estate portfolios", "Commercial developments and buildings held for lease"],
+  "sections": [
+    {
+      "heading": "Map the portfolio before requesting a single quote",
+      "paragraphs": [
+        "Dallas Fort Worth is more than one service territory. A branch network spanning Arlington, Frisco and Denton needs a coverage plan as well as a task list. Tell us which locations are essential at the start, which may be added later and whether one contractor must serve the entire portfolio. A provider should confirm the actual addresses before promising coverage.",
+        "For an office in Irving's Las Colinas, Plano's Legacy area or Richardson, specify tenant floors, shared amenities and management responsibilities. For a Fort Worth property, identify whether it is an office, a retail site or a commercial building with warehouse and administrative space. The cleanable footprint and security arrangements matter more to a useful proposal than the metro label alone."
+      ]
+    },
+    {
+      "heading": "Align cleaning with security and operating hours",
+      "paragraphs": [
+        "Bank and credit union branches should explain approved service hours, escort requirements and which areas are restricted. Keep alarm codes, access credentials and confidential customer information out of the web form. Share sensitive operating procedures only through an approved process after the partner has been selected and authorized.",
+        "Retail locations in Grapevine, Lewisville, McKinney and other suburbs may use different opening times or corporate vendor rules. Distinguish daytime porter work from cleaning after closing. If customer areas need attention while the business operates, specify the coverage hours and the person who can redirect the porter. Do not assume an overnight janitorial visit includes daytime spill response."
+      ]
+    },
+    {
+      "heading": "Separate tenant service from building ownership duties",
+      "paragraphs": [
+        "For a managed office property, list the lobby, corridors, elevators, shared restrooms and tenant suites as separate zones. Identify who supplies paper products and who removes waste from each zone. If a landlord and several tenants pay for different services, explain the approval and invoicing arrangement before the walkthrough.",
+        "Developers and construction companies that retain buildings for lease should state the handover date, trades still working and which spaces are ready for final cleaning. A proposal can separate rough cleanup, final detail and a later touch up. Ask who releases an area for work and who signs it off. Paint removal, adhesive removal and floor treatments require product and surface review rather than a blanket promise."
+      ]
+    },
+    {
+      "heading": "Make reporting consistent across North Texas locations",
+      "paragraphs": [
+        "A company with several locations can start with a common task standard, then add a short location specific schedule. Note floor material, square footage, restrooms and expected occupancy for each address. An office in Carrollton and a busy retail site in Arlington may share a reporting format while needing very different visit frequencies.",
+        "Ask the proposed provider to identify its service contact, inspection process, missed visit procedure and method for approving extra work. Request floor care and post construction work as separate line items if they are outside the recurring scope. Quotes, service acceptance and contract terms come from the local partner. We cannot confirm price, insurance or availability until those details have been reviewed for your assignment."
+      ]
+    }
+  ],
+  "source": {"label": "Dallas Regional Chamber, regional office markets", "url": "https://www.dallaschamber.org/wp-content/uploads/2026/03/EDG2026_CI-REOffice.pdf"}
+}

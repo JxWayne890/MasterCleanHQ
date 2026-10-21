@@ -1,0 +1,41 @@
+{
+  "name": "Greater Houston",
+  "description": "Commercial cleaning referrals for established Greater Houston businesses. Plan office, branch, retail and property cleaning with a local partner match.",
+  "intro": "One Houston cleaning scope can involve an office in the Energy Corridor, a retail location in Katy and a managed building in Sugar Land. Start with the actual locations and access requirements. We help established businesses describe the work and seek a suitable local commercial cleaning partner.",
+  "partnerStatus": "Partner availability is being confirmed. Submit your requirements for review. A referral and a quote depend on a suitable partner accepting the scope.",
+  "partnerName": null,
+  "partnerVettingNotes": null,
+  "suburbs": ["Katy", "Sugar Land", "The Woodlands", "Spring", "Cypress", "Pearland", "Pasadena", "Baytown", "League City"],
+  "buildingTypes": ["Banks and credit union branches", "National and regional retail locations", "Corporate offices", "Medical office common and administrative areas", "Managed commercial properties", "Commercial real estate portfolios", "Newly built commercial space held for lease"],
+  "sections": [
+    {
+      "heading": "Build the scope around your part of Houston",
+      "paragraphs": [
+        "Greater Houston is a wide service area. Give us the building address or nearest intersection, rather than only the city name. An office near Westchase, a branch in The Woodlands and a property in Pasadena can require different routes, crew availability and service windows. Tell us whether one provider must cover every address or whether separate local crews would work.",
+        "For offices along the Energy Corridor and in west Houston, separate tenant offices from building common areas. Identify who controls restrooms, elevators, lobby glass and waste rooms. For locations in Katy, Cypress and Sugar Land, list any shopping center access rules or restrictions on working while neighboring businesses remain open. These details help a partner decide whether the assignment is a practical fit."
+      ]
+    },
+    {
+      "heading": "Specify entrances, moisture and daily use",
+      "paragraphs": [
+        "Ask a prospective provider how it will handle tracked soil and wet entrance areas after rain. Identify entry mat placement, floor materials and who responds to a spill during operating hours. Janitorial service should follow the building's actual use; a lightly occupied office and a busy branch lobby should not automatically receive the same task schedule.",
+        "For a medical office, describe whether the request covers reception, offices and ordinary common areas or patient treatment space. Any clinical cleaning protocol, regulated waste, sharps or specialty procedure must be reviewed with the facility and the proposed provider before acceptance. Do not include patient information in the inquiry. A referral does not establish clinical qualifications."
+      ]
+    },
+    {
+      "heading": "Plan retail and property work without interrupting tenants",
+      "paragraphs": [
+        "Retail teams should identify opening and closing times, stock delivery windows and any corporate vendor onboarding process. List customer floors, staff areas, fitting rooms if applicable, interior glass and restrooms separately. Floor care needs a defined treatment, approved products and enough time for the area to be safe before people return.",
+        "Property managers in Pearland, League City, Spring or Baytown can send a location list after the initial conversation. Note tenant responsibility, key control, waste collection and inspection contacts for each property. For a new building held for lease, distinguish construction debris removal, detailed final cleaning and a later touch up before tenant possession. Heavy debris, hazardous material and remediation need separate review."
+      ]
+    },
+    {
+      "heading": "Information that makes a Houston quote useful",
+      "paragraphs": [
+        "Provide approximate cleanable square footage, floor types, restroom count, typical occupancy and preferred cleaning days. A day porter request should identify coverage hours and the work expected during that shift. If several branches or stores need service, tell us whether you require a consolidated invoice, one reporting contact or location level inspections.",
+        "The local partner sets pricing and confirms availability after reviewing the scope, usually including a building walkthrough. We do not publish a Houston price without a verified scope. Request a written schedule that separates recurring janitorial work from periodic floor care and other project work, along with a clear method for reporting a missed task."
+      ]
+    }
+  ],
+  "source": {"label": "Greater Houston Partnership, regional business districts", "url": "https://wpb.houston.org/app/uploads/2025/07/2022-Houston-Business-Insidre-EDG.pdf"}
+}

@@ -8,8 +8,8 @@ const desktopLinks = [
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
     { name: 'Areas', href: '/service-areas' },
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Guides', href: '/guides' },
+    { name: 'Partners', href: '/partner-network' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Apply', href: '/apply' },
     { name: 'Connect', href: '/#contact' },
@@ -24,7 +24,9 @@ const mobileLinks = [
     { name: 'Reviews', href: '/reviews', number: '06' },
     { name: 'FAQ', href: '/faq', number: '07' },
     { name: 'Apply', href: '/apply', number: '08' },
-    { name: 'Connect', href: '/#contact', number: '09' },
+    { name: 'Guides', href: '/guides', number: '09' },
+    { name: 'Partner Network', href: '/partner-network', number: '10' },
+    { name: 'Connect', href: '/#contact', number: '11' },
 ];
 
 const Navbar = () => {
@@ -112,6 +114,7 @@ const Navbar = () => {
                                         key={link.name}
                                         smooth
                                         to={link.href}
+                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
                                         style={{
                                             textDecoration: 'none',
                                             color: scrolled ? 'var(--navy)' : 'var(--white)',
@@ -132,6 +135,7 @@ const Navbar = () => {
                                     <Link
                                         key={link.name}
                                         to={link.href}
+                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
                                         style={{
                                             textDecoration: 'none',
                                             color: scrolled ? 'var(--navy)' : 'var(--white)',
@@ -273,6 +277,7 @@ const Navbar = () => {
                                         >
                                             <Link
                                                 to={link.href}
+                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
                                                 onClick={() => setIsOpen(false)}
                                                 style={{
                                                     display: 'flex',

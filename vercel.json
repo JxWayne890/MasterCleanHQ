@@ -3,11 +3,20 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "mastercleanhq.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "mastercleanhq.com"
+        }
+      ],
       "destination": "https://www.mastercleanhq.com/:path*",
       "permanent": true
     },
-    { "source": "/index.html", "destination": "/", "permanent": true },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
     {
       "source": "/blogs/flu-season-cleaning.html",
       "destination": "/blog/fall-flu-season-office-cleaning-strategies-texas",
@@ -62,6 +71,41 @@
       "source": "/guides/specialized-cleaning-cost/sweetwater",
       "destination": "/guides/specialized-cleaning-cost",
       "permanent": true
+    }
+  ],
+  "functions": {
+    "api/network-intake.js": {
+      "includeFiles": "content/cities/**",
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/resources.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/network-form.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/partner-network/thank-you",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
     }
   ]
 }

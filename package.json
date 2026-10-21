@@ -7,9 +7,10 @@
     "dev": "vite",
     "build:client": "vite build",
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist/server",
-    "build": "npm run build:client && npm run build:ssr && node scripts/postbuild.mjs",
+    "build": "npm run build:client && npm run build:ssr && node scripts/postbuild.mjs && node scripts/build-content.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:content": "node --test test/content.test.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.0.8",
@@ -28,6 +29,8 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "vite": "^5.2.0"
+    "markdown-it": "14.3.3",
+    "vite": "^5.2.0",
+    "yaml": "2.9.1"
   }
 }

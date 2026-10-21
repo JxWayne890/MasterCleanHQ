@@ -75,10 +75,10 @@ const FaqHubPage = () => {
                                 { label: 'Post-Construction Cleanup', to: '/post-construction-cleaning', desc: 'Detailed cleanup for builds' },
                                 { label: 'Specialized Cleaning', to: '/specialized-cleaning', desc: 'Custom high-detail scopes' },
                                 { label: 'Service Areas', to: '/service-areas', desc: '50+ cities in West Texas' },
-                                { label: 'Cost Guides', to: '/guides', desc: 'Budgeting resources' },
+                                { label: 'Cleaning Guides', to: '/guides', desc: 'Checklists, pricing and planning' },
                                 { label: 'Blog', to: '/blog', desc: 'Expert cleaning articles' },
                             ].map((link) => (
-                                <Link key={link.to} to={link.to} style={{ display: 'block', padding: '1.25rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 0.2s' }}
+                                <Link key={link.to} to={link.to} reloadDocument={link.to === "/guides"} style={{ display: 'block', padding: '1.25rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 0.2s' }}
                                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                                 >

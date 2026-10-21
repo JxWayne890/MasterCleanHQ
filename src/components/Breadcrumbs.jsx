@@ -15,7 +15,7 @@ const Breadcrumbs = ({ items }) => {
                         {index === items.length - 1 ? (
                             <span style={{ color: 'var(--navy)', fontWeight: 600 }}>{item.name}</span>
                         ) : (
-                            <Link to={item.path} style={{
+                            <Link to={item.path} reloadDocument={item.path === "/guides"} style={{
                                 color: 'var(--text-secondary)',
                                 textDecoration: 'none',
                                 transition: 'color 0.3s',
