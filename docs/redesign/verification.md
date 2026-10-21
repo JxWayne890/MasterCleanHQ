@@ -8,7 +8,7 @@ The homepage now leads with commercial cleaning in San Angelo and West Texas, a 
 
 The production build, full ESLint check, and all 30 content, intake, quote API, and homepage regression tests passed after the final code edits. All 302 React pages prerendered successfully. The static resource builder added 11 pages. The resulting sitemap contains 310 public URLs.
 
-The expert verification receipt is `/Users/john/Documents/Codex Expert Library/_verification/e8959426-d03c-4d3a-b47b-1e60db41c2e4.json`. Its scoped checks passed at 15:58:55 UTC. The copy review used the previously read Joanna Wiebe source library, and the visual direction used the previously read Charli Marie library. These checks verify the implementation, not a measured conversion increase.
+The final expert verification receipt is `/Users/john/Documents/Codex Expert Library/_verification/aef8cca8-34e2-491a-8ed3-24fdf3c94e52.json`. Its scoped checks passed at 16:01:53 UTC and include every changed implementation file, the static image assets, and the homepage test. This final consolidated scope supersedes the earlier receipt. The copy review used the previously read Joanna Wiebe source library, and the visual direction used the previously read Charli Marie library. These checks verify the implementation, not a measured conversion increase.
 
 ## Browser observations
 
@@ -29,6 +29,14 @@ The initial JavaScript entry fell from approximately 1,052 KB to 242 KB, or 77 p
 The conceptual hero has three static WebP sizes, approximately 70, 131, and 190 KiB. The four official client logo files total approximately 61 KiB. The social image is separate from the hero request. There is no new image optimization endpoint, polling, cron job, or server function for the redesign.
 
 Deployment target verified through Vercel CLI: `jxwayne890s-projects/master-clean-hq`, project `prj_NArudA2LATO6B5HXZYhjA90nVigC`, team `team_ijL6I1f7BoKqxGHB4grAxAI0`.
+
+## Deployed preview
+
+Preview: https://master-clean-e5fe558gh-jxwayne890s-projects.vercel.app
+
+Deployment: `dpl_CxpLbFefvC1F2CH1YMeHoKgmPu8j`, ready, preview target. Implementation commit: `eb89147`.
+
+Authenticated Vercel CLI smoke checks returned HTTP 200 for `/`, `/services`, `/guides`, `/partner-network/greater-houston`, and `/img/mcc-commercial-lobby-640.webp`. All five responses match the prebuilt deployment artifacts. The HTML comparison excludes Vercel's injected preview feedback toolbar. Deployment protection remains in place. Browser checks were performed on the local static build, with the deployed HTML and hero file checked separately through the supported authenticated CLI.
 
 ## Remaining dependencies
 
