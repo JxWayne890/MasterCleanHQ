@@ -1,25 +1,27 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MAILING_ADDRESS } from '../config/site';
+import { ArrowUpRight, Check, Mail, Phone } from 'lucide-react';
+import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
+import './contact-navigation.css';
 
 function formatPhoneNumber(value) {
     const digits = String(value || '').replace(/\D/g, '').slice(0, 10);
     if (digits.length < 4) return digits;
     if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)} ${digits.slice(6)}`;
 }
 
 const Contact = () => {
     const [submission, setSubmission] = useState({ state: 'idle', message: '' });
+    const phone = PHONE_DISPLAY.replace(/-/g, ' ');
 
     async function submitQuoteRequest(event) {
         event.preventDefault();
+        if (submission.state === 'submitting') return;
         setSubmission({ state: 'submitting', message: '' });
         const form = event.currentTarget;
         const values = Object.fromEntries(new FormData(form).entries());
-        const endpoint = '/api/quote';
         try {
-            const response = await fetch(endpoint, {
+            const response = await fetch('/api/quote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -29,447 +31,54 @@ const Contact = () => {
                 }),
             });
             const result = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(result.error || 'We could not send your request.');
+            if (!response.ok || !result.submissionId) throw new Error(result.error || 'We could not confirm your request was saved. Please try again or call us.');
             form.reset();
-            setSubmission({ state: 'success', message: 'Thank you. Your quote request is in our CRM. We will contact you within one business day.' });
+            setSubmission({ state: 'success', message: 'Thank you. Your quote request has been saved. We will contact you to discuss your building.' });
             if (typeof gtag === 'function') {
                 gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'quote_form_submit' });
             }
         } catch (error) {
-            setSubmission({ state: 'error', message: error instanceof Error ? error.message : 'We could not send your request. Please call (325) 273-2203.' });
+            setSubmission({ state: 'error', message: error instanceof Error ? error.message : `We could not confirm your request was saved. Please call ${phone}.` });
         }
     }
 
     return (
-        <section id="contact" style={{ backgroundColor: 'var(--off-white)', padding: '8rem 0' }}>
-            <div className="container">
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                    gap: '6rem'
-                }}>
-
-                    {/* Info Side */}
-                    <div>
-                        {/* AEO: Question-based heading */}
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            style={{
-                                fontSize: 'clamp(3rem, 5vw, 4.5rem)',
-                                color: 'var(--navy)',
-                                lineHeight: 1.1,
-                                marginBottom: '2rem'
-                            }}
-                        >
-                            How do I get a cleaning quote in <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>West Texas?</span>
-                        </motion.h2>
-
-                        {/* AEO: 40-60 word answer nugget */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            style={{
-                                fontSize: '1.2rem',
-                                color: 'var(--text-secondary)',
-                                fontFamily: 'var(--font-sans)',
-                                marginBottom: '4rem',
-                                maxWidth: '450px',
-                                lineHeight: 1.7
-                            }}
-                        >
-                            To request a free commercial cleaning estimate from Master Commercial Clean, call (325) 273-2203 or fill out the form below. We serve businesses across San Angelo, Abilene, Lubbock, Midland, Odessa, and all surrounding West Texas cities. Most quotes are provided within 24 hours.
-                        </motion.p>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                            {/* NAP: Consistent Name, Address, Phone */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 }}
-                                style={{ borderLeft: '2px solid var(--orange)', paddingLeft: '1.5rem' }}
-                            >
-                                <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                                    Direct Line
-                                </p>
-                                <a href="tel:+13252732203" onClick={() => { if (typeof gtag === 'function') { gtag('event', 'click_to_call', { event_category: 'contact', event_label: 'phone_hero' }); } }} style={{
-                                    fontFamily: 'var(--font-serif)',
-                                    fontSize: '2.5rem',
-                                    color: 'var(--navy)',
-                                    textDecoration: 'none'
-                                }}>
-                                    (325) 273-2203
-                                </a>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.3 }}
-                                style={{ borderLeft: '2px solid var(--navy)', paddingLeft: '1.5rem' }}
-                            >
-                                <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                                    Headquarters
-                                </p>
-                                <p style={{
-                                    fontFamily: 'var(--font-sans)',
-                                    fontSize: '1.1rem',
-                                    color: 'var(--navy)',
-                                    fontWeight: 500
-                                }}>
-                                    San Angelo, Texas<br />
-                                    Serving All of West Texas
-                                </p>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.35 }}
-                                style={{ borderLeft: '2px solid var(--navy)', paddingLeft: '1.5rem' }}
-                            >
-                                <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                                    Mailing address
-                                </p>
-                                <address style={{ fontFamily: 'var(--font-sans)', fontSize: '1.1rem', color: 'var(--navy)', fontWeight: 500, fontStyle: 'normal', lineHeight: 1.6 }}>
-                                    {MAILING_ADDRESS.recipient}<br />
-                                    {MAILING_ADDRESS.street}<br />
-                                    {MAILING_ADDRESS.cityStateZip}
-                                </address>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.4 }}
-                                style={{ borderLeft: '2px solid var(--navy)', paddingLeft: '1.5rem' }}
-                            >
-                                <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                                    Hours
-                                </p>
-                                <p style={{
-                                    fontFamily: 'var(--font-sans)',
-                                    fontSize: '1.1rem',
-                                    color: 'var(--navy)',
-                                    fontWeight: 500
-                                }}>
-                                    Mon–Fri: 7:00am – 6:00pm<br />
-                                    Sat–Sun: 8:00am – 2:00pm<br />
-                                    <span style={{ color: 'var(--orange)', fontSize: '0.9rem' }}>After-hours available by appointment</span>
-                                </p>
-                            </motion.div>
-                        </div>
+        <section id="contact" className="mcc-contact" aria-labelledby="mcc-contact-title">
+            <div className="container mcc-contact-layout">
+                <div className="mcc-contact-info">
+                    <span className="mcc-contact-eyebrow">Get a free cleaning quote</span>
+                    <h2 id="mcc-contact-title">Your next clean starts with a conversation.</h2>
+                    <p>Tell us about your building, what needs attention, and the schedule that works for you. We’ll help you work out the next step.</p>
+                    <a className="mcc-contact-call" href={`tel:${PHONE_E164}`}><Phone size={23} aria-hidden="true" /><span><small>Prefer to talk? Give us a call.</small>{phone}</span><ArrowUpRight size={22} aria-hidden="true" /></a>
+                    <ul className="mcc-contact-reassurance">
+                        <li><Check size={17} aria-hidden="true" />A quote built around your building</li>
+                        <li><Check size={17} aria-hidden="true" />Routine service or a specific project</li>
+                        <li><Check size={17} aria-hidden="true" />San Angelo and surrounding West Texas</li>
+                    </ul>
+                    <a className="mcc-contact-email" href="mailto:john@mastercleanhq.com"><Mail size={17} aria-hidden="true" />john@mastercleanhq.com</a>
+                    <p className="mcc-contact-other-area">Looking for service in another Texas city? <a href="/partner-network">Explore our partner network <ArrowUpRight size={14} aria-hidden="true" /></a></p>
+                </div>
+                <div className="mcc-quote-panel">
+                    <div className="mcc-quote-heading">
+                        <h3>Tell us what you need.</h3>
+                        <p id="mcc-quote-instructions">Fields marked with * are required. Email and project details are optional.</p>
                     </div>
-
-                    {/* Form Side - Enhanced Editorial Corporate Design */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        style={{ position: 'relative' }}
-                    >
-                        <div style={{
-                            width: '100%',
-                            backgroundColor: 'var(--white)',
-                            padding: '4rem 3rem',
-                            position: 'relative',
-                            zIndex: 2,
-                            boxShadow: '0 20px 40px rgba(2, 24, 43, 0.05)'
-                        }}>
-                            <form
-                                onSubmit={submitQuoteRequest}
-                                style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}
-                            >
-                                <input name="company_website" tabIndex="-1" autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px' }} />
-                                {/* Form Group: Full Name */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                    <label htmlFor="name" style={{
-                                        fontFamily: 'var(--font-sans)',
-                                        fontWeight: 600,
-                                        fontSize: '0.75rem',
-                                        color: 'var(--navy)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '2px',
-                                        opacity: 0.7
-                                    }}>
-                                        Full Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="full_name"
-                                        required
-                                        placeholder="Enter your name"
-                                        style={{
-                                            padding: '0.5rem 0',
-                                            border: 'none',
-                                            borderBottom: '1px solid rgba(2, 24, 43, 0.1)',
-                                            backgroundColor: 'transparent',
-                                            fontFamily: 'var(--font-sans)',
-                                            fontSize: '1.2rem',
-                                            color: 'var(--navy)',
-                                            outline: 'none',
-                                            transition: 'border-color 0.4s ease'
-                                        }}
-                                        onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
-                                        onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
-                                    />
-                                </div>
-
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                    <label htmlFor="business_name" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>Business Name</label>
-                                    <input type="text" id="business_name" name="business_name" required placeholder="Your company or facility" style={{ padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }} onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'} onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'} />
-                                </div>
-
-                                {/* Form Group: Email & Phone */}
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                        <label htmlFor="email" style={{
-                                            fontFamily: 'var(--font-sans)',
-                                            fontWeight: 600,
-                                            fontSize: '0.75rem',
-                                            color: 'var(--navy)',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '2px',
-                                            opacity: 0.7
-                                        }}>
-                                            Email Address
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            placeholder="email@example.com"
-                                            style={{
-                                                padding: '0.5rem 0',
-                                                border: 'none',
-                                                borderBottom: '1px solid rgba(2, 24, 43, 0.1)',
-                                                backgroundColor: 'transparent',
-                                                fontFamily: 'var(--font-sans)',
-                                                fontSize: '1.2rem',
-                                                color: 'var(--navy)',
-                                                outline: 'none',
-                                                transition: 'border-color 0.4s ease'
-                                            }}
-                                            onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
-                                            onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
-                                        />
-                                    </div>
-
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                        <label htmlFor="phone" style={{
-                                            fontFamily: 'var(--font-sans)',
-                                            fontWeight: 600,
-                                            fontSize: '0.75rem',
-                                            color: 'var(--navy)',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '2px',
-                                            opacity: 0.7
-                                        }}>
-                                            Phone Number
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            id="phone"
-                                            name="phone"
-                                            required
-                                            placeholder="(325) 000-0000"
-                                            style={{
-                                                padding: '0.5rem 0',
-                                                border: 'none',
-                                                borderBottom: '1px solid rgba(2, 24, 43, 0.1)',
-                                                backgroundColor: 'transparent',
-                                                fontFamily: 'var(--font-sans)',
-                                                fontSize: '1.2rem',
-                                                color: 'var(--navy)',
-                                                outline: 'none',
-                                                transition: 'border-color 0.4s ease'
-                                            }}
-                                            onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
-                                            onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
-                                            onChange={(e) => { e.currentTarget.value = formatPhoneNumber(e.currentTarget.value); }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                        <label htmlFor="city" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>City</label>
-                                        <input id="city" name="city" required placeholder="San Angelo" style={{ padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }} onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'} onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'} />
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                        <label htmlFor="facility_type" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.75rem', color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.7 }}>Facility Type</label>
-                                        <select id="facility_type" name="facility_type" required defaultValue="" style={{ width: '100%', padding: '0.5rem 0', border: 'none', borderBottom: '1px solid rgba(2, 24, 43, 0.1)', backgroundColor: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '1.2rem', color: 'var(--navy)', outline: 'none' }}>
-                                            <option value="" disabled>Select facility</option><option>Office</option><option>School</option><option>Medical</option><option>Retail</option><option>Industrial</option><option>Church</option><option>Other Commercial</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {/* Form Group: Service Type Dropdown */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                    <label htmlFor="service" style={{
-                                        fontFamily: 'var(--font-sans)',
-                                        fontWeight: 600,
-                                        fontSize: '0.75rem',
-                                        color: 'var(--navy)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '2px',
-                                        opacity: 0.7
-                                    }}>
-                                        Service Type
-                                    </label>
-                                    <div style={{ position: 'relative' }}>
-                                        <select
-                                            id="service"
-                                            name="service_type"
-                                            required
-                                            defaultValue=""
-                                            style={{
-                                                width: '100%',
-                                                padding: '0.5rem 0',
-                                                border: 'none',
-                                                borderBottom: '1px solid rgba(2, 24, 43, 0.1)',
-                                                backgroundColor: 'transparent',
-                                                fontFamily: 'var(--font-sans)',
-                                                fontSize: '1.2rem',
-                                                color: 'var(--navy)',
-                                                outline: 'none',
-                                                appearance: 'none',
-                                                cursor: 'pointer',
-                                                transition: 'border-color 0.4s ease'
-                                            }}
-                                            onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
-                                            onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
-                                        >
-                                            <option value="" disabled style={{ color: 'rgba(2, 24, 43, 0.5)' }}>Select a service</option>
-                                            <option value="commercial">Commercial Routine</option>
-                                            <option value="construction">Post-Construction</option>
-                                            <option value="specialized">Specialized Extraction</option>
-                                            <option value="other">Other / Custom</option>
-                                        </select>
-                                        {/* Custom SVG Chevron */}
-                                        <svg
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            style={{
-                                                position: 'absolute',
-                                                right: '0',
-                                                top: '50%',
-                                                transform: 'translateY(-50%)',
-                                                pointerEvents: 'none',
-                                                color: 'var(--navy)',
-                                                opacity: 0.5
-                                            }}
-                                        >
-                                            <polyline points="6 9 12 15 18 9"></polyline>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                {/* Form Group: Message */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', position: 'relative' }}>
-                                    <label htmlFor="message" style={{
-                                        fontFamily: 'var(--font-sans)',
-                                        fontWeight: 600,
-                                        fontSize: '0.75rem',
-                                        color: 'var(--navy)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '2px',
-                                        opacity: 0.7
-                                    }}>
-                                        Message Details
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        rows="3"
-                                        placeholder="Tell us about your facility and cleaning needs..."
-                                        style={{
-                                            padding: '0.5rem 0',
-                                            border: 'none',
-                                            borderBottom: '1px solid rgba(2, 24, 43, 0.1)',
-                                            backgroundColor: 'transparent',
-                                            fontFamily: 'var(--font-sans)',
-                                            fontSize: '1.2rem',
-                                            color: 'var(--navy)',
-                                            outline: 'none',
-                                            resize: 'none',
-                                            transition: 'border-color 0.4s ease'
-                                        }}
-                                        onFocus={(e) => e.target.style.borderBottomColor = 'var(--orange)'}
-                                        onBlur={(e) => e.target.style.borderBottomColor = 'rgba(2, 24, 43, 0.1)'}
-                                    />
-                                </div>
-
-                                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', lineHeight: 1.6 }}>Your request is saved in our CRM. We use Agency Guardrail to review messages for unwanted traffic. <a href="https://agencyguardrail.com/data-handling" target="_blank" rel="noreferrer">Learn how messages are processed</a>.</p>
-
-                                {/* Elevated Submit Button */}
-                                <button
-                                    type="submit"
-                                    disabled={submission.state === 'submitting'}
-                                    style={{
-                                        backgroundColor: 'var(--navy)',
-                                        color: 'var(--white)',
-                                        padding: '1.25rem 2.5rem',
-                                        fontFamily: 'var(--font-sans)',
-                                        fontWeight: 600,
-                                        fontSize: '0.9rem',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '3px',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        marginTop: '2rem',
-                                        alignSelf: 'flex-start',
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '1rem',
-                                        transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = 'var(--orange)';
-                                        e.currentTarget.style.transform = 'translateY(-4px)';
-                                        e.currentTarget.style.boxShadow = '0 10px 20px rgba(255, 92, 0, 0.2)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = 'var(--navy)';
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = 'none';
-                                    }}
-                                >
-                                    {submission.state === 'submitting' ? 'Sending…' : 'Send Request'}
-                                    <span style={{ fontSize: '1.2rem', transition: 'transform 0.4s ease' }}>&rarr;</span>
-                                </button>
-                                {submission.message ? <p role="status" style={{ margin: '-1.5rem 0 0', fontFamily: 'var(--font-sans)', color: submission.state === 'success' ? '#166534' : '#b91c1c', lineHeight: 1.5 }}>{submission.message}</p> : null}
-                            </form>
+                    <form className="mcc-quote-form" onSubmit={submitQuoteRequest} aria-describedby="mcc-quote-instructions" aria-busy={submission.state === 'submitting'}>
+                        <div className="mcc-form-trap" aria-hidden="true"><label htmlFor="company_website">Company website</label><input id="company_website" name="company_website" tabIndex="-1" autoComplete="off" /></div>
+                        <div className="mcc-form-grid">
+                            <div className="mcc-form-field"><label htmlFor="name">Your name <span>*</span></label><input id="name" name="full_name" autoComplete="name" maxLength="150" required placeholder="Full name" /></div>
+                            <div className="mcc-form-field"><label htmlFor="business_name">Business or organization <span>*</span></label><input id="business_name" name="business_name" autoComplete="organization" maxLength="200" required placeholder="Company or facility name" /></div>
+                            <div className="mcc-form-field"><label htmlFor="phone">Phone number <span>*</span></label><input type="tel" id="phone" name="phone" autoComplete="tel-national" inputMode="tel" required placeholder="(325) 000 0000" minLength="14" maxLength="14" onChange={(event) => { event.currentTarget.value = formatPhoneNumber(event.currentTarget.value); }} /></div>
+                            <div className="mcc-form-field"><label htmlFor="email">Email <span className="mcc-field-optional">(optional)</span></label><input type="email" id="email" name="email" autoComplete="email" maxLength="254" placeholder="you@company.com" /></div>
+                            <div className="mcc-form-field"><label htmlFor="city">Building city <span>*</span></label><input id="city" name="city" autoComplete="address-level2" maxLength="100" required placeholder="San Angelo" /></div>
+                            <div className="mcc-form-field"><label htmlFor="facility_type">Building type <span>*</span></label><select id="facility_type" name="facility_type" required defaultValue=""><option value="" disabled>Select building type</option><option>Office</option><option>School</option><option>Medical</option><option>Retail</option><option>Industrial</option><option>Church</option><option>Other Commercial</option></select></div>
+                            <div className="mcc-form-field mcc-form-wide"><label htmlFor="service">Cleaning service <span>*</span></label><select id="service" name="service_type" required defaultValue=""><option value="" disabled>Select a service</option><option value="commercial">Routine commercial cleaning</option><option value="construction">Post construction cleanup</option><option value="specialized">Specialized cleaning</option><option value="other">Other or help choosing</option></select></div>
+                            <div className="mcc-form-field mcc-form-wide"><label htmlFor="message">Anything we should know? <span className="mcc-field-optional">(optional)</span></label><textarea id="message" name="message" rows="3" maxLength="2500" placeholder="Approximate size, cleaning schedule, or what needs attention." /></div>
                         </div>
-
-                        {/* Minimalist Decorative Outline */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '15px',
-                            right: '-15px',
-                            width: '100%',
-                            height: '100%',
-                            border: '1px solid var(--orange)',
-                            zIndex: 1,
-                            opacity: 0.3
-                        }} />
-                    </motion.div>
-
+                        <p className="mcc-form-privacy">Your request is saved in our CRM. We use Agency Guardrail to review messages for unwanted traffic. <a href="https://agencyguardrail.com/data-handling" target="_blank" rel="noreferrer">Learn how messages are processed</a>.</p>
+                        <button className="mcc-quote-submit" type="submit" disabled={submission.state === 'submitting'}>{submission.state === 'submitting' ? 'Sending your request…' : 'Request my free quote'}<ArrowUpRight size={19} aria-hidden="true" /></button>
+                        {submission.message ? <p className={`mcc-form-message mcc-form-message-${submission.state}`} role={submission.state === 'error' ? 'alert' : 'status'}>{submission.message}</p> : null}
+                    </form>
                 </div>
             </div>
         </section>

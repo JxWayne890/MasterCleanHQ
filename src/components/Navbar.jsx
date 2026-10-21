@@ -1,358 +1,79 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HashLink } from 'react-router-hash-link';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { servicePages } from '../data/servicePages';
+import { ArrowUpRight, Menu, Phone, X } from 'lucide-react';
+import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
+import './contact-navigation.css';
 
-const desktopLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Areas', href: '/service-areas' },
-    { name: 'Guides', href: '/guides' },
-    { name: 'Partners', href: '/partner-network' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Apply', href: '/apply' },
-    { name: 'Connect', href: '/#contact' },
-];
-
-const mobileLinks = [
-    { name: 'Home', href: '/', number: '01' },
-    { name: 'Services', href: '/services', number: '02' },
-    { name: 'Service Areas', href: '/service-areas', number: '03' },
-    { name: 'About', href: '/about', number: '04' },
-    { name: 'Blog', href: '/blog', number: '05' },
-    { name: 'Reviews', href: '/reviews', number: '06' },
-    { name: 'FAQ', href: '/faq', number: '07' },
-    { name: 'Apply', href: '/apply', number: '08' },
-    { name: 'Guides', href: '/guides', number: '09' },
-    { name: 'Partner Network', href: '/partner-network', number: '10' },
-    { name: 'Connect', href: '/#contact', number: '11' },
+const navigation = [
+    { label: 'Services', href: '/services' },
+    { label: 'Service areas', href: '/service-areas' },
+    { label: 'About us', href: '/about' },
+    { label: 'Guides', href: '/guides', document: true },
 ];
 
 const Navbar = () => {
-    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1280);
-    const applicationRoute = location.pathname.startsWith('/apply');
+    const location = useLocation();
+    const menuButton = useRef(null);
+    const phone = PHONE_DISPLAY.replace(/-/g, ' ');
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-            if (window.innerWidth > 992) setIsOpen(false);
-        };
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+        setIsOpen(false);
+    }, [location.pathname, location.hash]);
 
-    const menuVariants = {
-        closed: {
-            y: '-100%',
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
-        },
-        open: {
-            y: 0,
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
-        }
-    };
-
-    const linkVariants = {
-        closed: { y: 100, opacity: 0 },
-        open: (i) => ({
-            y: 0,
-            opacity: 1,
-            transition: { delay: 0.3 + i * 0.1, duration: 0.6, ease: [0.76, 0, 0.24, 1] }
-        })
-    };
+    useEffect(() => {
+        if (!isOpen) return undefined;
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                setIsOpen(false);
+                menuButton.current?.focus();
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [isOpen]);
 
     return (
         <>
-            <header
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    zIndex: 50,
-                    padding: scrolled || applicationRoute ? '0.7rem 0' : '2rem 0',
-                    transition: 'padding 0.4s ease',
-                    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : applicationRoute ? 'rgba(20, 22, 24, 0.98)' : 'transparent',
-                    backdropFilter: scrolled || applicationRoute ? 'blur(10px)' : 'none',
-                    borderBottom: scrolled ? '1px solid rgba(0,0,0,0.05)' : applicationRoute ? '1px solid rgba(255,255,255,0.12)' : 'none'
-                }}
-            >
-                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flex: 1 }}>
-                        <Link to="/" style={{ minWidth: 'fit-content' }}>
-                            <img
-                                src={scrolled ? "/img/logo.png" : "/img/logo2.png"}
-                                alt="Master Commercial Clean Logo"
-                                style={{ height: '60px', transition: 'all 0.4s' }}
-                            />
-                        </Link>
-                    </div>
-
-                    {/* Desktop Navigation - Centered */}
-                    {width > 992 && (
-                        <nav style={{
-                            display: 'flex',
-                            gap: 'clamp(1rem, 2vw, 2.5rem)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flex: 2
-                        }}>
-                            {desktopLinks.map((link) => (
-                                link.href.startsWith('/#') ? (
-                                    <HashLink
-                                        key={link.name}
-                                        smooth
-                                        to={link.href}
-                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
-                                        style={{
-                                            textDecoration: 'none',
-                                            color: scrolled ? 'var(--navy)' : 'var(--white)',
-                                            fontFamily: 'var(--font-sans)',
-                                            fontSize: '0.85rem',
-                                            fontWeight: 600,
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '1px',
-                                            transition: 'color 0.3s',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                        onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
-                                        onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--navy)' : 'var(--white)'}
-                                    >
-                                        {link.name}
-                                    </HashLink>
-                                ) : (
-                                    <Link
-                                        key={link.name}
-                                        to={link.href}
-                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
-                                        style={{
-                                            textDecoration: 'none',
-                                            color: scrolled ? 'var(--navy)' : 'var(--white)',
-                                            fontFamily: 'var(--font-sans)',
-                                            fontSize: '0.85rem',
-                                            fontWeight: 600,
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '1px',
-                                            transition: 'color 0.3s',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                        onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
-                                        onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--navy)' : 'var(--white)'}
-                                    >
-                                        {link.name}
-                                    </Link>
-                                )
-                            ))}
-                        </nav>
-                    )}
-
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '2rem', flex: 1 }}>
-                        <a href="tel:+13252732203" style={{
-                            fontWeight: 600,
-                            color: isOpen ? 'var(--white)' : scrolled ? 'var(--navy)' : 'var(--white)',
-                            display: width > 1200 ? 'block' : 'none',
-                            transition: 'color 0.4s',
-                            textDecoration: 'none',
-                            fontSize: '0.9rem'
-                        }}>
-                            (325) 273-2203
-                        </a>
-
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                cursor: 'pointer',
-                                display: width > 992 ? 'none' : 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                                color: isOpen ? 'var(--white)' : scrolled ? 'var(--navy)' : 'var(--white)',
-                                fontFamily: 'var(--font-sans)',
-                                fontWeight: 500,
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                fontSize: '0.9rem',
-                                transition: 'color 0.4s'
-                            }}
-                        >
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '24px' }}>
-                                <span style={{
-                                    display: 'block', width: '100%', height: '2px', backgroundColor: 'currentColor',
-                                    transform: isOpen ? 'rotate(45deg) translate(4px, 4px)' : 'none', transition: 'transform 0.3s'
-                                }}></span>
-                                <span style={{
-                                    display: 'block', width: isOpen ? '100%' : '70%', height: '2px', backgroundColor: 'currentColor', marginLeft: 'auto',
-                                    transform: isOpen ? 'rotate(-45deg) translate(4px, -4px)' : 'none', transition: 'all 0.3s'
-                                }}></span>
-                            </div>
-                            <span style={{ marginLeft: '10px' }}>{isOpen ? 'Close' : 'Menu'}</span>
+            <a className="mcc-skip-link" href="#main-content">Skip to content</a>
+            <header className="mcc-header">
+                <div className="container mcc-header-inner">
+                    <Link className="mcc-brand" to="/" aria-label="Master Commercial Clean home" onClick={() => setIsOpen(false)}>
+                        <img src="/img/logo.png" alt="Master Commercial Clean" width="882" height="498" />
+                    </Link>
+                    <nav className="mcc-desktop-nav" aria-label="Main navigation">
+                        {navigation.map((item) => (
+                            <Link key={item.href} to={item.href} reloadDocument={item.document} aria-current={location.pathname.startsWith(item.href) ? 'page' : undefined}>
+                                {item.label}
+                            </Link>
+                        ))}
+                    </nav>
+                    <div className="mcc-header-actions">
+                        <a className="mcc-header-phone" href={`tel:${PHONE_E164}`}><Phone size={17} aria-hidden="true" />{phone}</a>
+                        <a className="mcc-nav-quote" href="/#contact">Get a free quote <ArrowUpRight size={17} aria-hidden="true" /></a>
+                        <button ref={menuButton} className="mcc-menu-toggle" type="button" aria-expanded={isOpen} aria-controls="mcc-mobile-menu" onClick={() => setIsOpen((open) => !open)}>
+                            {isOpen ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}
+                            <span>{isOpen ? 'Close' : 'Menu'}</span>
                         </button>
                     </div>
                 </div>
+                <nav id="mcc-mobile-menu" className="mcc-mobile-menu" aria-label="Mobile navigation" hidden={!isOpen}>
+                    <div className="container">
+                        {navigation.map((item) => (
+                            <Link key={item.href} to={item.href} reloadDocument={item.document} onClick={() => setIsOpen(false)}>
+                                {item.label}<ArrowUpRight size={18} aria-hidden="true" />
+                            </Link>
+                        ))}
+                        <a href="/partner-network" onClick={() => setIsOpen(false)}>Texas partner network <ArrowUpRight size={18} aria-hidden="true" /></a>
+                        <a className="mcc-mobile-menu-phone" href={`tel:${PHONE_E164}`}><Phone size={18} aria-hidden="true" />Call {phone}</a>
+                        <a className="mcc-nav-quote" href="/#contact" onClick={() => setIsOpen(false)}>Get a free quote <ArrowUpRight size={18} aria-hidden="true" /></a>
+                    </div>
+                </nav>
             </header>
-
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        variants={menuVariants}
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100vh',
-                            backgroundColor: 'var(--navy)',
-                            zIndex: 40,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            padding: '0 5%'
-                        }}
-                    >
-                        <nav style={{ display: 'flex', flexDirection: 'column', gap: '2vh' }}>
-                            {mobileLinks.map((link, i) => (
-                                <div key={link.name} style={{ overflow: 'hidden' }}>
-                                    {link.href.startsWith('/#') ? (
-                                        <motion.a
-                                            custom={i}
-                                            variants={linkVariants}
-                                            href={link.href}
-                                            onClick={() => setIsOpen(false)}
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'baseline',
-                                                gap: '2rem',
-                                                color: 'var(--white)',
-                                                fontFamily: 'var(--font-serif)',
-                                                fontSize: 'clamp(3rem, 8vw, 6rem)',
-                                                lineHeight: 1,
-                                                textDecoration: 'none'
-                                            }}
-                                        >
-                                            <span style={{
-                                                fontFamily: 'var(--font-sans)',
-                                                fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                                                color: 'var(--orange)',
-                                                fontWeight: 500,
-                                                transform: 'translateY(-2vh)'
-                                            }}>
-                                                {link.number}
-                                            </span>
-                                            <span style={{
-                                                transition: 'color 0.3s, margin-left 0.3s',
-                                                cursor: 'pointer'
-                                            }}
-                                                onMouseEnter={(e) => {
-                                                    e.currentTarget.style.color = 'var(--orange)';
-                                                    e.currentTarget.style.marginLeft = '20px';
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    e.currentTarget.style.color = 'var(--white)';
-                                                    e.currentTarget.style.marginLeft = '0px';
-                                                }}
-                                            >
-                                                {link.name}
-                                            </span>
-                                        </motion.a>
-                                    ) : (
-                                        <motion.div
-                                            custom={i}
-                                            variants={linkVariants}
-                                            style={{ display: 'flex' }}
-                                        >
-                                            <Link
-                                                to={link.href}
-                                        reloadDocument={link.href === "/guides" || link.href.startsWith("/partner-network")}
-                                                onClick={() => setIsOpen(false)}
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'baseline',
-                                                    gap: '2rem',
-                                                    color: 'var(--white)',
-                                                    fontFamily: 'var(--font-serif)',
-                                                    fontSize: 'clamp(3rem, 8vw, 6rem)',
-                                                    lineHeight: 1,
-                                                    textDecoration: 'none'
-                                                }}
-                                            >
-                                                <span style={{
-                                                    fontFamily: 'var(--font-sans)',
-                                                    fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-                                                    color: 'var(--orange)',
-                                                    fontWeight: 500,
-                                                    transform: 'translateY(-2vh)'
-                                                }}>
-                                                    {link.number}
-                                                </span>
-                                                <span style={{
-                                                    transition: 'color 0.3s, margin-left 0.3s',
-                                                    cursor: 'pointer'
-                                                }}
-                                                    onMouseEnter={(e) => {
-                                                        e.currentTarget.style.color = 'var(--orange)';
-                                                        e.currentTarget.style.marginLeft = '20px';
-                                                    }}
-                                                    onMouseLeave={(e) => {
-                                                        e.currentTarget.style.color = 'var(--white)';
-                                                        e.currentTarget.style.marginLeft = '0px';
-                                                    }}
-                                                >
-                                                    {link.name}
-                                                </span>
-                                            </Link>
-                                        </motion.div>
-                                    )}
-                                </div>
-                            ))}
-                        </nav>
-
-                        <motion.div
-                            custom={6}
-                            variants={linkVariants}
-                            style={{
-                                position: 'absolute',
-                                bottom: '10%',
-                                left: '5%',
-                                display: 'flex',
-                                gap: '4rem',
-                                color: 'var(--off-white)',
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: '0.9rem',
-                                letterSpacing: '1px',
-                                textTransform: 'uppercase'
-                            }}
-                        >
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Core Services</p>
-                                <p>{servicePages.map((service) => service.navLabel).join(', ')}</p>
-                            </div>
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Location</p>
-                                <p>San Angelo, Texas<br />Serving the Concho Valley</p>
-                            </div>
-                            <div>
-                                <p style={{ color: 'var(--orange)', marginBottom: '0.5rem' }}>Direct Line</p>
-                                <p><a href="tel:+13252732203" style={{ color: 'inherit' }}>(325) 273-2203</a></p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence >
+            <nav className="mcc-mobile-actions" aria-label="Quick contact">
+                <a href={`tel:${PHONE_E164}`}><Phone size={18} aria-hidden="true" />Call MCC</a>
+                <a href="/#contact">Request a quote<ArrowUpRight size={18} aria-hidden="true" /></a>
+            </nav>
         </>
     );
 };

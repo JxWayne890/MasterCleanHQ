@@ -19,10 +19,6 @@ const generalFaqs = [
     { question: 'What types of businesses do you serve?', answer: 'We serve offices, retail stores, banks, medical-adjacent spaces, warehouses, churches, event facilities, property management common areas, restaurants, and professional service firms across West Texas.' },
 ];
 
-const allServiceFaqs = servicePages.flatMap((service) =>
-    service.faqs.map((faq) => ({ ...faq, serviceLabel: service.navLabel }))
-);
-
 const FaqHubPage = () => {
     const allFaqs = [...generalFaqs, ...servicePages.flatMap((s) => s.faqs)];
 

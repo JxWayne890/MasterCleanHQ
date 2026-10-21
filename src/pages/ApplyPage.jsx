@@ -11,7 +11,7 @@ const MAX_RESUME_BYTES = 5 * 1024 * 1024;
 const RESUME_TYPES = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 const initialEmployer = () => ({ company: '', role_title: '', supervisor_name: '', supervisor_phone: '', start_date: '', end_date: '', duties: '', reason_for_leaving: '', permission_to_contact: '' });
 const initialReference = () => ({ full_name: '', relationship: '', phone: '', email: '', years_known: '', permission_to_contact: '' });
-const LanguageContext = createContext({ t: (value) => value });
+const LanguageContext = /*#__PURE__*/ createContext({ t: (value) => value });
 const ES = {
     'Personal info': 'Información personal', 'Availability & eligibility': 'Disponibilidad y elegibilidad', 'Cleaning experience': 'Experiencia de limpieza', 'Work history': 'Historial laboral', 'References': 'Referencias', 'Review & submit': 'Revisar y enviar',
     'Step 1 of 6': 'Paso 1 de 6', 'Step 2 of 6': 'Paso 2 de 6', 'Step 3 of 6': 'Paso 3 de 6', 'Step 4 of 6': 'Paso 4 de 6', 'Step 5 of 6': 'Paso 5 de 6', 'Step 6 of 6': 'Paso 6 de 6',

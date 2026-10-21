@@ -1,0 +1,716 @@
+.mcc-home-sections {
+    --mcc-home-navy: #02182b;
+    --mcc-home-orange: #ff5c00;
+    --mcc-home-paper: #f7f6f2;
+    color: var(--mcc-home-navy);
+}
+
+.mcc-home-wrap {
+    width: min(1280px, calc(100% - 112px));
+    margin: 0 auto;
+}
+
+.mcc-home-sections section[id] {
+    scroll-margin-top: 100px;
+}
+
+.mcc-home-sections h2 {
+    font-size: clamp(2.6rem, 4.7vw, 4.4rem);
+    line-height: 1.07;
+    letter-spacing: -1.8px;
+}
+
+.mcc-section-eyebrow {
+    margin-bottom: 1.15rem;
+    color: #b13f00;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 1.65px;
+    text-transform: uppercase;
+}
+
+.mcc-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.mcc-section-intro {
+    max-width: 315px;
+    margin-bottom: 0.2rem;
+    color: #5f666b;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.mcc-text-link {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 0.8rem;
+    min-height: 44px;
+    color: var(--mcc-home-navy);
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.mcc-text-link svg {
+    flex-shrink: 0;
+    transition: transform 180ms ease;
+}
+
+.mcc-text-link:hover svg {
+    transform: translate(2px, -2px);
+}
+
+.mcc-home-sections a:focus-visible,
+.mcc-home-sections summary:focus-visible {
+    outline: 3px solid var(--mcc-home-orange);
+    outline-offset: 6px;
+}
+
+.mcc-home-services {
+    padding: 110px 0 112px;
+    background: #fff;
+}
+
+.mcc-service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 42px;
+    margin-top: 58px;
+}
+
+.mcc-service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-top: 1px solid #d7dbdd;
+    padding-top: 25px;
+}
+
+.mcc-service-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 29px;
+}
+
+.mcc-service-top > svg {
+    color: #b13f00;
+}
+
+.mcc-service-top > span {
+    color: #7a8185;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.mcc-service-item h3 {
+    max-width: 300px;
+    margin-bottom: 16px;
+    font-size: clamp(1.8rem, 2.5vw, 2.35rem);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+}
+
+.mcc-service-item > p {
+    color: #5f666b;
+    font-size: 0.94rem;
+    line-height: 1.8;
+}
+
+.mcc-service-item > .mcc-service-tasks {
+    width: 100%;
+    margin-top: 23px;
+    margin-bottom: 23px;
+    color: #747a7e;
+    font-size: 0.72rem;
+    line-height: 1.9;
+}
+
+.mcc-service-item > .mcc-text-link {
+    margin-top: auto;
+    border-bottom: 1px solid #c2c8cc;
+}
+
+.mcc-home-process {
+    padding: 106px 0 109px;
+    background: var(--mcc-home-navy);
+    color: #fff;
+}
+
+.mcc-process-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: clamp(55px, 8vw, 128px);
+    align-items: center;
+}
+
+.mcc-home-process .mcc-section-eyebrow {
+    color: #ff9b61;
+}
+
+.mcc-process-intro > p:not(.mcc-section-eyebrow) {
+    max-width: 415px;
+    margin-top: 27px;
+    color: #b6c0c8;
+    font-size: 0.97rem;
+    line-height: 1.85;
+}
+
+.mcc-call-link {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    max-width: 415px;
+    margin-top: 32px;
+    border-top: 1px solid #294051;
+    padding: 25px 0 4px;
+}
+
+.mcc-call-icon {
+    display: grid;
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    place-items: center;
+    border: 1px solid #587080;
+    border-radius: 50%;
+    color: #ff9b61;
+}
+
+.mcc-call-link > span:not(.mcc-call-icon) {
+    color: #b6c0c8;
+    font-size: 0.73rem;
+    line-height: 1.65;
+}
+
+.mcc-call-link strong {
+    display: block;
+    color: #fff;
+    font-size: 1.32rem;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+}
+
+.mcc-call-link > svg {
+    margin-left: auto;
+    color: #ff9b61;
+}
+
+.mcc-process-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mcc-process-steps li {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 23px;
+    border-top: 1px solid #294051;
+    padding: 31px 0;
+}
+
+.mcc-process-steps li:last-child {
+    padding-bottom: 0;
+}
+
+.mcc-step-number {
+    padding-top: 6px;
+    color: #ff9b61;
+    font-size: 0.73rem;
+    letter-spacing: 1px;
+}
+
+.mcc-process-steps h3 {
+    margin-bottom: 12px;
+    font-size: clamp(1.55rem, 2.2vw, 2rem);
+    line-height: 1.2;
+}
+
+.mcc-process-steps p {
+    max-width: 360px;
+    color: #b6c0c8;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.mcc-home-coverage {
+    padding: 112px 0 75px;
+    background: var(--mcc-home-paper);
+}
+
+.mcc-coverage-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: clamp(55px, 9vw, 135px);
+    align-items: center;
+}
+
+.mcc-coverage-copy > p:not(.mcc-section-eyebrow) {
+    max-width: 440px;
+    margin-top: 23px;
+    color: #5b6368;
+    font-size: 0.97rem;
+    line-height: 1.8;
+}
+
+.mcc-coverage-copy > .mcc-text-link {
+    margin-top: 24px;
+}
+
+.mcc-coverage-place {
+    border: 1px solid #d7d9d5;
+    padding: 40px;
+    background: #eeeee8;
+}
+
+.mcc-place-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #626a6c;
+    font-size: 0.66rem;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.mcc-place-label svg {
+    color: #b13f00;
+}
+
+.mcc-place-name {
+    margin-top: 35px;
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 4vw, 4.3rem);
+    line-height: 1.03;
+    letter-spacing: -1.5px;
+}
+
+.mcc-place-name span {
+    display: block;
+    margin-top: 9px;
+    color: #686f6b;
+    font-size: 1.6rem;
+    letter-spacing: 0;
+}
+
+.mcc-place-rule {
+    position: relative;
+    height: 1px;
+    margin: 34px 0 26px;
+    background: #ccd0c9;
+}
+
+.mcc-place-rule span {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--mcc-home-orange);
+}
+
+.mcc-place-caption {
+    color: #5b6360;
+    font-size: 0.86rem;
+    line-height: 1.8;
+}
+
+.mcc-coverage-place > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    margin-top: 19px;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.mcc-network-note {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(210px, 0.36fr);
+    gap: 50px;
+    align-items: center;
+    margin-top: 85px;
+    border-top: 1px solid #d7d9d5;
+    padding-top: 34px;
+}
+
+.mcc-network-note .mcc-section-eyebrow {
+    margin-bottom: 8px;
+    font-size: 0.61rem;
+}
+
+.mcc-network-note h3 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+.mcc-network-note h3 + p {
+    max-width: 620px;
+    margin-top: 11px;
+    color: #626a6c;
+    font-size: 0.82rem;
+    line-height: 1.8;
+}
+
+.mcc-network-links {
+    display: grid;
+    gap: 5px;
+}
+
+.mcc-network-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 45px;
+    border-bottom: 1px solid #d7d9d5;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.mcc-home-guides {
+    padding: 105px 0 106px;
+    background: #fff;
+}
+
+.mcc-home-guides .mcc-section-heading > a {
+    align-self: flex-end;
+}
+
+.mcc-guide-list {
+    margin-top: 49px;
+    border-bottom: 1px solid #d7dbdd;
+}
+
+.mcc-guide-item {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 47px;
+    gap: 25px;
+    align-items: center;
+    border-top: 1px solid #d7dbdd;
+    padding: 28px 0;
+}
+
+.mcc-guide-number {
+    color: #7a8185;
+    font-size: 0.75rem;
+}
+
+.mcc-guide-category {
+    color: #a23a00;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+
+.mcc-guide-item h3 {
+    margin: 8px 0 6px;
+    font-size: clamp(1.45rem, 2.5vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+}
+
+.mcc-guide-item p {
+    color: #626a6c;
+    font-size: 0.84rem;
+    line-height: 1.75;
+}
+
+.mcc-guide-arrow {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 1px solid #d7dbdd;
+    border-radius: 50%;
+    transition: background 180ms ease, border-color 180ms ease;
+}
+
+.mcc-guide-item:hover .mcc-guide-arrow {
+    border-color: var(--mcc-home-navy);
+    background: var(--mcc-home-navy);
+    color: #fff;
+}
+
+.mcc-home-faq {
+    border-top: 1px solid #ebecea;
+    padding: 88px 0 103px;
+    background: var(--mcc-home-paper);
+}
+
+.mcc-faq-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(45px, 7vw, 110px);
+    align-items: start;
+}
+
+.mcc-faq-intro h2 {
+    font-size: clamp(2.4rem, 4vw, 3.75rem);
+}
+
+.mcc-faq-intro > p:not(.mcc-section-eyebrow) {
+    max-width: 300px;
+    margin-top: 25px;
+    color: #626a6c;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.mcc-faq-intro > .mcc-text-link {
+    margin-top: 15px;
+    font-size: 1rem;
+}
+
+.mcc-faq-item {
+    border-top: 1px solid #d7d9d5;
+}
+
+.mcc-faq-item:last-child {
+    border-bottom: 1px solid #d7d9d5;
+}
+
+.mcc-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    min-height: 80px;
+    padding: 22px 0;
+    font-size: 0.94rem;
+    font-weight: 500;
+    line-height: 1.6;
+    list-style: none;
+    cursor: pointer;
+}
+
+.mcc-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.mcc-faq-item summary > span {
+    position: relative;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.mcc-faq-item summary > span::before,
+.mcc-faq-item summary > span::after {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 14px;
+    height: 1px;
+    background: currentColor;
+    content: '';
+}
+
+.mcc-faq-item summary > span::after {
+    transform: rotate(90deg);
+}
+
+.mcc-faq-item[open] summary > span::after {
+    display: none;
+}
+
+.mcc-faq-item > p {
+    padding: 0 32px 25px 0;
+    color: #626a6c;
+    font-size: 0.88rem;
+    line-height: 1.85;
+}
+
+@media (min-width: 1500px) {
+    .mcc-home-wrap {
+        width: min(1280px, 88%);
+    }
+}
+
+@media (max-width: 1050px) {
+    .mcc-home-wrap {
+        width: calc(100% - 72px);
+    }
+
+    .mcc-service-grid {
+        gap: 27px;
+    }
+
+    .mcc-service-item h3 {
+        font-size: 1.9rem;
+    }
+
+    .mcc-coverage-place {
+        padding: 30px;
+    }
+
+    .mcc-coverage-layout,
+    .mcc-process-layout {
+        gap: 55px;
+    }
+
+    .mcc-process-steps li {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (max-width: 760px) {
+    .mcc-home-wrap {
+        width: calc(100% - 44px);
+    }
+
+    .mcc-home-sections h2 {
+        font-size: clamp(2.4rem, 8vw, 3.7rem);
+        letter-spacing: -1px;
+    }
+
+    .mcc-home-services,
+    .mcc-home-process,
+    .mcc-home-coverage,
+    .mcc-home-guides,
+    .mcc-home-faq {
+        padding: 73px 0;
+    }
+
+    .mcc-section-heading {
+        display: block;
+    }
+
+    .mcc-section-intro {
+        max-width: 430px;
+        margin-top: 22px;
+    }
+
+    .mcc-service-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        margin-top: 37px;
+    }
+
+    .mcc-service-item {
+        padding-top: 22px;
+    }
+
+    .mcc-service-top {
+        margin-bottom: 20px;
+    }
+
+    .mcc-service-item h3 {
+        max-width: none;
+        font-size: 2rem;
+    }
+
+    .mcc-service-item > p {
+        max-width: 540px;
+    }
+
+    .mcc-service-item > .mcc-service-tasks {
+        margin-top: 13px;
+        margin-bottom: 10px;
+    }
+
+    .mcc-process-layout,
+    .mcc-coverage-layout,
+    .mcc-faq-layout {
+        grid-template-columns: 1fr;
+        gap: 43px;
+    }
+
+    .mcc-process-intro > p:not(.mcc-section-eyebrow),
+    .mcc-call-link,
+    .mcc-process-steps p,
+    .mcc-coverage-copy > p:not(.mcc-section-eyebrow) {
+        max-width: 540px;
+    }
+
+    .mcc-process-steps li {
+        grid-template-columns: 33px minmax(0, 1fr);
+        gap: 14px;
+        padding: 26px 0;
+    }
+
+    .mcc-process-steps h3 {
+        font-size: 1.7rem;
+    }
+
+    .mcc-coverage-place {
+        padding: 30px;
+    }
+
+    .mcc-place-name {
+        font-size: 3.8rem;
+    }
+
+    .mcc-network-note {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 48px;
+    }
+
+    .mcc-network-note h3 {
+        font-size: 1.7rem;
+    }
+
+    .mcc-home-guides .mcc-section-heading > a {
+        margin-top: 17px;
+    }
+
+    .mcc-guide-list {
+        margin-top: 26px;
+    }
+
+    .mcc-guide-item {
+        grid-template-columns: minmax(0, 1fr) 35px;
+        gap: 12px;
+        padding: 24px 0;
+    }
+
+    .mcc-guide-number {
+        display: none;
+    }
+
+    .mcc-guide-item h3 {
+        margin-top: 9px;
+        margin-bottom: 9px;
+        font-size: 1.6rem;
+    }
+
+    .mcc-guide-arrow {
+        width: 34px;
+        height: 34px;
+    }
+
+    .mcc-guide-arrow > svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .mcc-faq-intro > p:not(.mcc-section-eyebrow) {
+        max-width: 430px;
+    }
+
+    .mcc-faq-item summary {
+        min-height: 74px;
+        font-size: 0.91rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mcc-home-sections *,
+    .mcc-home-sections *::before,
+    .mcc-home-sections *::after {
+        transition: none;
+    }
+}

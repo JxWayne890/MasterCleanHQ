@@ -1,0 +1,23 @@
+{
+  "created": "2026-10-21",
+  "tool": "image_gen.imagegen",
+  "original": "/Users/john/.codex/generated_images/01a15ed3-915a-7ea1-9715-eb99bd7852a7/exec-a2e5cfba-6d8f-4a3a-bcf8-9868e7510598.png",
+  "purpose": "Conceptual commercial space illustration for homepage hero",
+  "disclosure": "Commercial space illustration is visible on the hero. This is not an MCC client site photograph.",
+  "sizes": {
+    "640": [
+      640,
+      800
+    ],
+    "960": [
+      960,
+      1200
+    ],
+    "1280": [
+      1280,
+      1599
+    ]
+  },
+  "delivery": "Static WebP variants, no runtime image optimization",
+  "logos": "Official originals from MCC-logo-research-20261021, Housley Group logo for Housley FLP confirmed by John."
+}

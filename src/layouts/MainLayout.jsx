@@ -8,7 +8,7 @@ const MainLayout = () => {
         <div className="app-container">
             <ScrollToTop />
             <Navbar />
-            <main style={{ minHeight: '100vh' }}>
+            <main id="main-content" tabIndex="-1" style={{ minHeight: '100vh' }}>
                 <Outlet />
             </main>
             <Footer />

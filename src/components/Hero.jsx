@@ -1,160 +1,62 @@
-import { motion } from 'framer-motion';
-import { ENABLE_MOTION } from '../lib/motion';
+import { ArrowDown, ArrowUpRight, Check, Phone } from 'lucide-react';
+import { PHONE_E164 } from '../config/site';
+import './home/home.css';
 
-const Hero = () => {
-    const container = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.4
-            }
-        }
-    };
+const clients = [
+    { name: 'Housley FLP', note: 'Housley Group', image: '/img/clients/housley-group.svg', width: 288, height: 90, className: 'mcc-client-housley' },
+    { name: 'Rowland McCrory Construction', image: '/img/clients/rowland-mccrory.png', width: 320, height: 119, className: 'mcc-client-rowland' },
+    { name: 'Veribest ISD', image: '/img/clients/veribest-isd.png', width: 136, height: 136, className: 'mcc-client-veribest' },
+    { name: 'Miles ISD', image: '/img/clients/miles-isd.png', width: 288, height: 190, className: 'mcc-client-miles' },
+];
 
-    const item = {
-        hidden: { y: 150, opacity: 0 },
-        show: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
-    };
-
+export function ClientTrustBar() {
     return (
-        <section
-            id="home"
-            style={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                position: 'relative',
-                backgroundColor: 'var(--navy)',
-                color: 'var(--white)',
-                overflow: 'hidden',
-                paddingTop: '80px'
-            }}
-        >
-            {/* Background Graphic Element */}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '50vw',
-                height: '100%',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0% 100%)',
-                zIndex: 0
-            }} />
-
-            <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-                <motion.div
-                    variants={container}
-                    initial={ENABLE_MOTION ? 'hidden' : false}
-                    animate={ENABLE_MOTION ? 'show' : undefined}
-                    style={{ maxWidth: '1000px' }}
-                >
-                    <div style={{ overflow: 'hidden', marginBottom: '1.5rem' }}>
-                        <motion.p
-                            variants={item}
-                            style={{
-                                fontFamily: 'var(--font-sans)',
-                                fontWeight: 600,
-                                color: 'var(--orange)',
-                                letterSpacing: '2px',
-                                textTransform: 'uppercase',
-                                fontSize: '0.9rem',
-                                display: 'inline-block',
-                                borderBottom: '1px solid var(--orange)',
-                                paddingBottom: '4px'
-                            }}
-                        >
-                            Serving San Angelo, Abilene, Lubbock, Midland, Odessa & All of West Texas
-                        </motion.p>
-                    </div>
-
-                    <div style={{ overflow: 'hidden' }}>
-                        <motion.h1
-                            variants={item}
-                            style={{
-                                fontSize: 'clamp(3rem, 7vw, 6.5rem)',
-                                lineHeight: 1.05,
-                                color: 'var(--white)'
-                            }}
-                        >
-                            West Texas Commercial <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Cleaning</span> Experts.
-                        </motion.h1>
-                    </div>
-
-                    {/* AEO Answer Nugget — 40-60 word direct answer block */}
-                    <div style={{ overflow: 'hidden', marginTop: '2.5rem' }}>
-                        <motion.p
-                            variants={item}
-                            style={{
-                                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                                color: 'rgba(255, 255, 255, 0.85)',
-                                maxWidth: '650px',
-                                lineHeight: 1.6,
-                                fontFamily: 'var(--font-sans)',
-                                fontWeight: 400
-                            }}
-                        >
-                            Master Commercial Clean provides reliable, industrial-grade commercial cleaning and janitorial services for businesses across West Texas — including San Angelo, Abilene, Lubbock, Midland, and Odessa. We specialize in office cleaning, post-construction cleanup, and specialized sanitation with a 100% satisfaction guarantee.
-                        </motion.p>
-                    </div>
-
-                    <div style={{ overflow: 'hidden', marginTop: '4rem' }}>
-                        <motion.div variants={item} style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                            <a
-                                href="#contact"
-                                style={{
-                                    backgroundColor: 'var(--orange)',
-                                    color: 'var(--white)',
-                                    padding: '1.25rem 3rem',
-                                    fontFamily: 'var(--font-sans)',
-                                    fontWeight: 600,
-                                    fontSize: '1rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                    display: 'inline-block',
-                                    transition: 'background-color 0.3s, transform 0.3s'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#cc4900';
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = 'var(--orange)';
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                }}
-                            >
-                                Get a Free Estimate
-                            </a>
-
-                            <a
-                                href="tel:+13252732203"
-                                style={{
-                                    color: 'var(--white)',
-                                    fontFamily: 'var(--font-sans)',
-                                    fontWeight: 500,
-                                    fontSize: '1rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '10px',
-                                    borderBottom: '1px solid rgba(255,255,255,0.3)',
-                                    paddingBottom: '4px',
-                                    transition: 'border-color 0.3s'
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.borderBottomColor = 'var(--orange)'}
-                                onMouseLeave={(e) => e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
-                            >
-                                Call (325) 273-2203 <span>&rarr;</span>
-                            </a>
-                        </motion.div>
-                    </div>
-                </motion.div>
+        <section className="mcc-client-proof" aria-labelledby="mcc-client-title">
+            <div className="mcc-client-proof-inner">
+                <div className="mcc-client-proof-title"><span className="mcc-proof-line" aria-hidden="true" /><h2 id="mcc-client-title">Organizations<br />we’ve worked with.</h2></div>
+                <ul className="mcc-client-list">
+                    {clients.map((client) => (
+                        <li key={client.name} className={client.className}>
+                            <img src={client.image} width={client.width} height={client.height} alt={client.note ? client.note + ' logo, representing Housley FLP' : client.name + ' logo'} decoding="async" />
+                            <span>{client.name}</span>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </section>
     );
-};
+}
 
-export default Hero;
+export default function Hero() {
+    const trackCall = () => {
+        if (typeof gtag === 'function') gtag('event', 'click_to_call', { event_category: 'contact', event_label: 'homepage_hero' });
+    };
+    return (
+        <section className="mcc-home-hero" aria-labelledby="mcc-hero-title">
+            <div className="mcc-hero-layout">
+                <div className="mcc-hero-copy">
+                    <p className="mcc-hero-location"><span aria-hidden="true" />San Angelo &amp; West Texas</p>
+                    <p className="mcc-hero-service">Commercial cleaning, with a local point of contact.</p>
+                    <h1 id="mcc-hero-title">A cleaner building.<br /><em>Less on your plate.</em></h1>
+                    <p className="mcc-hero-description">Cleaning for offices, schools, churches, and commercial properties. Tell us about your space. We’ll work through the scope with you.</p>
+                    <div className="mcc-hero-actions">
+                        <a className="mcc-hero-call" href={'tel:' + PHONE_E164} onClick={trackCall}><Phone size={19} strokeWidth={1.7} aria-hidden="true" /><span>Call (325) 273 2203</span><ArrowUpRight size={20} aria-hidden="true" /></a>
+                        <a className="mcc-hero-quote" href="#contact">Get a free quote<ArrowUpRight size={19} aria-hidden="true" /></a>
+                    </div>
+                    <p className="mcc-hero-reassurance">A few building details. A useful conversation. A clear next step.</p>
+                    <ul className="mcc-hero-service-list" aria-label="Cleaning services">
+                        <li><Check size={15} aria-hidden="true" />Recurring cleaning</li>
+                        <li><Check size={15} aria-hidden="true" />Project cleanup</li>
+                        <li><Check size={15} aria-hidden="true" />Floor care</li>
+                    </ul>
+                </div>
+                <figure className="mcc-hero-visual">
+                    <img src="/img/mcc-commercial-lobby-1280.webp" srcSet="/img/mcc-commercial-lobby-640.webp 640w, /img/mcc-commercial-lobby-960.webp 960w, /img/mcc-commercial-lobby-1280.webp 1280w" sizes="(max-width: 760px) 100vw, (max-width: 1080px) 45vw, 47vw" width="1280" height="1600" alt="Illustrated commercial lobby with limestone walls, a clean floor, and a neatly organized cleaning cart." fetchpriority="high" decoding="async" />
+                    <div className="mcc-hero-image-note"><span aria-hidden="true" className="mcc-hero-note-mark">M.</span><p>Spaces people use.<br /><strong>Care people notice.</strong></p></div>
+                    <figcaption>Commercial space illustration</figcaption>
+                </figure>
+            </div>
+            <a className="mcc-hero-explore" href="#services"><span>Find the right service for your building</span><ArrowDown size={17} aria-hidden="true" /></a>
+        </section>
+    );
+}

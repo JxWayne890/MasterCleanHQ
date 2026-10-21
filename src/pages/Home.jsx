@@ -1,49 +1,24 @@
-import { useEffect } from 'react';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import ServicesAccordion from '../components/Services';
-import ServiceAreas from '../components/ServiceAreas';
-import Reviews from '../components/Reviews';
-import KeyTakeaways from '../components/KeyTakeaways';
+import Hero, { ClientTrustBar } from '../components/Hero';
+import HomeSections, { homeFaqs } from '../components/home/HomeSections';
 import Contact from '../components/Contact';
 import SEO from '../components/SEO';
-import { buildBaseSchemas, buildBreadcrumbSchema, buildServiceSchema, buildWebPageSchema } from '../seo/schemas';
-import { servicePages } from '../data/servicePages';
+import { SITE_URL } from '../config/site';
+import { buildBaseSchemas, buildFaqSchema, buildWebPageSchema } from '../seo/schemas';
 
-const Home = () => {
-    useEffect(() => {
-        // Scroll to top when mounting the home page
-        if (typeof window !== 'undefined') {
-            window.scrollTo(0, 0);
-        }
-    }, []);
-
+export default function Home() {
+    const title = 'Commercial Cleaning in San Angelo & West Texas | Master Commercial Clean';
+    const description = 'Commercial cleaning for offices, schools, churches and commercial properties in San Angelo and West Texas. Call (325) 273 2203 to discuss your building and get a free quote.';
     return (
-        <>
-            <SEO
-                title="Commercial Cleaning Services in West Texas | Master Commercial Clean"
-                description="Commercial cleaning, post-construction cleanup, and specialized janitorial services across San Angelo, Abilene, Lubbock, Midland, Odessa, and West Texas."
-                path="/"
-                schemas={[
-                    ...buildBaseSchemas(),
-                    buildWebPageSchema({
-                        path: '/',
-                        title: 'Commercial Cleaning Services in West Texas | Master Commercial Clean',
-                        description: 'Commercial cleaning, post-construction cleanup, and specialized janitorial services across West Texas.',
-                    }),
-                    buildBreadcrumbSchema([{ name: 'Home', path: '/' }]),
-                    ...servicePages.map((service) => buildServiceSchema(service)),
-                ]}
-            />
+        <div className="mcc-home-page">
+            <SEO title={title} description={description} path="/" image={SITE_URL + '/img/mcc-home-social.png'} schemas={[
+                ...buildBaseSchemas(),
+                buildWebPageSchema({ path: '/', title, description }),
+                buildFaqSchema(homeFaqs, '/'),
+            ]} />
             <Hero />
-            <About />
-            <ServicesAccordion />
-            <ServiceAreas />
-            <Reviews />
-            <KeyTakeaways />
+            <ClientTrustBar />
+            <HomeSections />
             <Contact />
-        </>
+        </div>
     );
-};
-
-export default Home;
+}

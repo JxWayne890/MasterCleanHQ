@@ -16,6 +16,7 @@ export function buildBaseSchemas() {
             '@type': 'Organization',
             '@id': organizationId,
             name: SITE_NAME,
+            legalName: 'Master Clean HQ LLC',
             url: SITE_URL,
             logo: `${SITE_URL}/img/logo.png`,
             telephone: PHONE_E164,
@@ -29,12 +30,10 @@ export function buildBaseSchemas() {
             url: SITE_URL,
             image: `${SITE_URL}/img/logo.png`,
             telephone: PHONE_E164,
-            priceRange: '$$',
             address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'San Angelo',
                 addressRegion: 'TX',
-                postalCode: '76901',
                 addressCountry: 'US',
             },
             areaServed: [

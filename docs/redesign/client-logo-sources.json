@@ -1,0 +1,52 @@
+{
+  "retrieved": "2026-10-21",
+  "status": "Four official originals used in the authorized homepage preview. Original files unmodified.",
+  "assets": [
+    {
+      "client": "Housley FLP",
+      "displayBrand": "Housley Group",
+      "filename": "housley-group-dark.svg",
+      "sourcePage": "https://www.housleygroup.com/",
+      "sourceAsset": "https://cdn.prod.website-files.com/6387ac05d0ba6e6a30988433/6387b8303f80a9ba944cebea_Housley%20Logo.Dark.svg",
+      "note": "John confirmed the FLP uses the Housley Group logo.",
+      "bytes": 3323,
+      "sha256": "ab1ee928d7893d8b6a01a637790c34475c87c7aabee64c57822e65dc13e701be"
+    },
+    {
+      "client": "Rowland McCrory Construction",
+      "filename": "rowland-mccrory.png",
+      "sourcePage": "https://www.rowlandmccrory.com/",
+      "sourceAsset": "https://www.rowlandmccrory.com/images/rowland-mccrory.png",
+      "note": "Original logo from official website header.",
+      "bytes": 32498,
+      "sha256": "8c33d001f9743c8060d91c7ef10991d0c57183ea9065349c4ca32a24e2d1c9ed",
+      "width": 320,
+      "height": 119,
+      "mode": "RGB"
+    },
+    {
+      "client": "Veribest ISD",
+      "filename": "veribest-header.png",
+      "sourcePage": "https://www.veribestisd.net/",
+      "sourceAsset": "https://cmsv2-assets.apptegy.net/uploads/6057/logo/7144/Veribest.png",
+      "note": "Official transparent header logo. Strong identity match to spoken Very Best ISD; spelling inferred from local district.",
+      "bytes": 14820,
+      "sha256": "a815b9ca028bdcbd57972856c83e37e462ef4ee2c85b6125de667670e1fc36bd",
+      "width": 136,
+      "height": 136,
+      "mode": "RGBA"
+    },
+    {
+      "client": "Miles ISD",
+      "filename": "miles-header.png",
+      "sourcePage": "https://www.milesisd.net/",
+      "sourceAsset": "https://cmsv2-assets.apptegy.net/uploads/5087/logo/6868/Bulldog_Miles_color.png",
+      "note": "Official tightly framed transparent header logo.",
+      "bytes": 12349,
+      "sha256": "818225654d279995cb8b7312357a12d0e2c1563e5f10c324c7235afe81a324f4",
+      "width": 288,
+      "height": 190,
+      "mode": "RGBA"
+    }
+  ]
+}

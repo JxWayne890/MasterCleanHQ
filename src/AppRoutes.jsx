@@ -1,116 +1,65 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
-import FaqHubPage from './pages/FaqHubPage';
-import ServicePage from './pages/ServicePage';
-import ServicesIndex from './pages/ServicesIndex';
-import ServiceAreasIndex from './pages/ServiceAreasIndex';
-import ServiceAreaPage from './pages/ServiceAreaPage';
-import ComboPage from './pages/ComboPage';
-import BlogIndex from './pages/BlogIndex';
-import BlogPostPage from './pages/BlogPostPage';
-import GuidesIndex from './pages/GuidesIndex';
-import CostGuidePage from './pages/CostGuidePage';
-import AboutPage from './pages/AboutPage';
-import AboutProcessPage from './pages/AboutProcessPage';
-import WhyChooseUsPage from './pages/WhyChooseUsPage';
-import ReviewsPage from './pages/ReviewsPage';
-import ContactPage from './pages/ContactPage';
-import ApplyPage from './pages/ApplyPage';
-import { servicePages } from './data/servicePages';
-import { locations } from './data/locations';
-import { blogPosts } from './data/blogPosts';
-import { costGuides } from './data/costGuides';
+import { getPage } from './routing/pageRegistry';
 
-const AppRoutes = () => {
+const FaqHubPage = getPage('FaqHubPage');
+const ServicePage = getPage('ServicePage');
+const ServicesIndex = getPage('ServicesIndex');
+const ServiceAreasIndex = getPage('ServiceAreasIndex');
+const ServiceAreaPage = getPage('ServiceAreaPage');
+const ComboPage = getPage('ComboPage');
+const BlogIndex = getPage('BlogIndex');
+const BlogPostPage = getPage('BlogPostPage');
+const GuidesIndex = getPage('GuidesIndex');
+const CostGuidePage = getPage('CostGuidePage');
+const AboutPage = getPage('AboutPage');
+const AboutProcessPage = getPage('AboutProcessPage');
+const WhyChooseUsPage = getPage('WhyChooseUsPage');
+const ReviewsPage = getPage('ReviewsPage');
+const ContactPage = getPage('ContactPage');
+const ApplyPage = getPage('ApplyPage');
+
+function ParamPage({ component: Component }) {
+    return <Component {...useParams()} />;
+}
+
+function PageBoundary({ children }) {
     return (
-        <Routes>
-            <Route element={<MainLayout />}>
-                {/* Home */}
-                <Route path="/" element={<Home />} />
-
-                {/* Services */}
-                <Route path="/services" element={<ServicesIndex />} />
-                {servicePages.map((service) => (
-                    <Route
-                        key={service.slug}
-                        path={`/${service.slug}`}
-                        element={<ServicePage service={service} />}
-                    />
-                ))}
-
-                {/* Service Areas */}
-                <Route path="/service-areas" element={<ServiceAreasIndex />} />
-                {locations.map((location) => (
-                    <Route
-                        key={location.slug}
-                        path={`/service-areas/${location.slug}`}
-                        element={<ServiceAreaPage slug={location.slug} />}
-                    />
-                ))}
-
-                {/* Service + City Combo Pages */}
-                {locations.map((location) =>
-                    servicePages.map((service) => (
-                        <Route
-                            key={`${location.slug}-${service.slug}`}
-                            path={`/service-areas/${location.slug}/${service.slug}`}
-                            element={<ComboPage citySlug={location.slug} serviceSlug={service.slug} />}
-                        />
-                    ))
-                )}
-
-                {/* Blog */}
-                <Route path="/blog" element={<BlogIndex />} />
-                {blogPosts.map((post) => (
-                    <Route
-                        key={post.slug}
-                        path={`/blog/${post.slug}`}
-                        element={<BlogPostPage slug={post.slug} />}
-                    />
-                ))}
-
-                {/* Cost Guides */}
-                <Route path="/guides" element={<GuidesIndex />} />
-                {costGuides.map((guide) => (
-                    <Route
-                        key={guide.slug}
-                        path={`/guides/${guide.slug}`}
-                        element={<CostGuidePage guideSlug={guide.slug} />}
-                    />
-                ))}
-                {/* City-specific cost guides for hub cities */}
-                {costGuides.map((guide) =>
-                    locations.filter((l) => l.isHub).map((location) => (
-                        <Route
-                            key={`${guide.slug}-${location.slug}`}
-                            path={`/guides/${guide.slug}/${location.slug}`}
-                            element={<CostGuidePage guideSlug={guide.slug} citySlug={location.slug} location={location} />}
-                        />
-                    ))
-                )}
-
-                {/* About */}
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/about/process" element={<AboutProcessPage />} />
-                <Route path="/about/why-choose-us" element={<WhyChooseUsPage />} />
-
-                {/* Reviews */}
-                <Route path="/reviews" element={<ReviewsPage />} />
-
-                {/* FAQ */}
-                <Route path="/faq" element={<FaqHubPage />} />
-
-                {/* Contact */}
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/apply" element={<ApplyPage />} />
-                <Route path="/apply/start" element={<ApplyPage />} />
-
-                {/* Catch-all */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-        </Routes>
+        <Suspense fallback={<div className="container" role="status" aria-live="polite" style={{ padding: '10rem 0 6rem' }}>Loading page…</div>}>
+            {children}
+        </Suspense>
     );
-};
+}
+
+const AppRoutes = () => (
+    <Routes>
+        <Route element={<MainLayout />}>
+            <Route path="/" element={<PageBoundary><Home /></PageBoundary>} />
+            <Route path="/services" element={<PageBoundary><ServicesIndex /></PageBoundary>} />
+            <Route path="/commercial-cleaning" element={<PageBoundary><ServicePage serviceSlug="commercial-cleaning" /></PageBoundary>} />
+            <Route path="/post-construction-cleaning" element={<PageBoundary><ServicePage serviceSlug="post-construction-cleaning" /></PageBoundary>} />
+            <Route path="/specialized-cleaning" element={<PageBoundary><ServicePage serviceSlug="specialized-cleaning" /></PageBoundary>} />
+            <Route path="/service-areas" element={<PageBoundary><ServiceAreasIndex /></PageBoundary>} />
+            <Route path="/service-areas/:slug" element={<PageBoundary><ParamPage component={ServiceAreaPage} /></PageBoundary>} />
+            <Route path="/service-areas/:citySlug/:serviceSlug" element={<PageBoundary><ParamPage component={ComboPage} /></PageBoundary>} />
+            <Route path="/blog" element={<PageBoundary><BlogIndex /></PageBoundary>} />
+            <Route path="/blog/:slug" element={<PageBoundary><ParamPage component={BlogPostPage} /></PageBoundary>} />
+            <Route path="/guides" element={<PageBoundary><GuidesIndex /></PageBoundary>} />
+            <Route path="/guides/:guideSlug" element={<PageBoundary><ParamPage component={CostGuidePage} /></PageBoundary>} />
+            <Route path="/guides/:guideSlug/:citySlug" element={<PageBoundary><ParamPage component={CostGuidePage} /></PageBoundary>} />
+            <Route path="/about" element={<PageBoundary><AboutPage /></PageBoundary>} />
+            <Route path="/about/process" element={<PageBoundary><AboutProcessPage /></PageBoundary>} />
+            <Route path="/about/why-choose-us" element={<PageBoundary><WhyChooseUsPage /></PageBoundary>} />
+            <Route path="/reviews" element={<PageBoundary><ReviewsPage /></PageBoundary>} />
+            <Route path="/faq" element={<PageBoundary><FaqHubPage /></PageBoundary>} />
+            <Route path="/contact" element={<PageBoundary><ContactPage /></PageBoundary>} />
+            <Route path="/apply" element={<PageBoundary><ApplyPage /></PageBoundary>} />
+            <Route path="/apply/start" element={<PageBoundary><ApplyPage /></PageBoundary>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+    </Routes>
+);
 
 export default AppRoutes;
