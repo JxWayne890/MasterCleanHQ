@@ -4,12 +4,12 @@ John requested a Groku owned cloud routine that writes guides and publishes thro
 
 ## Permission and launch status
 
-On October 21, 2026, John authorized automatic future guide publication after checks pass, once the initial guides section is explicitly approved and live. He then explicitly approved the initial production release. Commit `4e1aa7563904c963cc62fd556f6a95fc525b0625` went live through the existing Vercel Git integration, and public verification confirmed all five guides, catalog, metadata, sitemap, robots, quote destination and partner pages. The future guide permission is active. Remote Groku publication and unattended execution have not yet been verified.
+On October 21, 2026, John authorized automatic future guide publication after checks pass, once the initial guides section is explicitly approved and live. He then explicitly approved the initial production release. Commit `4e1aa7563904c963cc62fd556f6a95fc525b0625` went live through the existing Vercel Git integration, and public verification confirmed all five guides, catalog, metadata, sitemap, robots, quote destination and partner pages. The future guide permission is active. Both gates are now enabled. The hosted connector, an actual Groku publication and an unattended cloud publication passed. Seven guides are live.
 
-The initial release was verified with both gates disabled. Activate them in this order:
+The initial release was verified with both gates disabled. Activation was then completed in this order:
 
-* Set Production server variable `MCC_GUIDES_PUBLISHING_ENABLED` to `true`, then deploy and verify the reviewed production source. Existing deployments do not receive environment edits.
-* Set GitHub repository variable `MCC_GUIDES_LAUNCH_APPROVED` to `true` only after that production build is verified. The worker cannot commit while this final gate is disabled.
+* The Production server variable `MCC_GUIDES_PUBLISHING_ENABLED` was set to `true`, then source `597659b674f0a713a8209c09290eda30d7ba3a5a` was deployed and verified before the GitHub gate changed. Existing deployments do not receive environment edits.
+* GitHub repository variable `MCC_GUIDES_LAUNCH_APPROVED` was set to `true` after that production build passed public checks. The worker cannot commit while this final gate is disabled.
 
 The publisher also verifies trusted production source and the live guides section. The live publication manifest commit must match production `main` before a new guide starts. A feature release that is missing or still deploying cannot be bypassed by enabling the flags.
 
@@ -20,7 +20,8 @@ The publisher also verifies trusted production source and the live guides sectio
 3. The server validates the payload and dispatches only `.github/workflows/mcc-guide-publish.yml` on `main` in `JxWayne890/MasterCleanHQ`.
 4. The trusted worker preserves the draft, checks current production, runs the guide checks, build, lint and tests, then commits only one new `content/guides/SLUG.md` file. A changed base or unrelated diff fails safely.
 5. The existing Vercel Git integration builds that commit. The static generator creates the article, index entry, metadata, Article schema, contents links, sitemap and publication manifest together. Do not create another CLI deployment.
-6. Groku polls `get_publication_status`. Only `published` means the workflow succeeded, committed source matches, and the live article, index, manifest, schema, sitemap, robots and quote destination passed verification. Then report the live URL.
+6. After public verification, the worker sends a bounded IndexNow notification for the new article and updated `/guides` index, then saves the outcome separately in its receipt. Search notification failure does not reverse a verified publication.
+7. Groku polls `get_publication_status`. Only `published` means the workflow succeeded, committed source matches, and the live article, index, manifest, schema, sitemap, robots and quote destination passed verification. Then report the live URL.
 
 The only tools are `publish_guide`, `get_publication_status` and `list_guides`. Inputs cannot select another repository, branch, path or command. Existing guide slugs cannot be replaced. The route uses function invocations when called. Successful publication uses a site build and a GitHub Actions run. No cron or AI calls are added for website visitors. Monitor free plan allowances, and remember static visits still consume bandwidth.
 
@@ -75,11 +76,18 @@ The dedicated MCP key is stored in JJ Vault, Personal, as `MCC Guide Publisher (
 
 Connect Groku to the canonical HTTPS endpoint with the private header `Authorization: Bearer <dedicated credential>`. Complete required app access confirmation. Do not disable Vercel deployment protection for previews. Use supported Vercel authenticated tooling to test them.
 
-Before enabling the schedule, prove remote MCP initialization and all tools, one actual guide publication through GitHub and Vercel, and a cloud routine run independent of the Mac. If write tools require approval each run, report that observed limitation instead of promising unattended publication.
+These prerequisites passed on October 21, 2026: remote MCP initialization and all three tools, one actual Groku publication, and one unattended cloud routine publication independent of the Mac. Neither run required an approval or had a safety block. Preserve the same checks for future connector or worker changes.
+
+| Proof | Request and production commit | Live article |
+| --- | --- | --- |
+| Direct Groku publication, workflow `39672649500` | `762513b0-4215-41bb-af78-7ba78fcfafab`, commit `397eaab69205c07c9b2e1bc131776098259c0183` | [Changing janitorial companies](https://www.mastercleanhq.com/guides/replace-janitorial-company-without-service-gap) |
+| Unattended cloud run, workflow `39674091224` | `95f6a089-01ec-45f4-9d15-96b11e2df364`, commit `0de9533f906ab354bf3a0fd1c1b2a690cea6cab9` | [Requesting a commercial cleaning quote](https://www.mastercleanhq.com/guides/request-commercial-cleaning-quote-san-angelo) |
+
+The one time test was scheduled for 3:49 PM Central, started at 3:51 PM and published around 3:53 PM. Independent exact source and public verification passed at 20:54:57 UTC. Groku reported only its cloud connector and read only sources were used, without the Mac, JJ Vault or Codex. The one time routine was retired after completion.
 
 ## One weekly owner
 
-The existing Codex heartbeat temporarily owns Wednesday at 9 AM in `America/Chicago`. The intended replacement is one Groku cloud routine at that time. Prepare and test it, transfer ownership once, then retire the Codex job. Never leave two weekly writers active.
+Groku owns the active cloud routine `weekly-mcc-guide-publisher`, every Wednesday around 9 AM in `America/Chicago`. Its first recurring run is October 28, 2026. The scheduler allows a 15 minute timing window, and reported the first slot as 8:50 AM Central. The app routine list confirms it is on. The former Codex heartbeat `weekly-mcc-cleaning-guide` was paused and its configuration read back before the Groku routine was created. Never leave two weekly writers active.
 
 Retries reuse the saved UUID and draft. Check whether a guide already completed for the current local calendar week. A direct request may add another distinct guide that week. GitHub concurrency serializes worker runs, but a canceled queued attempt still needs status review and a deliberate retry.
 
@@ -104,8 +112,16 @@ Read the finished article for factual quality and duplicate intent. Commit only 
 
 Verify the exact commit serves the production domains and inspect article text, title, canonical URL, schema, quote link, index, sitemap, robots and contact form. Keep a receipt outside source with slug, weekly slot or request, commit, URL, checks and verification time.
 
-Google sitemap discovery happens automatically with each static build. Crawling, indexing and ranking are not guaranteed. Search Console sitemap submission is a separate one time check, not confirmed by this implementation.
+## Search engine discovery
+
+Every static build updates the same public sitemap at `https://www.mastercleanhq.com/sitemap.xml`, and robots links to it. Google and Bing can discover new guides there without a separate sitemap per article. Crawling, indexing and ranking are not guaranteed.
+
+The trusted worker calls `lib/guide-publishing/indexnow.mjs` only after the new article passes live verification. It verifies the existing public ownership proof file, then submits only the new article and `/guides` to the official IndexNow endpoint. Each network call has a two second deadline and each phase has at most two attempts. The key is a public ownership proof, not a private account credential. No new Vercel function, cron or visitor script is needed.
+
+The receipt records `accepted` for HTTP 200, `validation_pending` for HTTP 202, or `retry_required` with a safe reason. Neither acceptance nor pending validation proves indexing. Failure preserves the published guide. Follow up on the notification separately, without republishing the guide or changing its request ID. The older manual bulk script remains separate and is not called by weekly publication. A direct live check using the new helper verified the public proof file and received HTTP 200 from IndexNow for both new Groku articles on October 21 at 20:58 UTC. This checks provider acceptance; the automatic hook is covered by the real worker integration test.
+
+Google Search Console and Bing Webmaster sitemap registrations are separate account checks and are not confirmed. The MCC Google session was expired, the available JxWayne Google account had no properties, and Bing was signed out. Do not create properties, change DNS, or claim registration until the correct business accounts are available.
 
 At release verify `JxWayne890/MasterCleanHQ`, `main`, Vercel `master-clean-hq`, scope `jxwayne890s-projects`, and MCC domains. Test that an owner authored worker commit actually triggers the Vercel Git integration. Do not substitute hosting or change DNS, billing or membership.
 
-References: [MCP remote servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers), [GitHub dispatch](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event), [Vercel Git deployments](https://vercel.com/docs/git), [Google sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
+References: [MCP remote servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers), [GitHub dispatch](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event), [Vercel Git deployments](https://vercel.com/docs/git), [Google sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap), [IndexNow protocol](https://www.indexnow.org/documentation).

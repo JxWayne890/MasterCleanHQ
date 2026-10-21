@@ -7,6 +7,7 @@ import { parse as parseYaml } from 'yaml';
 import { validateGuidePayload, serializeGuide, hashGuidePayload, REPOSITORY, PRODUCTION_BRANCH, PUBLISH_WORKFLOW } from '../lib/guide-publishing/contract.mjs';
 import { inspectGuideRelease } from './check-guide-release.mjs';
 import { verifyLaunchReadiness, waitForPublication } from './verify-guide-publication.mjs';
+import { submitGuideIndexNow } from '../lib/guide-publishing/indexnow.mjs';
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -145,6 +146,7 @@ export async function publishGuide({ cwd = process.cwd(), env = process.env, fet
     receipt.articleCommit = commit;
     const verified = await waitForPublication(payload, request.reused ? base : commit, { fetchImpl });
     Object.assign(receipt, { ...verified, checks: [...receipt.checks, ...verified.checks, 'exact production build commit and publication tuple'], status: 'published' });
+    receipt.indexNow = await submitGuideIndexNow(receipt.liveUrl, { fetchImpl });
     await writeReceipt();
     return receipt;
   } catch (error) {

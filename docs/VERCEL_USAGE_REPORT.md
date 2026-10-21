@@ -117,6 +117,12 @@ The aligned current deployment count includes 19 retained records for `jedisgame
 
 5. **Image optimization and bots are not the proven cause.** The dashboard shows zero image source, transformation, cache read and cache write usage in both periods. MCC is Vite and contains no `next/image` usage or cron definition. Source supports automated internal polling. No retained user agent, IP or route breakdown conclusively identifies crawlers as the cause. Do not block Google indexing merely because traffic is automated.
 
+## When usage falls after deletion
+
+Compute history uses a rolling 30 day window. Deleting a project stops new usage but does not erase prior usage from that window. Agent Mission Control was deleted October 1 at 20:28 UTC. Its final retained usage should therefore age out around October 31, about ten days after this audit. This date is an inference from the deletion time and rolling window, not a confirmed Vercel account reset timestamp. Current compute is already below the included limits. [Vercel Hobby plan](https://vercel.com/docs/plans/hobby)
+
+Deployment Storage is separate. It falls when deployments are removed by retention or an approved manual cleanup, rather than when old compute ages out. Hobby projects retain their most recent three production deployments and three deployments of any type, with additional protections for current aliases and active branches. Other eligible deployments can expire under retention. Inspect actual deployment protections and policy before promising a particular storage drop or requesting removal. No cleanup was performed. [Deployment retention](https://vercel.com/docs/deployment-retention), [Hobby retention update](https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage)
+
 ## Whether Pro is needed
 
 The previously exhausted compute meters are now below half of their allowances after Agent Mission Control was removed. The measured MCC marketing website load does not justify Pro solely for compute capacity. Deployment Storage still needs a targeted retention review before it becomes the next cap.

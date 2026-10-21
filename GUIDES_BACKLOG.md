@@ -4,8 +4,8 @@ These 30 topics are ranked by likely hiring intent, using editorial judgment rat
 
 | Rank | Topic | Why it may produce an inquiry |
 | --- | --- | --- |
-| 1 | How to request a commercial cleaning quote in San Angelo | Helps an active buyer prepare the details needed for a quote. |
-| 2 | Replacing your janitorial company without a gap in service | Addresses a buyer already considering a provider change. |
+| 1 | [How to request a commercial cleaning quote in San Angelo](https://www.mastercleanhq.com/guides/request-commercial-cleaning-quote-san-angelo) | Published October 21, 2026. Helps an active buyer prepare the details needed for a quote. |
+| 2 | [Replacing your janitorial company without a gap in service](https://www.mastercleanhq.com/guides/replace-janitorial-company-without-service-gap) | Published October 21, 2026. Addresses a buyer already considering a provider change. |
 | 3 | What is included in recurring office cleaning in San Angelo? | Clarifies scope immediately before a purchase. |
 | 4 | Commercial building cleaning walkthrough checklist for property managers | Helps managers compare providers for an identified property. |
 | 5 | Post construction cleaning scope before a commercial building handover | Addresses work tied to a deadline and occupied building readiness. |
