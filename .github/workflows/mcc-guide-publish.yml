@@ -1,0 +1,69 @@
+name: Publish an MCC guide
+run-name: MCC guide ${{ inputs.request_id }} ${{ inputs.content_hash }} ${{ inputs.slug }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Validated guide JSON, never executable code
+        required: true
+        type: string
+      request_id:
+        description: Publication UUID matching the guide payload
+        required: true
+        type: string
+      content_hash:
+        description: SHA256 of normalized guide content
+        required: true
+        type: string
+      slug:
+        description: Guide slug matching the payload
+        required: true
+        type: string
+
+# One writer at a time. New calls never cancel an in progress publication.
+concurrency:
+  group: mcc-production-guide-publishing
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.repository == 'JxWayne890/MasterCleanHQ' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the trusted production branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: JxWayne890/MasterCleanHQ
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install the trusted locked dependencies
+        run: npm ci
+      - name: Validate, publish and verify one guide
+        run: node scripts/publish-guide.mjs
+        env:
+          MCC_GUIDES_LAUNCH_APPROVED: ${{ vars.MCC_GUIDES_LAUNCH_APPROVED }}
+          MCC_GUIDE_COMMIT_NAME: ${{ vars.MCC_GUIDE_COMMIT_NAME }}
+          MCC_GUIDE_COMMIT_EMAIL: ${{ vars.MCC_GUIDE_COMMIT_EMAIL }}
+          MCC_GUIDE_PAYLOAD: ${{ inputs.payload }}
+          MCC_GUIDE_REQUEST_ID: ${{ inputs.request_id }}
+          MCC_GUIDE_CONTENT_HASH: ${{ inputs.content_hash }}
+          MCC_GUIDE_SLUG: ${{ inputs.slug }}
+      - name: Preserve the publication receipt and submitted draft
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: mcc-guide-publication-receipt
+          path: ${{ runner.temp }}/mcc-guide-publication/
+          if-no-files-found: ignore
+          retention-days: 90

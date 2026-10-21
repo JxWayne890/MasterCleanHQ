@@ -10,11 +10,13 @@ Do not use dash punctuation in user facing prose. Preserve punctuation required 
 
 On October 21, 2026, John explicitly selected automatic publication of future guides after checks pass, once the initial guides section is approved and live. Codex and Grokbot may use this standing permission for new guide content. It does not release the pending redesign or authorize other code, design, city network, billing or DNS changes.
 
-Read `docs/GUIDE_PUBLISHING.md` before writing or publishing a guide. Both assistants use the same Markdown files and workflow. The existing weekly writer is the Codex thread heartbeat, Wednesday at 9 AM in America/Chicago. Do not add a second weekly writer in Grokbot without coordinating ownership of that schedule.
+Read `docs/GUIDE_PUBLISHING.md` before writing or publishing a guide. John requested that Groku own a cloud schedule using the hosted MCP publisher. Recurring publication must not depend on the Mac, Codex or JJ Vault. The Codex heartbeat remains the temporary weekly owner until the replacement passes actual publication and unattended execution checks. Transfer ownership once, then retire that schedule. Never run two weekly writers.
 
-Before the initial release, keep guides on the feature branch and report the launch dependency. After the initial release, start from the current verified production branch in a separate checkout. Run `npm run guides:check`, the build, lint and tests, then `npm run guides:release-check -- --base origin/main` from the clean committed checkout. Publication permission covers only added files in `content/guides/` and the associated `GUIDES_BACKLOG.md` update. Never deploy this entire preview checkout as a weekly content update.
+Before the initial release, keep guides on the feature branch and leave both publishing gates disabled. The hosted publisher accepts only one new guide and writes only its Markdown file through the trusted GitHub workflow. Manual fallback publication may also update its `GUIDES_BACKLOG.md` entry, but must start from verified production in a separate checkout and pass all checks and the content release guard. Never deploy this entire preview checkout as a weekly content update.
 
 Verify the live article, `/guides` and sitemap before calling a guide published. A local file, successful commit or preview URL is not proof of live publication. If a check or deployment fails, keep the draft and report the failure without claiming success.
+
+Keep credentials in JJ Vault and designated private server or connector settings, never source, chat, artifacts or the browser bundle. Groku receives only the dedicated MCP credential. The GitHub credential stays on the server, restricted to this repository, Actions write and Contents read. Do not reuse account passwords or extract an interactive CLI OAuth credential for application use.
 
 ## Hosting and accounts
 

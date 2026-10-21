@@ -74,12 +74,24 @@
     }
   ],
   "functions": {
+    "api/mcp.js": {
+      "maxDuration": 30
+    },
     "api/network-intake.js": {
       "includeFiles": "content/cities/**",
       "maxDuration": 30
     }
   },
   "headers": [
+    {
+      "source": "/guide-publication-manifest.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
     {
       "source": "/resources.css",
       "headers": [

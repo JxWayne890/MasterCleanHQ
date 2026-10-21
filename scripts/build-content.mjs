@@ -3,6 +3,7 @@ import path from 'node:path';
 import { ROOT, escapeHtml as e, loadGuides, loadCities } from './content.mjs';
 import { SITE_URL, PHONE_DISPLAY, PHONE_E164, MAILING_ADDRESS } from '../src/config/site.js';
 import { costGuides } from '../src/data/costGuides.js';
+import { createGuidePublicationManifest, resolveBuildCommit } from './guide-publication-manifest.mjs';
 
 const dist = path.join(ROOT, 'dist');
 await fs.mkdir(dist, { recursive: true });
@@ -91,4 +92,5 @@ const entries = routes.filter(({ route }) => !currentUrls.has(absolute(route))).
 sitemap = sitemap.replace('</urlset>', `${entries}\n</urlset>`);
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap);
 await fs.writeFile(path.join(dist, 'content-manifest.json'), JSON.stringify({ guides: guides.map(({ slug, title, date, wordCount }) => ({ slug, title, date, wordCount })), cities: cities.map(({ slug, name }) => ({ slug, name })) }, null, 2));
+await fs.writeFile(path.join(dist, 'guide-publication-manifest.json'), JSON.stringify(createGuidePublicationManifest(guides, { commit: resolveBuildCommit({ cwd: ROOT }) }), null, 2));
 console.log(`Built ${routes.length + 1} static resource pages. No React bundle or runtime image optimization on these pages.`);
