@@ -1,6 +1,6 @@
 # MCC guides and Texas referral network
 
-The website remains Vite and React. The new resource pages are generated as standalone HTML after the existing site build. They reuse the site's navy and orange palette, DM Serif Display headings, DM Sans text, logo, phone and business mailing address. Article pages require no client JavaScript. City and application pages load only a small form enhancement. Native form submission also works without JavaScript.
+The website remains Vite and React. The new resource pages are generated as standalone HTML after the existing site build. They reuse the site's navy and orange palette, DM Serif Display headings, DM Sans text, logo, phone and business mailing address. Articles remain readable without client JavaScript and load a small optional motion enhancement. City and application pages also load a small form enhancement. Native form submission also works without JavaScript.
 
 ## Add a guide
 
@@ -30,7 +30,7 @@ The guide index and sitemap discover new files automatically. Existing cost guid
 
 ## Weekly workflow
 
-A thread heartbeat named “Weekly MCC cleaning guide” runs Wednesdays at 9 AM in John's local America/Chicago timezone. It selects an unfinished topic from `GUIDES_BACKLOG.md`, prepares one guide, checks the build and creates a preview for review. It never publishes to production without John's explicit approval. Local scheduling requires the desktop environment and repository to be available. It does not add a Vercel cron, AI call or runtime workload to the website.
+A thread heartbeat named “Weekly MCC cleaning guide” runs Wednesdays at 9 AM in John's local America/Chicago timezone. On October 21, 2026, John authorized future guides to publish automatically after checks pass, once the initial guides section is approved and live. Before that initial release, the job prepares a draft and reports the launch dependency. Afterward it selects an unfinished topic from `GUIDES_BACKLOG.md`, prepares one guide, validates it and publishes through the verified production branch. Codex and Grokbot use the same [guide publishing workflow](GUIDE_PUBLISHING.md). The existing Codex job owns the weekly slot; a separate Grokbot job has not been configured. Local scheduling requires the desktop environment and repository to be available. It does not add a Vercel cron, AI call or runtime workload to the website.
 
 Mark a backlog topic complete once its article exists. Check existing guides first to avoid publishing another article for the same search intent. Keep primary sources close to any specialized factual claim and keep most content grounded in practical, original facility planning guidance.
 
@@ -58,6 +58,7 @@ The existing `/contact` form keeps its current CRM intake and gains an internal 
 
 ```bash
 npm ci
+npm run guides:check
 npm run build
 npm run lint
 node --test test/*.test.*
@@ -67,4 +68,4 @@ node --test test/*.test.*
 
 For local static inspection, `npm run preview -- --host 127.0.0.1 --port 4173` serves directory indexes at paths ending with `/`. Vercel preview routing must be checked separately at the public canonical path without the trailing slash. All React links into the static resource pages use document navigation so that an old React route cannot replace the new HTML.
 
-Only preview deployment is authorized for this request. Verify both new forms, private storage, the internal emails, mobile and desktop layouts, existing quote intake and sitemap before asking John to approve production. Do not remove projects, change billing, change accounts or alter DNS as part of publishing this feature.
+The initial feature release still requires John's approval. Verify both new forms, private storage, the internal emails, mobile and desktop layouts, existing quote intake and sitemap before releasing it. Future guide additions then use the standing content publishing permission in `GUIDE_PUBLISHING.md`; it does not cover other code or design changes. Do not remove projects, change billing, change accounts or alter DNS as part of publishing this feature.

@@ -10,6 +10,8 @@
     "build": "npm run build:client && npm run build:ssr && node scripts/postbuild.mjs && node scripts/build-content.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
+    "guides:check": "node scripts/check-guides.mjs",
+    "guides:release-check": "node scripts/check-guide-release.mjs",
     "test:content": "node --test test/content.test.mjs"
   },
   "dependencies": {
