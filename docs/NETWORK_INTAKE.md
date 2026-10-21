@@ -35,7 +35,9 @@ NETWORK_FROM_EMAIL
 
 The rate salt must contain at least 32 random characters. Use the MCC Supabase project URL and server credential. The Resend key must be allowed to send from the existing verified MCC sender. All alerts go exclusively to `john@mastercleanhq.com`; the submitted contact is used as Reply To when available. No automatic message goes to the prospect.
 
-Only the three storage variables were configured for Preview during initial setup. Production variables and production deployments are unchanged. The existing MCC app has sensitive Resend variables whose values cannot be exported through the Vercel CLI. The browser Resend session is signed out. Email delivery therefore requires an authenticated MCC Resend session or a secure existing sender credential before it can be verified. Do not describe the notification path as complete until a connected test is accepted by Resend.
+All five variables are now configured for both Preview and Production. The correct `mastercleanhq` Resend account has the verified sending domain `invoices.mastercleanhq.com`. The sender is `Master Commercial Clean <website@invoices.mastercleanhq.com>`. The dedicated sending only key, named `MCC Website Notifications`, is stored in JJ Vault as `MCC Website Resend` and configured as `NETWORK_RESEND_API_KEY`. No credential value belongs in this document or the browser bundle. Sensitive values are omitted by `vercel env pull`; do not weaken their type to export them.
+
+The connected preview checks below confirm delivery to John. Production configuration alone does not release the new website. The initial production release still requires John's approval.
 
 A newly added city file under `content/cities` is automatically accepted by the intake when its source path matches that file. The record stores the canonical region name and slug separately from the visitor’s actual building city or suburb. Vercel must include `content/cities/**` in the `api/network-intake.js` function files.
 
@@ -84,8 +86,18 @@ node --test test/network-intake.test.js test/quote.test.js
 
 Connected deployment checks must confirm both form types create private objects, that the objects cannot be downloaded anonymously, that the intended internal alerts are accepted, and that the visible form reports success only after persistence. Use a company name beginning with `MCC SYNTHETIC NETWORK TEST`. Remove only clearly identified test objects after verification. Never remove a real inquiry while cleaning up test data.
 
-## Connected storage evidence, October 21, 2026
+## Initial storage evidence, October 21, 2026
 
 The correct MCC service credential successfully created the isolated private bucket. One clearly labeled referral test used Katy as its building city and Greater Houston as its routing region. One clearly labeled partner test used multiple service lines. Both requests created normalized private JSON records with pending email recovery status. Authenticated reads matched the submitted test fields. Anonymous public download attempts failed with HTTP 400. The export command produced both records successfully.
 
-Only those two synthetic records and their two rate reservations were removed. A second export contained zero preview records. No customer record, existing CRM table, function, project, billing setting or production deployment changed. This evidence proves persistence, privacy, export and recovery status. It does not prove email delivery. A connected sender test remains necessary.
+Only those two synthetic records and their two rate reservations were removed. A second export contained zero preview records. No customer record, existing CRM table, function, project, billing setting or production deployment changed during those initial checks. This earlier evidence proves persistence, privacy, export and recovery status. It predates the connected sender checks below.
+
+## Connected notification evidence, October 21, 2026
+
+Preview: [current notification candidate](https://master-clean-2lynrks8h-jxwayne890s-projects.vercel.app), deployment `dpl_6NVaeBLDrGnATGp9A1ey5rnjofJz`, source commit `63369316f5227a03801a1ef3fd2753ee7ac41842`. Build, lint and all 86 tests passed for this source.
+
+The direct sender setup email and the actual preview quote, referral and partner application emails were confirmed Delivered in Resend to `john@mastercleanhq.com`. All three application requests returned HTTP 200. The three relevant runtime log rows contained no notification or storage warnings.
+
+All three exact private quote, referral and partner objects were confirmed through bucket metadata. A read only CRM query confirmed the exact synthetic lead `7958f29d-07b9-4a13-97f1-27999b3193de`, one quote `0301337e-01de-432e-adc4-726fafcb70fb` with status `Not Started` and no amount, and one intake activity `d7971a15-350e-4ea8-b55e-cc34015eda04`. The browser blocked the private JSON file URLs, so the current raw record bodies and their stored notification fields were not inspected. Delivered email evidence must not be described as a verified read of those fields.
+
+Read only checks found zero associated calls, photos, upload links, invoices, customer accounts, duplicate leads or operations activity. Runtime foreign keys and the exact quote and activity identifiers were inspected. Cleanup of the current synthetic records remains pending explicit confirmation. Remove only the exact verified test object paths and the identified synthetic CRM lead, with its exact company marker and unchanged initial state. Do not delete storage metadata through SQL or remove unrelated records or rate reservations. Production release and guide publishing activation remain pending; both launch gates remain false. No DNS, billing or production release changed during these checks.

@@ -1,24 +1,36 @@
 # MCC preview verification
 
-Checked October 21, 2026. Production release is not approved.
+Checked October 21, 2026. Production release is not approved. Both guide publishing launch gates remain false.
 
-## Verified
+Current preview: [notification and publisher candidate](https://master-clean-2lynrks8h-jxwayne890s-projects.vercel.app), deployment `dpl_6NVaeBLDrGnATGp9A1ey5rnjofJz`, source commit `63369316f5227a03801a1ef3fd2753ee7ac41842`.
+
+## Current verified checks
+
+1. Build, ESLint and all 86 tests passed for source `63369316f5227a03801a1ef3fd2753ee7ac41842`.
+2. All five `NETWORK_*` server settings are configured for Preview and Production. No production release has occurred.
+3. The correct `mastercleanhq` Resend account has verified `invoices.mastercleanhq.com`. The dedicated sending only key `MCC Website Notifications` is stored in JJ Vault as `MCC Website Resend`. The configured sender is `Master Commercial Clean <website@invoices.mastercleanhq.com>`.
+4. Resend confirmed the direct setup email and the actual preview quote, referral and partner application emails Delivered to `john@mastercleanhq.com`. All three application requests returned HTTP 200. The three relevant runtime log rows contained no notification or storage warnings.
+5. All three exact private quote, referral and partner object existence checks passed through bucket metadata. A read only CRM query confirmed the exact synthetic lead, one quote with status `Not Started` and no amount, and one expected intake activity. The browser blocked the private JSON file URLs. Current raw record bodies and stored notification status fields were not inspected.
+6. Read only dependency checks found zero associated calls, photos, upload links, invoices, customer accounts, duplicate leads or operations activity for the exact synthetic lead. Cleanup remains pending explicit confirmation.
+
+## Earlier verified checks
 
 1. The checkout started at `532ffd481dbffb4ef741894522eed4a54a912e22`, the exact live production commit from Vercel project `master-clean-hq` in MCC's `jxwayne890s-projects` team.
 2. The existing build prerenders 302 routes with zero failures. The new builder generates 11 static resource pages, including the confirmation page, with 310 unique public sitemap URLs in total.
-3. Build, ESLint and 24 focused tests pass. The tests cover final guide HTML, metadata, contents anchors, referral schema, sitemap coverage, input validation, shared rate reservations, save before email, native and JSON responses, and preserved CRM and Form Guard behavior.
-4. Chrome inspection at desktop width and 390 pixel mobile width confirmed legible guide and form layouts. The inspected article and city page had no horizontal overflow. The article loads no client script. The city page loads only the small form enhancement.
+3. The initial 24 focused tests covered guide HTML, metadata, contents anchors, referral schema, sitemap coverage, input validation, shared rate reservations, save before email, native and JSON responses, and preserved CRM and Form Guard behavior. The current suite above supersedes that earlier test count.
+4. Chrome inspection at desktop width and 390 pixel mobile width confirmed legible guide and form layouts. The inspected article and city page had no horizontal overflow. Later previews added the shared motion layer; the guides remain generated static HTML.
 5. Protected Vercel preview `master-clean-jhzookj2p-jxwayne890s-projects.vercel.app` returned HTTP 200 for `/guides`, the office checklist, the Dallas Fort Worth city page, `/sitemap.xml` and `/robots.txt`. Guide HTML includes Article schema and the table of contents. The new hub contains all five guides. Sitemap includes each new public URL once and excludes the confirmation page.
 6. A labeled referral submission through the deployed JSON endpoint returned HTTP 200 with a real identifier after a durable save. Its actual city was Katy, and the record retained the Greater Houston region separately.
 7. A labeled native partner application with multiline services returned HTTP 303 to the confirmation page after a durable save.
 8. Export and private JSON inspection confirmed both deployed records, normalized types, qualification and consent, source and environment metadata. Anonymous download attempts were denied. Both deployed test records and their exact test rate reservations were removed. The final preview export contained zero records.
-9. The weekly thread heartbeat is saved and active for Wednesday at 9 AM in the local America/Chicago timezone. It drafts one guide and prepares a preview; production still requires John's approval.
+9. The existing Codex weekly heartbeat remains assigned to Wednesday at 9 AM America/Chicago. Scheduling has not transferred to Groku. Future guide publishing has standing permission after the initial approved launch, subject to the publishing workflow and checks.
 
 ## Still required
 
 1. Sign into the correct MCC Vercel dashboard to confirm the exact allowance shown at 100 percent, Fast Origin Transfer, image source and transformation counts, and Fluid Compute metrics. The authenticated CLI audit identified the dominant historical project, but its legacy duration counters are not a substitute for the current dashboard meters.
-2. Sign into MCC Resend or securely configure a valid MCC sending credential and verified sender. The existing application's sensitive key cannot be exported through Vercel. No sending credential was invented or copied from another client. No email was sent. Both connected test records correctly held `retry_required` before cleanup.
-3. After sender setup, verify accepted internal emails to John for both new form types and a quote notification without duplicating a real CRM lead. Remove the clearly labeled synthetic records afterward.
-4. Before an approved production release, configure the five new server variables in the production environment, test the staged production build, and obtain John's approval for publication. Only the three storage variables are currently set for Preview.
+2. Current private JSON bodies were blocked and remain uninspected; do not claim that stored notification fields were read. Runtime foreign keys and all related record counts were verified separately through read only CRM queries.
+3. Cleanup of the current synthetic bucket objects and CRM test lead remains pending explicit confirmation. Remove only exact verified paths and the exact lead ID with its matching synthetic company marker. The earlier test cleanup does not establish cleanup of this new run.
+4. Obtain approval for the initial website release and verify it live, then connect Groku to the hosted MCP after its required access confirmation. Verify one actual guide publication through GitHub Actions and Vercel. Prove an unattended Groku cloud run before transferring the weekly schedule and retiring the existing Codex job. Groku saved and confirmed this sequence after receiving the completed notification setup status. No transfer or unattended publication is verified yet.
+5. Test the staged production build and obtain John's approval before the initial production release. Server variables are configured, but both publication gates remain false until the approved initial release and activation steps are completed.
 
-No production deployment, production environment variable, DNS, billing, existing CRM table or project deletion was changed. The additive private storage bucket supports the preview without changing existing CRM records or access policies.
+No DNS, billing, project deletion or production release was changed. Production server configuration is now present. The current connected checks created clearly marked synthetic records; their exact verification and cleanup remain pending as described above. Existing CRM schema and access policies were not changed.
