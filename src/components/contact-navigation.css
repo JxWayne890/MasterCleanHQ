@@ -11,12 +11,6 @@
 .mcc-nav-quote { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; padding: .95rem 1.2rem; min-height: 48px; background: var(--orange); color: var(--navy); font-size: .84rem; font-weight: 800; white-space: nowrap; border-radius: 3px; }
 .mcc-nav-quote:hover { background: #e95000; }
 .mcc-menu-toggle { display: none; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .5rem; border: 0; background: transparent; color: var(--navy); font: inherit; font-weight: 700; cursor: pointer; }
-.mcc-mobile-menu { background: #fff; border-top: 1px solid #e4e8e9; max-height: calc(100dvh - 78px - 74px); overflow-y: auto; }
-.mcc-mobile-menu[hidden] { display: none; }
-.mcc-mobile-menu > .container { padding: 1rem 0 1.5rem; }
-.mcc-mobile-menu a:not(.mcc-nav-quote) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 51px; padding: .75rem 0; border-bottom: 1px solid #e9ebed; font-size: 1rem; font-weight: 700; }
-.mcc-mobile-menu a.mcc-mobile-menu-phone { justify-content: flex-start; margin-bottom: 1rem; color: #984015; }
-.mcc-mobile-menu .mcc-nav-quote { width: 100%; }
 .mcc-mobile-actions { display: none; }
 .mcc-skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 80; background: var(--navy); color: #fff; padding: 1rem 1.3rem; font-weight: 700; }
 .mcc-skip-link:focus { top: .75rem; }
@@ -104,9 +98,6 @@
     .mcc-contact { scroll-margin-top: 78px; }
     .mcc-contact-layout { gap: 2.5rem; }
     .mcc-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
-}
-@media (min-width: 1081px) {
-    .mcc-mobile-menu { display: none; }
 }
 @media (max-width: 760px) {
     body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
