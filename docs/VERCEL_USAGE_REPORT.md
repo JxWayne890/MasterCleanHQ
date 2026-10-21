@@ -1,60 +1,165 @@
 # Vercel usage investigation
 
-Checked October 21, 2026. This report uses authenticated MCC account records and distinguishes measured usage from information that still requires the correct dashboard session.
+Checked October 21, 2026. The main findings now use the authenticated MCC Vercel dashboard. Earlier CLI counters remain in the appendix as diagnostics, with different windows and definitions.
 
 ## Main finding
 
-The overwhelming source of historical function work was `agent-mission-control`, project `prj_y5tafXrevR1hqCWnyBvnm2b61hhE`. Vercel now labels its historical usage as “Unknown Project”. The local file `/Users/john/Documents/Agent Mission Control/.vercel/project.json` maps that exact ID to `agent-mission-control`.
+The previous comparison period reached 100 percent on **both Fluid Provisioned Memory and Fluid Active CPU**. Memory was 533.8 GB hours against 360 included, about 148.3 percent. CPU was 7 hours 46 minutes against four included, about 194.2 percent. Dashboard progress indicators stop at 100 percent even when actual usage exceeds the allowance.
 
-Vercel activity records that this project was deleted on October 1, 2026 at 20:28 UTC. Its daily function work disappeared at that time. No project was deleted, paused, or otherwise changed during this investigation.
+The deleted Agent Mission Control project used 533.6 GB hours, shown as 100.0 percent of previous Fluid memory after rounding, and 7 hours 45 minutes, or 99.8 percent of previous Fluid CPU. Its retained dashboard label is `agent-mission-control-1790886504892-Vp6M`. The historical ID is `prj_y5tafXrevR1hqCWnyBvnm2b61hhE`, mapped by `/Users/john/Documents/Agent Mission Control/.vercel/project.json`. Vercel activity confirms deletion on October 1, 2026 at 20:28 UTC. No further deletion is needed.
 
-Before October 2, the team regularly recorded about 15 GB hours of function execution and about 29,000 invocation events per day. From October 2 through October 20, total team function execution was below 0.11 GB hours per day. The MCC website is a very small contributor to function usage.
+**No current allowance is full.** Current Fluid memory is 42.25 percent and CPU is 39.24 percent. The closest current capacity limit is **Deployment Storage, 8.43 GB of 10 GB, or 84.26 percent**. `jedisgames` accounts for 7.25 GB, about 86 percent of that storage. Review its retained previews, large game assets and retention before considering an upgrade for capacity. No project, deployment or billing setting was changed during this investigation.
 
-The historical execution meter is above the legacy Hobby allowance of 100 GB hours, making function execution the clear overage candidate. The exact metric named in John's 100 percent notification is not yet verified. Fluid Compute uses Active CPU and Provisioned Memory meters instead of the legacy duration allowance. The available historical endpoint does not distinguish the billing model for the deleted project. Do not present a calculated legacy percentage as a verified dashboard badge.
+These findings supersede the earlier provisional inference based on a legacy 100 GB hour function allowance. The dashboard's non Fluid Function Duration meter is zero in both periods. Legacy execution totals are not the account's applicable Fluid meters.
 
-## Account and time windows
+## Account and comparison windows
 
-The CLI is authenticated as `jxwayne890@gmail.com`, with OWNER access to `jxwayne890s-projects`, team `team_ijL6I1f7BoKqxGHB4grAxAI0`. The team is active on Hobby and reports `billing.period: null`. The inspected website is `master-clean-hq`, project `prj_NArudA2LATO6B5HXZYhjA90nVigC`, serving `mastercleanhq.com` and `www.mastercleanhq.com`.
+The CLI is authenticated as `jxwayne890@gmail.com`, with OWNER access to `jxwayne890s-projects`, team `team_ijL6I1f7BoKqxGHB4grAxAI0`. The team is on Hobby and reports `billing.period: null`. The website is `master-clean-hq`, project `prj_NArudA2LATO6B5HXZYhjA90nVigC`, serving `mastercleanhq.com` and `www.mastercleanhq.com`.
 
-There are 53 existing projects, comprising 32 Vite projects, three Next.js projects, one Node project, and 17 with no framework preset. Vercel documents that Hobby has no billing cycles. This report therefore compares two explicit windows of 30 complete UTC days, rather than inventing billing boundaries. [Vercel Hobby plan](https://vercel.com/docs/plans/hobby)
+The inventory contains 53 existing projects: 32 Vite, three Next.js, one Node and 17 with no framework preset. Hobby has no billing cycles. The dashboard's rolling and custom comparison windows are recorded instead. [Vercel Hobby plan](https://vercel.com/docs/plans/hobby)
 
-1. Recent window: September 21 at 00:00 UTC through October 21 at 00:00 UTC, including September 21 through October 20.
-2. Previous window: August 22 at 00:00 UTC through September 21 at 00:00 UTC, including August 22 through September 20.
+| Window | Dashboard dates, America/Los_Angeles | UTC boundaries | URL timestamps |
+| --- | --- | --- | --- |
+| Current, Last 30 Days | September 21 at 2 PM through October 21 at 2 PM | Verified start `2026-09-21T21:00:00Z`, displayed end approximately `2026-10-21T21:00:00Z` | Verified `from=1790024400000`, `range=last-30-days`; dynamic end inferred from UI |
+| Previous, custom selection | August 22 at 2 PM through September 21 at 2 PM | `2026-08-22T21:00:00Z` through `2026-09-21T21:00:00Z` | Verified `from=1787432400000`, `to=1790024400000` |
 
-The current partial day is excluded to make the comparison reproducible. Usage data was refreshed by Vercel at about 14:22 UTC on October 21.
+The date picker uses America/Los_Angeles. The previous URL establishes its exact UTC boundaries. The current URL establishes its start, while its rolling end is inferred from the displayed local hour. These windows begin 21 hours later than the earlier CLI windows below. Do not reconcile their totals as though the cutoffs were identical.
 
-## Usage readout
+## Modern dashboard usage
 
-| Requested metric | Recent window | Previous window | Evidence and limitation |
+| Metric | Current window | Previous window | Interpretation |
 | --- | ---: | ---: | --- |
-| Fast Data Transfer | Legacy outgoing bandwidth: 14.337 GB | Legacy outgoing bandwidth: 8.307 GB | Authenticated historical usage data. The current Fast Data Transfer dashboard meter still needs confirmation. These values are far below the published 100 GB Hobby allowance. |
-| Fast Origin Transfer | Not available | Not available | The old incoming bandwidth field is not a substitute for origin transfer. Modern metric queries require Observability Plus. |
-| Edge Requests, now CDN Requests in current docs | Legacy cached plus uncached requests: 337,159 | Legacy cached plus uncached requests: 655,833 | Both are below the current published one million CDN request allowance. Exact modern meter is not verified. |
-| Function Invocations | 322,279 invocation events | 586,820 invocation events | Sum of successful, error, timeout, and throttled counters in the legacy usage API. Billing treatment and the account's active limit need dashboard confirmation. |
-| Function Duration | 165.294 GB hours | 538.758 GB hours | Legacy execution meter, including successful, error, and timeout execution. Equals 165.3 percent and 538.8 percent of the legacy 100 GB hour allowance, but does not establish a Fluid Compute overage by itself. |
-| Active CPU and Provisioned Memory | Not available | Not available | Needed to finish the diagnosis if the deleted project used Fluid Compute. |
-| Build Minutes | 163.94 minutes | 20.23 minutes | Sum of build execution seconds, excluding queue time. The API reported 235 build units recently and 52 previously. Build units are not the same as deployment records. |
-| Image Optimization source images | Not available | Not available | No count was returned by the accessible legacy usage API. The team has the newer image pricing flag enabled. Do not infer zero. |
-| Image Optimization transformations | Not available | Not available | Modern image transformation queries require Observability Plus. Use the Hobby usage dashboard for the allowance readout without purchasing an add on. |
-| Deployments | 61 retained records, 42 production and 19 preview | 37 retained records, 32 production and five preview | Deployment API count. Includes blocked creation attempts. Deleted project history may not be retained. |
+| Fast Data Transfer | 14.75 GB | 8.6 GB | Current detail: 395.27 MB incoming and 14.35 GB outgoing. Both below 100 GB. |
+| Fast Origin Transfer | 228.9 MB | 506.31 MB | Both below 10 GB. |
+| CDN Requests, formerly Edge Requests | 318,961 | 651K displayed | Previous display is rounded. Both below one million. |
+| Function Invocations | 179,192 | 564,166 | Modern dashboard meter, below one million in both windows. |
+| Function Duration, non Fluid | 0 GB hours | 0 GB hours | This was not the exhausted meter. |
+| Fluid Provisioned Memory | 152.1 GB hours of 360, 42.25 percent | 533.8 GB hours of 360, about 148.3 percent | Previous progress indicator shows 100 percent. |
+| Fluid Active CPU | 1 hour 34 minutes displayed, 39.24 percent of four hours | 7 hours 46 minutes of four hours, about 194.2 percent | Previous progress indicator shows 100 percent. Displayed durations are rounded. |
+| Billable Build Minutes | 0 seconds of 0 seconds | 0 seconds | Separate from Build Time and Build CPU; zero is not a failed reading. |
+| Build Time | 3 hours displayed; 197.39 minutes derived from 3.289878 percent of 100 hours | 57.62 minutes derived from 0.9602614 percent of 100 hours | Dashboard definition includes time queued or building. |
+| Build CPU | 11 hours 52 minutes | 2 hours displayed | Diagnostic CPU total, distinct from elapsed Build Time. |
+| Image Optimization source images | 0 of 1,000 | 0 | Dashboard labels this Source Images (Legacy). |
+| Image Optimization transformations | 0 of 5,000 | 0 | Not the limit driver. |
+| Image Optimization cache reads | 0 | 0 | No usage displayed. |
+| Image Optimization cache writes | 0 | 0 | No usage displayed. |
+| Deployment Storage | 8.43 GB of 10 GB, 84.26 percent | 3.31 GB of 10 GB, 33.12 percent | Closest current capacity limit. |
+| Functions Storage | 41.43 MB of 10 GB, about 0.4143 percent | 1.84 GB of 10 GB, 18.41 percent | Separate dashboard storage meter. |
+| Deployments | 68 retained records, 42 production and 26 preview | 37 retained records, 32 production and five preview | Authenticated, paginated API count aligned to the explicit 21:00 UTC comparison boundaries. Includes blocked records and omits deleted history. |
 
-Decimal GB is used above. Published allowances and current plan terms are from [Vercel's Hobby documentation](https://vercel.com/docs/plans/hobby), [legacy function pricing](https://vercel.com/docs/functions/usage-and-pricing/legacy-pricing), and [platform limits](https://vercel.com/docs/limits).
+The dashboard supplies these readings. Public documentation confirms the principal transfer, request and Fluid allowances. [Vercel Hobby plan](https://vercel.com/docs/plans/hobby), [fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines)
 
 ## Which projects contribute most
 
-The project CSV beside this report contains every existing project's returned counters for both windows. A row marked `unavailable` is missing data, not measured zero. Empty successful query results mean no rows were returned for that project and window.
+### Current Fluid Compute
 
-### Function work
+| Project | Provisioned Memory | Active CPU |
+| --- | ---: | ---: |
+| Deleted `agent-mission-control-1790886504892-Vp6M` | 150.1 GB hours, 98.7 percent | 1 hour 26 minutes, 91.7 percent |
+| `agrail` | 1.9 GB hours, 1.2 percent | 7 minutes 7 seconds, 7.6 percent |
+| `provider-preferences` | 0.07 GB hours | 19 seconds, 0.3 percent |
+| `master-clean-app` | 0.01 GB hours | 12 seconds, 0.2 percent |
+| `wehrmeyer` | 0.01 GB hours | 8 seconds, 0.1 percent |
+| `master-clean-hq` | 0.01 GB hours | 4 seconds, 0.1 percent |
 
-`agent-mission-control` dominates the historical daily breakdown. Subtracting all 53 current projects from the recent team total leaves 163.381 GB hours, about 98.84 percent of total execution, and 318,104 invocation events attributable to the unavailable historical project. This is a reconciled residual, not a successful direct project query, because Vercel rejects querying the deleted project by ID.
+The deleted project remains visible because this rolling window includes its usage before October 1. A historical row does not mean the project is still deployed. MCC itself is a very small compute contributor.
 
-The 53 retained projects together recorded just 1.913 GB hours recently. The largest retained contributor was `agrail`, at 1.813 GB hours including two timeout events and 3,149 total invocation events. `provider-preferences` followed at 0.0674 GB hours and 767 invocation events. `master-clean-app` recorded 0.0115 GB hours and 59 invocations. The MCC website recorded 0.00977 GB hours and 25 invocations, all successful.
+### Previous Fluid Compute
 
-In the previous window the unavailable project also dominated the daily breakdown, at approximately 538.64 GB hours after reconciliation. Five small project queries in that older window could not be completed, so treat that residual as approximate.
+| Project | Provisioned Memory | Active CPU |
+| --- | ---: | ---: |
+| Deleted `agent-mission-control-1790886504892-Vp6M` | 533.6 GB hours, 100.0 percent displayed after rounding | 7 hours 45 minutes, 99.8 percent |
+| `master-clean-app` | 0.05 GB hours | 40 seconds |
+| `agrail` | 0.04 GB hours | 9 seconds |
+| `the-provider-system-website` | Not captured | 1 second |
 
-### Data transfer
+The deleted project's 100.0 percent share is a rounded share, not a claim that other projects used exactly zero. Modern dashboard attribution independently confirms the earlier CLI residual diagnosis.
 
-| Project | Recent outgoing bandwidth | Share of recent team total | Previous outgoing bandwidth |
+### Current Fast Data Transfer
+
+The full project view confirms these largest contributors. This is the modern Fast Data Transfer meter, separate from the legacy outgoing bandwidth table below.
+
+| Project | Fast Data Transfer | Share |
+| --- | ---: | ---: |
+| `jedisgames` | 9.44 GB | 64.0 percent |
+| `permian-sand-movers` | 2 GB | 13.6 percent |
+| `agrail` | 1.35 GB | 9.1 percent |
+| `master-clean-hq` | 1.01 GB | 6.9 percent |
+| `the-provider-system-website` | 280.86 MB | 1.9 percent |
+| Deleted Agent Mission Control | 211.61 MB | 1.4 percent |
+
+Smaller confirmed entries include `health-tracker` at 1.64 MB, `master-clean-app` at 1.26 MB and `melinvoice` at 656.82 kB. No cleanup of these low usage projects is justified by the measured transfer totals.
+
+### Current Deployment Storage examples
+
+| Project | Storage |
+| --- | ---: |
+| `jedisgames` | 7.25 GB, about 86 percent of the 8.43 GB total |
+| `master-clean-hq` | 235.86 MB |
+| `adrians-custom-services` | 178.4 MB |
+| `permian-sand-movers` | 113.4 MB |
+| `agrail` | 86.29 MB |
+| `e3c-grid-hub-main` | 45.41 MB |
+
+Team Deployment Storage rose from 3.31 GB in the prior view to 8.43 GB currently. The graph peaked near 9.3 GB around October 14 before settling near 8.4 GB. The overview legend shows selected project examples rather than a fully sorted global list. `jedisgames` is the clear dominant contributor; the other rows above are confirmed examples, not a claimed complete ranking. Review retention and large output before identifying specific previews that are safe to remove.
+
+The aligned current deployment count includes 19 retained records for `jedisgames`, 12 for `master-clean-hq`, six for `agrail`, and four each for `provider-preferences` and `nagle-crm`. The current window contains 64 ready and four blocked records. The previous window contains 24 ready, 12 blocked and one failed record. These counts describe retained deployment records, not build minutes or current storage bytes.
+
+## Causes and fixes
+
+1. **Agent Mission Control exhausted the previous Fluid allowances.** Its source contains a worker loop with a default 10 second polling interval, health checks, heartbeats and channel reads. Its frontend has 15 second status refreshes and five second dashboard refreshes. Vercel routed its API paths to one Python function with a 300 second maximum duration. These mechanisms explain persistent function work; dashboard totals establish the dominant project. Individual route and caller attribution remains unavailable. The Vercel project was already deleted on October 1. Keep the replacement runtime intact. Before any future Vercel redeployment, remove idle polling, add pause and backoff behavior, combine status reads and avoid repeatedly invoking serverless endpoints to support a persistent worker.
+
+2. **Large retained deployments are the current capacity concern.** `jedisgames` dominates Deployment Storage. Review its retained game previews, large assets and retention, then present specific obsolete deployments for John's approval. Do not delete projects or deployments during the audit. Weekly guide text is small and pages render statically, but each guide release still consumes a build and can add retained deployment output. Do not promise that automated publishing adds no Vercel usage.
+
+3. **Smaller runtime failures merit targeted repairs.** The earlier diagnostic window found errors and timeouts in `agrail`, plus a failing daily cron in `concierge-nurse-society`. Their counters are preserved below. Check failing routes, bound upstream timeouts and stop repeated retries after persistent failure. Review the cron's business need before proposing any change. Neither project was changed.
+
+4. **Static asset delivery can be reduced.** The earlier bandwidth ranking was led by `jedisgames`, although modern team Fast Data Transfer remains far below its allowance. Review large asset paths, compression, browser caching and unnecessary downloads. MCC also retains `public/img/blog.images/blog1.jpg`, a 7,536,640 byte source JPEG. If used for delivery, create a compressed variant while retaining the original. Its size alone does not prove transfer volume.
+
+5. **Image optimization and bots are not the proven cause.** The dashboard shows zero image source, transformation, cache read and cache write usage in both periods. MCC is Vite and contains no `next/image` usage or cron definition. Source supports automated internal polling. No retained user agent, IP or route breakdown conclusively identifies crawlers as the cause. Do not block Google indexing merely because traffic is automated.
+
+## Whether Pro is needed
+
+The previously exhausted compute meters are now below half of their allowances after Agent Mission Control was removed. The measured MCC marketing website load does not justify Pro solely for compute capacity. Deployment Storage still needs a targeted retention review before it becomes the next cap.
+
+There is a separate commercial use requirement. Vercel restricts Hobby to personal, noncommercial use and requires Pro or Enterprise for commercial usage. MCC advertises paid services and captures business leads, so it belongs on Pro under those terms even if usage stays low. This policy was checked again on October 21, 2026. [Vercel fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines)
+
+The current public Pro starting price is $20 per month with $20 in included usage credit, checked again on October 21, 2026. That does not guarantee the whole 53 project account will always total exactly $20. Review applicable pricing and spend controls before upgrading. No billing action was taken. [Vercel pricing](https://vercel.com/pricing)
+
+## Evidence limits
+
+The two exhausted meters, direct current and previous compute attribution, largest confirmed transfer contributors, image usage, origin transfer and Fluid billing model are verified. A separate authenticated count fetched two pages and 105 unique retained deployment records across the exact previous and current 21:00 UTC windows. The latest retained record was October 21 at 19:57 UTC. Deleted deployment history is unavailable. No additional account login is needed to establish these findings.
+
+The earlier authenticated CLI `vercel usage` request returned `Costs not found (404)`. A temporary CLI version 65 invocation required Observability Plus for modern queries. The correct dashboard now supplies modern values without purchasing that add on. No add on or installed CLI upgrade was performed for the audit.
+
+## Appendix: earlier CLI diagnostic audit
+
+The original windows were September 21 at midnight UTC through October 21 at midnight UTC, and August 22 at midnight UTC through September 21 at midnight UTC. The partial current UTC day was excluded. Vercel refreshed these counters at about 14:22 UTC on October 21. Their cutoffs differ by about 21 hours from the displayed dashboard windows, and their counter definitions differ. These are diagnostic counters, not billed modern meters.
+
+| Legacy diagnostic | Recent CLI window | Previous CLI window |
+| --- | ---: | ---: |
+| Outgoing bandwidth | 14.337 GB | 8.307 GB |
+| Cached plus uncached requests | 337,159 | 655,833 |
+| Invocation outcome events | 322,279 | 586,820 |
+| Successful, error and timeout execution | 165.294 GB hours | 538.758 GB hours |
+| Build execution time, excluding queues | 163.94 minutes | 20.23 minutes |
+| Build units | 235 | 52 |
+| Retained deployment records | 61, including 42 production and 19 preview | 37, including 32 production and five preview |
+
+Retained counts include blocked creation attempts and may omit deleted project history. The legacy API did not provide modern origin transfer, image optimization or Fluid CPU and memory meters. Its execution totals originally suggested a 100 GB hour overage. That provisional interpretation is superseded by the verified Fluid dashboard findings above.
+
+### Legacy function attribution and errors
+
+Before October 2, the team recorded about 15 GB hours of legacy execution and 29,000 invocation outcome events per day. From October 2 through October 20, daily execution was below 0.11 GB hours.
+
+Subtracting all 53 retained projects from the recent team total left 163.381 GB hours, about 98.84 percent of diagnostic execution, and 318,104 outcome events associated with the unavailable historical project. This was a reconciled residual, not a direct deleted project query. The previous residual was approximately 538.64 GB hours; five small project queries were unavailable in that window. Direct modern dashboard attribution now confirms the deleted project's dominance.
+
+The retained projects totaled 1.913 GB hours recently. `agrail` contributed 1.813 GB hours and 3,149 outcome events, including 614 errors and two timeouts. `provider-preferences` contributed 0.0674 GB hours and 767 events. `master-clean-app` contributed 0.0115 GB hours and 59 events. `master-clean-hq` contributed 0.00977 GB hours and 25 successful events.
+
+`concierge-nurse-society` was the only retained project with a nonempty cron definition: `/api/process-sequences` at `0 8 * * *`. Its recent diagnostic window had 30 uncached requests, 60 error invocation events and 0.00496 GB hours. It was not the dominant contributor. No cron was changed.
+
+### Legacy outgoing bandwidth ranking
+
+| Project | Recent CLI window | Share of recent CLI team total | Previous CLI window |
 | --- | ---: | ---: | ---: |
 | `jedisgames` | 9.375 GB | 65.4 percent | No rows returned |
 | `permian-sand-movers` | 1.969 GB | 13.7 percent | 1.180 GB |
@@ -63,49 +168,17 @@ In the previous window the unavailable project also dominated the daily breakdow
 | `the-provider-system-website` | 0.267 GB | 1.9 percent | 0.245 GB |
 | `adrians-custom-services` | No rows returned | Not calculated | 5.112 GB |
 
-`melinvoice` used about 0.590 MB recently and `health-tracker` about 1.386 MB. No recent request rows were returned for `nagle-crm` or `upcrm`. Removing those projects would not address the measured function problem. Their low traffic is not evidence that they are safe to remove.
+`melinvoice` used about 0.590 MB recently and `health-tracker` about 1.386 MB. No recent request rows were returned for `nagle-crm` or `upcrm`. Low traffic does not establish that a project is safe to delete. Removing these projects would not fix the previous Fluid cap.
 
-### Builds and previews
+The recent retained deployment history had 19 records for `jedisgames`, six for `agrail`, five for `master-clean-hq` and four each for `provider-preferences` and `nagle-crm`. This did not show a deployment explosion explaining historical compute. Retained deployment storage remains a separate modern capacity concern.
 
-`jedisgames` has 19 retained deployment records in the recent window, followed by six for `agrail`, five for `master-clean-hq`, and four each for `provider-preferences` and `nagle-crm`. The retained history does not show a monthly deployment explosion that explains the execution usage. Git deployment creation remains enabled on connected projects, so unneeded pushes and previews can still be reduced after checking each project's workflow.
+### Evidence and reproducibility
 
-## Causes and fixes
+1. Authenticated dashboard Last 30 Days and custom views establish the modern totals and allowance indicators. The previous custom URL establishes exact UTC boundaries. Detailed memory and CPU lists, the full transfer project view and confirmed storage examples establish modern attribution. Local raw accessibility evidence is saved at `/tmp/mcc-vercel-current-usage-20261021.txt`, `/tmp/mcc-vercel-previous-usage-20261021.txt` and `/tmp/mcc-vercel-current-compute-20261021.txt`; these temporary files are not durable repository attachments.
+2. `vercel whoami --format json` and `vercel teams ls --format json` establish owner and scope. `vercel project inspect master-clean-hq --scope jxwayne890s-projects --non-interactive` establishes the website target.
+3. `GET /v2/teams/team_ijL6I1f7BoKqxGHB4grAxAI0` establishes Hobby, owner membership and the null billing period. `GET /v10/projects?teamId=team_ijL6I1f7BoKqxGHB4grAxAI0&limit=100` supplies inventory, framework presets and cron definitions.
+4. `GET /v2/usage`, with `type=requests` or `type=builds`, ISO `from` and `to`, the team ID and optional `projectId`, supplied the legacy counters. These have not been relabeled as Fluid usage.
+5. `GET /v6/deployments`, with explicit team ID, timestamp bounds and pagination, supplies retained deployment counts. Both the earlier midnight UTC counts and the later aligned 21:00 UTC counts are labeled above. `GET /v3/events`, filtered to `types=project-delete`, confirms October 1 deletion.
+6. Read only GitHub source inspection of `JxWayne890/agent-mission-control` confirms polling defaults, frontend timers and Python API configuration. Source supports the mechanism; dashboard usage establishes measured attribution.
 
-1. **Continuous Agent Mission Control API work was the dominant issue.** Repository code contains a worker loop with a default 10 second polling interval, regular health checks, heartbeats, and channel reads. Its frontend also contains 15 second status refreshes and five second dashboard refreshes. The Vercel configuration routed all API paths to one Python function with a 300 second maximum duration. These are concrete mechanisms for persistent function traffic. The historical metrics prove the project attribution and timing; the available evidence does not prove which individual route or caller produced each invocation. The project was already deleted on October 1, and subsequent team execution is much lower. Keep its existing replacement runtime intact. Before any future Vercel redeployment, remove unnecessary idle polling, add pause and backoff behavior, combine status reads, and avoid running a persistent worker through frequently invoked serverless endpoints.
-
-2. **A scheduled job in another project is failing.** `concierge-nurse-society` has the only nonempty cron definition in the 53 current project configurations: `/api/process-sequences` at `0 8 * * *`. The recent window contains 30 uncached requests and 60 error invocation events for that project, totaling only 0.00496 GB hours. This is not the usage cap driver. Review its runtime error and fix the job if it is still needed. If it is obsolete, get John's approval before disabling it. No cron was changed.
-
-3. **`agrail` has a smaller function issue worth reviewing.** It recorded 614 error events and two timeout events recently, with 1.813 GB hours total execution. Check the failing route and its upstream calls, add bounded timeouts and caching where appropriate, and stop repeated retries after a persistent failure. This project was not changed.
-
-4. **Large static payloads are a secondary optimization opportunity.** `jedisgames` is the leading bandwidth project, although the whole team remains well below 100 GB in the measured outgoing bandwidth. Review its largest asset paths, compression, browser caching, and unnecessary downloads before making changes. The MCC repository also contains `public/img/blog.images/blog1.jpg`, a 7,536,640 byte JPEG. Compress or replace its delivery variant if referenced, while retaining the original asset. That file alone does not establish how much traffic it received.
-
-5. **MCC is not using Next.js image optimization.** The production project is Vite, and the inspected MCC source contains no `next/image` usage, recurring client polling, or cron definition. The team's Next.js presets are `agrail`, `master-clean-app`, and `v0-home-stage-room-staging`. If the dashboard identifies image transformations as another full allowance, examine those projects first, restrict image sizes and remote sources, cache immutable assets, and precompress fixed marketing images during the build. Their presets alone do not prove excessive transformations.
-
-6. **Bots are not proven as the main cause.** The daily traffic pattern and known polling code support automated internal traffic as the principal function explanation. No retained route, user agent, or IP breakdown was available to distinguish crawlers conclusively. Use dashboard request paths and firewall events before adding a rule. Do not block legitimate Google indexing merely because traffic is automated.
-
-## Whether Pro is needed
-
-The measured function problem has already fallen sharply after the Agent Mission Control project disappeared. There is no evidence here that the MCC marketing website needs an upgrade for compute capacity. Static guides and city pages should add no image transformation work and require no function execution merely to render.
-
-There is a separate plan requirement: Vercel's published terms reserve Hobby for personal, noncommercial use and require Pro or Enterprise for commercial use. MCC advertises paid business services and captures commercial leads, so it belongs on Pro under those terms even if usage stays small. [Vercel fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines)
-
-The current public Pro price starts at $20 per month and includes $20 of usage credit. This is not a guarantee that 53 projects will always total exactly $20. Check the applicable account pricing and spend controls before upgrading. No billing action was taken. [Vercel pricing](https://vercel.com/pricing)
-
-## What still needs the correct dashboard session
-
-The connected Vercel plugin returned no teams. The normal authenticated CLI can inspect the correct MCC team, but `vercel usage` returns `Costs not found (404)` for its billing charges. The legacy usage API supplies the counters above. A temporary invocation of CLI version 65 confirmed that modern transfer, Active CPU, and image metric queries are blocked by an Observability Plus requirement. No add on was purchased and the installed CLI was not upgraded.
-
-The available Chrome dashboard was signed in as `management@nagleparking.com`, rather than the MCC owner. Account access was stopped under the repository account policy. Once John signs into the MCC owner account in the dashboard, read its usage cards for the rolling 30 day view and previous custom window, including exact Fast Origin Transfer, image source counts, transformations, Active CPU, Provisioned Memory, and any full allowance badge. The dashboard can supply this without purchasing Observability Plus solely for the audit.
-
-## Evidence and reproducibility
-
-1. `vercel whoami --format json` and `vercel teams ls --format json` establish the authenticated owner and scope.
-2. `vercel project inspect master-clean-hq --scope jxwayne890s-projects --non-interactive` establishes the exact website target.
-3. `GET /v2/teams/team_ijL6I1f7BoKqxGHB4grAxAI0` establishes Hobby, owner membership, and the null billing period.
-4. `GET /v10/projects?teamId=team_ijL6I1f7BoKqxGHB4grAxAI0&limit=100` supplies the 53 project inventory, framework presets, and cron definitions.
-5. `GET /v2/usage` with `type=requests` or `type=builds`, ISO `from` and `to` parameters, the explicit team ID, and optional `projectId` supplies the historical counters. Sum successful, error, and timeout GB hour fields for duration. Sum all invocation outcome fields for invocation events. Sum hit and miss counters for legacy request counts.
-6. `GET /v6/deployments` with the same team, timestamp bounds, and pagination supplies retained deployment counts.
-7. `GET /v3/events` filtered to `types=project-delete` confirms the October 1 Agent Mission Control deletion. The local Vercel project link resolves its historical project ID.
-8. Read only GitHub source inspection of `JxWayne890/agent-mission-control` confirms the worker polling defaults, frontend refresh timers, and Python API configuration. Source code is supporting evidence for the mechanism, not a substitute for route level runtime logs.
-
-Companion data: `vercel-usage-projects-20261021.csv`. It contains numeric usage and project identifiers only, with no secrets or lead information.
+Companion data: `vercel-usage-projects-20261021.csv`. It contains legacy numeric counters and project identifiers only, with no secrets or lead information. A row marked `unavailable` means missing data, not measured zero. An empty successful result means no rows were returned for that project and CLI window.
