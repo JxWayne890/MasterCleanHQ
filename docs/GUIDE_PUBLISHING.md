@@ -4,12 +4,12 @@ John requested a Groku owned cloud routine that writes guides and publishes thro
 
 ## Permission and launch status
 
-On October 21, 2026, John authorized automatic future guide publication after checks pass, once the initial guides section is explicitly approved and live. This does not approve the pending redesign, city network or publisher release. Those changes are currently on a preview branch. Remote Groku publication and unattended execution have not yet been verified.
+On October 21, 2026, John authorized automatic future guide publication after checks pass, once the initial guides section is explicitly approved and live. He then explicitly approved the initial production release. Commit `4e1aa7563904c963cc62fd556f6a95fc525b0625` went live through the existing Vercel Git integration, and public verification confirmed all five guides, catalog, metadata, sitemap, robots, quote destination and partner pages. The future guide permission is active. Remote Groku publication and unattended execution have not yet been verified.
 
-Leave both gates disabled until the approved initial release is live:
+The initial release was verified with both gates disabled. Activate them in this order:
 
-* Vercel server variable `MCC_GUIDES_PUBLISHING_ENABLED` must equal `true` to accept publication.
-* GitHub repository variable `MCC_GUIDES_LAUNCH_APPROVED` must equal `true` before the worker commits.
+* Set Production server variable `MCC_GUIDES_PUBLISHING_ENABLED` to `true`, then deploy and verify the reviewed production source. Existing deployments do not receive environment edits.
+* Set GitHub repository variable `MCC_GUIDES_LAUNCH_APPROVED` to `true` only after that production build is verified. The worker cannot commit while this final gate is disabled.
 
 The publisher also verifies trusted production source and the live guides section. The live publication manifest commit must match production `main` before a new guide starts. A feature release that is missing or still deploying cannot be bypassed by enabling the flags.
 
