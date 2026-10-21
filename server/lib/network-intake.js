@@ -52,6 +52,7 @@ export function normalizeNetworkSubmission(raw, now = new Date()) {
     fields.currentProvider = safeText(raw.currentProvider ?? '', 200);
     if (raw.currentProvider && !fields.currentProvider) return fail('Enter a current provider of 200 characters or fewer.', 'currentProvider');
   } else {
+    if (Array.isArray(raw.services) && raw.services.some((value) => typeof value !== 'string')) return fail('Tell us which commercial cleaning services you provide.', 'services');
     const servicesText = Array.isArray(raw.services) ? raw.services.join(',') : typeof raw.services === 'string' ? raw.services : '';
     const services = servicesText.split(/[\r\n,]+/).map((value) => value.trim()).filter(Boolean);
     fields.services = [...new Set(services.map((value) => safeText(value, 250)).filter(Boolean))];

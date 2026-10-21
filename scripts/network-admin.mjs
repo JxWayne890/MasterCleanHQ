@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises';
+import { chmod, writeFile } from 'node:fs/promises';
 import { NETWORK_BUCKET, NETWORK_RECIPIENT, buildNetworkEmail, networkConfig, sendNetworkNotification } from '../server/lib/network-intake.js';
 
 const [command, ...args] = process.argv.slice(2);
@@ -50,6 +50,7 @@ if (command === 'create-bucket') {
     const columns = [...new Set(rows.flatMap(Object.keys))];
     await writeFile(output, [columns.map(csvCell).join(','), ...rows.map((row) => columns.map((name) => csvCell(row[name])).join(','))].join('\r\n'), { mode: 0o600 });
   } else await writeFile(output, JSON.stringify(records, null, 2), { mode: 0o600 });
+  await chmod(output, 0o600);
   console.log(`Exported ${records.length} ${environment} records to the private output file.`);
 } else if (command === 'retry') {
   const path = option('path', '');
