@@ -24,3 +24,11 @@ Chrome observations:
 Screenshot: [Full screen mobile menu](menu-fullscreen-mobile.jpg).
 
 This update remains on preview for John's review. Production has not been promoted.
+
+## Preview delivery
+
+Preview: https://master-clean-di9rqavqf-jxwayne890s-projects.vercel.app
+
+Ready deployment: `dpl_LxtSk89MRsqyfpsKGVSzzXC9mMJt`. Implementation commit: `b3c2405`. Account and project were verified as `jxwayne890s-projects/master-clean-hq` before deployment. The build was created locally and uploaded as a preview.
+
+Authenticated Vercel CLI requests returned HTTP 200 for `/`, `/services`, and `/assets/index-DexAzHJ3.css`. Both HTML responses match the prebuilt artifacts after excluding Vercel's preview feedback script. The CSS matches its built asset exactly and contains the opening animation, closing animation, and reduced motion rules. Deployment protection was preserved.
