@@ -1,9 +1,7 @@
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactSection from '../components/ContactSection';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 import { SITE_URL } from '../config/site';
 
 const reviews = [
@@ -51,11 +49,11 @@ const ReviewsPage = () => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '900px' }}>
-                    <motion.p initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}>Client Feedback</motion.p>
-                    <motion.h1 initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05 }}>
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '900px' }}>
+                    <p data-motion="rise" style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}>Client Feedback</p>
+                    <h1 data-motion="rise" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05 }}>
                         What Clients <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Say</span>
-                    </motion.h1>
+                    </h1>
                 </div>
             </section>
 
@@ -63,14 +61,10 @@ const ReviewsPage = () => {
                 <div className="container">
                     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Reviews', path: '/reviews' }]} />
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
+                    <div data-motion-group style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
                         {reviews.map((review, i) => (
-                            <motion.div
+                            <div data-motion="rise"
                                 key={i}
-                                initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                                whileInView={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                                viewport={{ once: true }}
-                                transition={ENABLE_MOTION ? { delay: i * 0.1 } : undefined}
                                 style={{ backgroundColor: 'var(--white)', padding: '2.5rem', borderTop: '3px solid var(--orange)' }}
                             >
                                 <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
@@ -85,7 +79,7 @@ const ReviewsPage = () => {
                                     <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>{review.name}</p>
                                     <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', fontSize: '0.85rem', margin: 0 }}>{review.location}</p>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

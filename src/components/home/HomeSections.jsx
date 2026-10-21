@@ -96,16 +96,16 @@ export default function HomeSections() {
         <div className="mcc-home-sections">
             <section id="services" className="mcc-home-services" aria-labelledby="home-services-title">
                 <div className="mcc-home-wrap">
-                    <div className="mcc-section-heading">
+                    <div className="mcc-section-heading" data-motion="rise" data-motion-group>
                         <div>
                             <p className="mcc-section-eyebrow">Built around your building</p>
                             <h2 id="home-services-title">Good cleaning starts<br />with the right scope.</h2>
                         </div>
                         <p className="mcc-section-intro">A busy office, a school campus, and a newly finished building need different plans. Let’s talk about yours.</p>
                     </div>
-                    <div className="mcc-service-grid">
+                    <div className="mcc-service-grid" data-motion-group>
                         {services.map(({ number, Icon, title, description, tasks, href, link }) => (
-                            <article className="mcc-service-item" key={number}>
+                            <article className="mcc-service-item" data-motion="rise" key={number}>
                                 <div className="mcc-service-top"><Icon size={30} strokeWidth={1.35} aria-hidden="true" /><span>{number}</span></div>
                                 <h3>{title}</h3>
                                 <p>{description}</p>
@@ -119,15 +119,15 @@ export default function HomeSections() {
 
             <section id="about" className="mcc-home-process" aria-labelledby="home-process-title">
                 <div className="mcc-home-wrap mcc-process-layout">
-                    <div className="mcc-process-intro">
+                    <div className="mcc-process-intro" data-motion="rise">
                         <p className="mcc-section-eyebrow">A straightforward place to start</p>
                         <h2 id="home-process-title">One less thing<br />on your list.</h2>
                         <p>When you are responsible for a building, the details add up. Restrooms. Entryways. Dust on the ledges. Start with a conversation about what needs attention and what a useful cleaning plan should cover.</p>
                         <a href="tel:+13252732203" className="mcc-call-link"><span className="mcc-call-icon"><Phone size={19} aria-hidden="true" /></span><span>Let’s talk about your building<strong>(325) 273 2203</strong></span><ArrowUpRight size={22} aria-hidden="true" /></a>
                     </div>
-                    <ol className="mcc-process-steps">
+                    <ol className="mcc-process-steps" data-motion-group>
                         {steps.map((step) => (
-                            <li key={step.number}>
+                            <li key={step.number} data-motion="rise">
                                 <span className="mcc-step-number" aria-hidden="true">{step.number}</span>
                                 <div><h3>{step.title}</h3><p>{step.description}</p></div>
                             </li>
@@ -138,15 +138,15 @@ export default function HomeSections() {
 
             <section id="service-areas" className="mcc-home-coverage" aria-labelledby="home-coverage-title">
                 <div className="mcc-home-wrap">
-                    <div className="mcc-coverage-layout">
-                        <div className="mcc-coverage-copy">
+                    <div className="mcc-coverage-layout" data-motion-group>
+                        <div className="mcc-coverage-copy" data-motion="rise">
                             <p className="mcc-section-eyebrow">San Angelo is home</p>
                             <h2 id="home-coverage-title">Local people.<br />West Texas work.</h2>
                             <p>Master Commercial Clean serves San Angelo and the surrounding West Texas area directly. From a single office to a commercial property, we start by understanding the place you look after.</p>
                             <p>Tell us where your building is and what it needs. We will review the location and scope with you.</p>
                             <a href="/service-areas" className="mcc-text-link">Explore our service areas<ArrowUpRight size={19} aria-hidden="true" /></a>
                         </div>
-                        <div className="mcc-coverage-place">
+                        <div className="mcc-coverage-place" data-motion="rise">
                             <span className="mcc-place-label"><MapPin size={17} aria-hidden="true" />Our home base</span>
                             <p className="mcc-place-name">San Angelo<span>Texas</span></p>
                             <div className="mcc-place-rule" aria-hidden="true"><span /></div>
@@ -154,7 +154,7 @@ export default function HomeSections() {
                             <a href="#contact">Ask about your location<ArrowUpRight size={18} aria-hidden="true" /></a>
                         </div>
                     </div>
-                    <aside className="mcc-network-note" aria-labelledby="home-network-title">
+                    <aside className="mcc-network-note" data-motion="rise" aria-labelledby="home-network-title">
                         <div><p className="mcc-section-eyebrow">Looking beyond West Texas?</p><h3 id="home-network-title">Meet our Texas partner network.</h3><p>For established businesses in other Texas markets, we review your needs and seek a suitable local cleaning partner. Partner availability must be confirmed.</p></div>
                         <div className="mcc-network-links"><a href="/partner-network/greater-houston">Greater Houston<ArrowUpRight size={18} aria-hidden="true" /></a><a href="/partner-network/dallas-fort-worth">Dallas Fort Worth<ArrowUpRight size={18} aria-hidden="true" /></a></div>
                     </aside>
@@ -163,13 +163,13 @@ export default function HomeSections() {
 
             <section id="guides" className="mcc-home-guides" aria-labelledby="home-guides-title">
                 <div className="mcc-home-wrap">
-                    <div className="mcc-section-heading">
+                    <div className="mcc-section-heading" data-motion="rise" data-motion-group>
                         <div><p className="mcc-section-eyebrow">Useful before you call</p><h2 id="home-guides-title">A little clarity<br />for your next decision.</h2></div>
                         <a href="/guides" className="mcc-text-link">All cleaning guides<ArrowUpRight size={19} aria-hidden="true" /></a>
                     </div>
-                    <div className="mcc-guide-list">
+                    <div className="mcc-guide-list" data-motion-group>
                         {guides.map((guide, index) => (
-                            <a className="mcc-guide-item" href={guide.href} key={guide.href}>
+                            <a className="mcc-guide-item" data-motion="rise" href={guide.href} key={guide.href}>
                                 <span className="mcc-guide-number" aria-hidden="true">0{index + 1}</span>
                                 <div><span className="mcc-guide-category">{guide.category}</span><h3>{guide.title}</h3><p>{guide.description}</p></div>
                                 <span className="mcc-guide-arrow"><ArrowUpRight size={24} aria-hidden="true" /></span>
@@ -181,7 +181,7 @@ export default function HomeSections() {
 
             <section id="faq" className="mcc-home-faq" aria-labelledby="home-faq-title">
                 <div className="mcc-home-wrap mcc-faq-layout">
-                    <div className="mcc-faq-intro"><p className="mcc-section-eyebrow">A few common questions</p><h2 id="home-faq-title">Let’s make<br />the next step easy.</h2><p>Have a question about your property? Give us a call and tell us what you are working with.</p><a href="tel:+13252732203" className="mcc-text-link"><Phone size={18} aria-hidden="true" />(325) 273 2203<ArrowUpRight size={19} aria-hidden="true" /></a></div>
+                    <div className="mcc-faq-intro" data-motion="rise"><p className="mcc-section-eyebrow">A few common questions</p><h2 id="home-faq-title">Let’s make<br />the next step easy.</h2><p>Have a question about your property? Give us a call and tell us what you are working with.</p><a href="tel:+13252732203" className="mcc-text-link"><Phone size={18} aria-hidden="true" />(325) 273 2203<ArrowUpRight size={19} aria-hidden="true" /></a></div>
                     <div className="mcc-faq-items">
                         {homeFaqs.map((faq) => (
                             <details key={faq.question} className="mcc-faq-item"><summary>{faq.question}<span aria-hidden="true" /></summary><p>{faq.answer}</p></details>

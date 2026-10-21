@@ -1,5 +1,4 @@
 import { Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FAQAccordion from '../components/FAQAccordion';
@@ -13,7 +12,6 @@ import {
     buildFaqSchema,
     buildWebPageSchema,
 } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const BlogPostPage = ({ slug }) => {
     const post = getBlogPostBySlug(slug);
@@ -35,7 +33,7 @@ const BlogPostPage = ({ slug }) => {
             const heading = post.headings.find((h) => h.paragraphIndex === i);
             if (heading) {
                 elements.push(
-                    <h2 key={`h-${i}`} style={{
+                    <h2 data-motion="rise" key={`h-${i}`} style={{
                         fontFamily: 'var(--font-serif)',
                         fontSize: 'clamp(1.5rem, 3vw, 2rem)',
                         color: 'var(--navy)',
@@ -148,10 +146,8 @@ const BlogPostPage = ({ slug }) => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '800px' }}>
-                    <motion.div
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '800px' }}>
+                    <div data-motion="rise"
                         style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1.5rem' }}
                     >
                         <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--orange)' }}>
@@ -165,22 +161,17 @@ const BlogPostPage = ({ slug }) => {
                         <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
                             {post.readTime}
                         </span>
-                    </motion.div>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </div>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.1, marginBottom: '1.5rem' }}
                     >
                         {post.title}
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}
                     >
                         {post.excerpt}
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
@@ -245,15 +236,15 @@ const BlogPostPage = ({ slug }) => {
                         {/* Sidebar */}
                         <aside style={{ position: 'sticky', top: '100px' }}>
                             {relatedServices.length > 0 && (
-                                <div style={{ backgroundColor: 'var(--white)', padding: '1.5rem', borderTop: '3px solid var(--orange)', marginBottom: '1.5rem' }}>
+                                <div data-motion-group style={{ backgroundColor: 'var(--white)', padding: '1.5rem', borderTop: '3px solid var(--orange)', marginBottom: '1.5rem' }}>
                                     <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', fontSize: '1rem', marginBottom: '1rem' }}>
                                         Related Services
                                     </h3>
                                     {relatedServices.map((s) => (
-                                        <Link key={s.slug} to={`/${s.slug}`} style={{
-                                            display: 'block', padding: '0.75rem', marginBottom: '0.5rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', fontWeight: 500, transition: 'transform 0.2s',
+                                        <Link data-motion="rise" key={s.slug} to={`/${s.slug}`} style={{
+                                            display: 'block', padding: '0.75rem', marginBottom: '0.5rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', fontWeight: 500, transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)',
                                         }}
-                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
+                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(2px)'}
                                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
                                         >
                                             {s.navLabel} &rarr;

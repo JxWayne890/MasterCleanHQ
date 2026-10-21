@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactSection from '../components/ContactSection';
-import { locations, getLocationsByRegion, getHubLocations } from '../data/locations';
+import { locations, getLocationsByRegion } from '../data/locations';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const regions = [
     { key: 'concho-valley', name: 'Concho Valley', hub: 'San Angelo' },
@@ -40,10 +38,8 @@ const ServiceAreasIndex = () => {
                 backgroundColor: 'var(--navy)',
                 color: 'var(--white)',
             }}>
-                <div className="container" style={{ maxWidth: '1100px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '1100px' }}>
+                    <p data-motion="rise"
                         style={{
                             fontFamily: 'var(--font-sans)',
                             textTransform: 'uppercase',
@@ -55,10 +51,8 @@ const ServiceAreasIndex = () => {
                         }}
                     >
                         West Texas Coverage
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{
                             fontSize: 'clamp(3rem, 6vw, 5.25rem)',
                             lineHeight: 1.05,
@@ -66,11 +60,8 @@ const ServiceAreasIndex = () => {
                         }}
                     >
                         Our Service <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Areas</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{
                             fontFamily: 'var(--font-sans)',
                             fontSize: '1.2rem',
@@ -80,7 +71,7 @@ const ServiceAreasIndex = () => {
                         }}
                     >
                         Master Commercial Clean provides commercial cleaning, post-construction cleanup, and specialized janitorial services across {locations.length}+ cities in West Texas. Based in San Angelo, we serve the Concho Valley, Big Country, Permian Basin, and South Plains regions.
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
@@ -92,7 +83,7 @@ const ServiceAreasIndex = () => {
                     ]} />
 
                     <aside style={{ background: "var(--white)", borderLeft: "3px solid var(--orange)", padding: "2rem", marginBottom: "3rem" }}>
-                        <h2 style={{ fontSize: "1.75rem", marginBottom: "1rem" }}>Need a commercial cleaning partner elsewhere in Texas?</h2>
+                        <h2 data-motion="rise" style={{ fontSize: "1.75rem", marginBottom: "1rem" }}>Need a commercial cleaning partner elsewhere in Texas?</h2>
                         <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>For Greater Houston and Dallas Fort Worth, our referral network reviews requests from established commercial businesses and seeks a suitable local cleaning partner. Partner availability is confirmed separately from our direct West Texas service.</p>
                         <a href="/partner-network" style={{ color: "var(--navy)", textDecoration: "underline", fontWeight: 700 }}>Explore the Texas partner network →</a>
                     </aside>
@@ -102,7 +93,7 @@ const ServiceAreasIndex = () => {
                         if (regionLocations.length === 0) return null;
                         return (
                             <div key={region.key} style={{ marginBottom: '4rem' }}>
-                                <h2 style={{
+                                <h2 data-motion="rise" style={{
                                     fontFamily: 'var(--font-serif)',
                                     fontSize: '2rem',
                                     color: 'var(--navy)',
@@ -118,13 +109,13 @@ const ServiceAreasIndex = () => {
                                 }}>
                                     Hub: {region.hub}
                                 </p>
-                                <div style={{
+                                <div data-motion-group style={{
                                     display: 'grid',
                                     gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
                                     gap: '1rem',
                                 }}>
                                     {regionLocations.map((loc) => (
-                                        <Link
+                                        <Link data-motion="rise"
                                             key={loc.slug}
                                             to={`/service-areas/${loc.slug}`}
                                             style={{
@@ -133,7 +124,7 @@ const ServiceAreasIndex = () => {
                                                 backgroundColor: 'var(--white)',
                                                 textDecoration: 'none',
                                                 borderLeft: loc.isHub ? '3px solid var(--orange)' : '3px solid var(--navy)',
-                                                transition: 'transform 0.3s, box-shadow 0.3s',
+                                                transition: 'transform 300ms cubic-bezier(.22,.61,.36,1), box-shadow 300ms ease',
                                             }}
                                             onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(2,24,43,0.08)'; }}
                                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}

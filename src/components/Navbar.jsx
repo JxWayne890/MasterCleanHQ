@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Phone } from 'lucide-react';
+import { ArrowUpRight, Menu, Phone } from 'lucide-react';
 import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
 import './contact-navigation.css';
 import './menu.css';
@@ -72,6 +72,13 @@ const Navbar = () => {
 
     function requestClose(destination = null) {
         if (phase !== 'open') return;
+        const modal = dialog.current;
+        if (modal) {
+            // Continue from the visible frame if the opening is interrupted.
+            const currentFrame = window.getComputedStyle(modal);
+            modal.style.setProperty('--menu-close-transform', currentFrame.transform);
+            modal.style.setProperty('--menu-close-opacity', currentFrame.opacity);
+        }
         pendingDestination.current = destination;
         setPhase('closing');
     }
@@ -113,7 +120,7 @@ const Navbar = () => {
     useEffect(() => {
         if (phase !== 'closing') return undefined;
         // Animation end normally closes the modal. The timer covers interruption.
-        const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 440;
+        const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
         const timer = window.setTimeout(finishClose, duration);
         return () => window.clearTimeout(timer);
     }, [phase, finishClose]);
@@ -157,8 +164,8 @@ const Navbar = () => {
                     <div className="mcc-header-actions">
                         <a className="mcc-header-phone" href={`tel:${PHONE_E164}`}><Phone size={17} aria-hidden="true" />{phone}</a>
                         <a className="mcc-nav-quote" href="/#contact">Get a free quote <ArrowUpRight size={17} aria-hidden="true" /></a>
-                        <button ref={menuButton} className="mcc-menu-toggle" type="button" aria-haspopup="dialog" aria-expanded={isOpen} aria-controls="mcc-mobile-menu" onClick={() => { openingUrl.current = window.location.href; setPhase('open'); }}>
-                            <span>Menu</span><span className="mcc-menu-symbol" aria-hidden="true"><span /><span /></span>
+                        <button ref={menuButton} className="mcc-menu-toggle" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded={isOpen} aria-controls="mcc-mobile-menu" onClick={() => { openingUrl.current = window.location.href; setPhase('open'); }}>
+                            <Menu size={28} strokeWidth={1.7} aria-hidden="true" />
                         </button>
                     </div>
                 </div>

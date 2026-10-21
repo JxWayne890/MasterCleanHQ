@@ -1,9 +1,7 @@
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactSection from '../components/ContactSection';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const differentiators = [
     { title: 'Documented Scopes of Work', desc: 'Every engagement is built on a written scope that specifies tasks, frequencies, and quality standards. No ambiguity, no missed expectations.', icon: '📋' },
@@ -29,11 +27,11 @@ const WhyChooseUsPage = () => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '900px' }}>
-                    <motion.p initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}>Our Differentiators</motion.p>
-                    <motion.h1 initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05 }}>
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '900px' }}>
+                    <p data-motion="rise" style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}>Our Differentiators</p>
+                    <h1 data-motion="rise" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05 }}>
                         Why Choose <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Us</span>
-                    </motion.h1>
+                    </h1>
                 </div>
             </section>
 
@@ -41,20 +39,16 @@ const WhyChooseUsPage = () => {
                 <div className="container">
                     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }, { name: 'Why Choose Us', path: '/about/why-choose-us' }]} />
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
-                        {differentiators.map((item, i) => (
-                            <motion.div
+                    <div data-motion-group style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
+                        {differentiators.map((item) => (
+                            <div data-motion="rise"
                                 key={item.title}
-                                initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                                whileInView={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                                viewport={{ once: true }}
-                                transition={ENABLE_MOTION ? { delay: i * 0.1 } : undefined}
                                 style={{ backgroundColor: 'var(--white)', padding: '2.5rem', borderTop: '3px solid var(--navy)' }}
                             >
                                 <span style={{ fontSize: '2rem', display: 'block', marginBottom: '1rem' }}>{item.icon}</span>
                                 <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>{item.title}</h2>
                                 <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, margin: 0, fontSize: '1rem' }}>{item.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

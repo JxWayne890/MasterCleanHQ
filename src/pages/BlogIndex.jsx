@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactSection from '../components/ContactSection';
 import { blogPosts } from '../data/blogPosts';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const categories = [
     { key: 'all', label: 'All Articles' },
@@ -45,29 +43,22 @@ const BlogIndex = () => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '1100px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '1100px' }}>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}
                     >
                         Expert Insights
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(3rem, 6vw, 5.25rem)', lineHeight: 1.05, marginBottom: '1.5rem' }}
                     >
                         The MCC <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Blog</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '760px' }}
                     >
                         Practical guides, industry insights, and expert tips on commercial cleaning from the Master Commercial Clean team.
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
@@ -94,7 +85,7 @@ const BlogIndex = () => {
                                     cursor: 'pointer',
                                     textTransform: 'uppercase',
                                     letterSpacing: '1px',
-                                    transition: 'all 0.2s',
+                                    transition: 'background-color 300ms ease, color 300ms ease',
                                 }}
                             >
                                 {cat.label}
@@ -102,19 +93,19 @@ const BlogIndex = () => {
                         ))}
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
+                    <div data-motion-group style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
                         {filtered.map((post) => (
-                            <Link
+                            <Link data-motion="rise"
                                 key={post.slug}
                                 to={`/blog/${post.slug}`}
                                 style={{
                                     display: 'block',
                                     backgroundColor: 'var(--white)',
                                     textDecoration: 'none',
-                                    transition: 'transform 0.3s, box-shadow 0.3s',
+                                    transition: 'transform 300ms cubic-bezier(.22,.61,.36,1), box-shadow 300ms ease',
                                     overflow: 'hidden',
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(2,24,43,0.08)'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(2,24,43,0.08)'; }}
                                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                             >
                                 <div style={{ padding: '2rem' }}>

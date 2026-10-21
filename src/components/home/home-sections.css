@@ -59,7 +59,7 @@
 
 .mcc-text-link svg {
     flex-shrink: 0;
-    transition: transform 180ms ease;
+    transition: transform 320ms var(--motion-ease);
 }
 
 .mcc-text-link:hover svg {
@@ -434,7 +434,7 @@
     place-items: center;
     border: 1px solid #d7dbdd;
     border-radius: 50%;
-    transition: background 180ms ease, border-color 180ms ease;
+    transition: background 280ms ease, border-color 320ms ease;
 }
 
 .mcc-guide-item:hover .mcc-guide-arrow {
@@ -519,11 +519,14 @@
 
 .mcc-faq-item summary > span::after {
     transform: rotate(90deg);
+    transition: transform 360ms var(--motion-ease);
 }
 
 .mcc-faq-item[open] summary > span::after {
-    display: none;
+    transform: rotate(90deg) scaleX(0);
 }
+
+.mcc-faq-item[data-closing] summary > span::after { transform: rotate(90deg) scaleX(1); }
 
 .mcc-faq-item > p {
     padding: 0 32px 25px 0;

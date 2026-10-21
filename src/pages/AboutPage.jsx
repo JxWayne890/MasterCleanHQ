@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactSection from '../components/ContactSection';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const AboutPage = () => {
     return (
@@ -21,29 +19,25 @@ const AboutPage = () => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '900px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '900px' }}>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}
                     >
                         Our Story
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05, marginBottom: '1.5rem' }}
                     >
                         About <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Master Commercial Clean</span>
-                    </motion.h1>
+                    </h1>
                 </div>
             </section>
 
             <section style={{ padding: '4rem 0' }}>
-                <div className="container" style={{ maxWidth: '900px' }}>
+                <div data-motion-group className="container" style={{ maxWidth: '900px' }}>
                     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]} />
 
-                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                    <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                         Founded on Reliability
                     </h2>
                     <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '1.05rem' }}>
@@ -53,7 +47,7 @@ const AboutPage = () => {
                         West Texas is a unique operating environment. The climate is harsh — extreme summer heat, persistent wind-driven dust, low humidity, and occasional severe weather all create challenges that generic cleaning companies from outside the region do not fully understand. We built our processes and equipment choices around these realities because we live and work here every day.
                     </p>
 
-                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginTop: '3rem', marginBottom: '1rem' }}>
+                    <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginTop: '3rem', marginBottom: '1rem' }}>
                         What We Do
                     </h2>
                     <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '1.05rem' }}>
@@ -63,7 +57,7 @@ const AboutPage = () => {
                         We serve businesses across San Angelo, Abilene, Lubbock, Midland, Odessa, and more than 50 surrounding West Texas communities. Our coverage area spans the Concho Valley, Big Country, Permian Basin, and South Plains regions — a geographic footprint that allows us to support multi-location businesses and contractors working across the region.
                     </p>
 
-                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginTop: '3rem', marginBottom: '1rem' }}>
+                    <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--navy)', marginTop: '3rem', marginBottom: '1rem' }}>
                         Our Approach
                     </h2>
                     <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '1.05rem' }}>
@@ -73,16 +67,16 @@ const AboutPage = () => {
                         We believe that a cleaning company should be invisible — your facility should look consistently professional without you having to manage the details. That is what we deliver: dependable service, documented quality, and responsive communication when you need it.
                     </p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginTop: '3rem' }}>
-                        <Link to="/about/process" style={{ display: 'block', padding: '2rem', backgroundColor: 'var(--white)', textDecoration: 'none', borderTop: '3px solid var(--orange)', transition: 'transform 0.3s' }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                    <div data-motion-group style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginTop: '3rem' }}>
+                        <Link data-motion="rise" to="/about/process" style={{ display: 'block', padding: '2rem', backgroundColor: 'var(--white)', textDecoration: 'none', borderTop: '3px solid var(--orange)', transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)' }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                         >
                             <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.5rem' }}>Our Process &rarr;</h3>
                             <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>How we work from walkthrough to ongoing service</p>
                         </Link>
-                        <Link to="/about/why-choose-us" style={{ display: 'block', padding: '2rem', backgroundColor: 'var(--white)', textDecoration: 'none', borderTop: '3px solid var(--navy)', transition: 'transform 0.3s' }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                        <Link data-motion="rise" to="/about/why-choose-us" style={{ display: 'block', padding: '2rem', backgroundColor: 'var(--white)', textDecoration: 'none', borderTop: '3px solid var(--navy)', transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)' }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                         >
                             <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.5rem' }}>Why Choose Us &rarr;</h3>

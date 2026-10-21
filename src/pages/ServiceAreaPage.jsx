@@ -1,5 +1,4 @@
 import { Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FAQAccordion from '../components/FAQAccordion';
@@ -12,7 +11,6 @@ import {
     buildFaqSchema,
     buildWebPageSchema,
 } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const ServiceAreaPage = ({ slug }) => {
     const location = getLocationBySlug(slug);
@@ -43,29 +41,22 @@ const ServiceAreaPage = ({ slug }) => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '1100px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '1100px' }}>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}
                     >
                         {location.regionName} &middot; {location.county}
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 1.05, marginBottom: '1.5rem' }}
                     >
                         Commercial Cleaning in <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>{location.name}, TX</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '760px' }}
                     >
                         {location.intro[0]}
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
@@ -78,14 +69,14 @@ const ServiceAreaPage = ({ slug }) => {
                     ]} />
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'start' }}>
-                        <div>
+                        <div data-motion-group>
                             {location.intro.slice(1).map((para, i) => (
                                 <p key={i} style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '1.05rem' }}>
                                     {para}
                                 </p>
                             ))}
 
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '1rem' }}>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '1rem' }}>
                                 Local Insights for {location.name}
                             </h2>
                             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -97,7 +88,7 @@ const ServiceAreaPage = ({ slug }) => {
                                 ))}
                             </ul>
 
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                 Common Projects in {location.name}
                             </h2>
                             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -112,12 +103,12 @@ const ServiceAreaPage = ({ slug }) => {
 
                         <div>
                             <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--orange)', marginBottom: '2rem' }}>
-                                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1.5rem' }}>
+                                <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1.5rem' }}>
                                     Services in {location.name}
                                 </h2>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                <div data-motion-group style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     {servicePages.map((service) => (
-                                        <Link
+                                        <Link data-motion="rise"
                                             key={service.slug}
                                             to={`/service-areas/${location.slug}/${service.slug}`}
                                             style={{
@@ -126,9 +117,9 @@ const ServiceAreaPage = ({ slug }) => {
                                                 backgroundColor: 'var(--off-white)',
                                                 textDecoration: 'none',
                                                 borderLeft: '3px solid var(--navy)',
-                                                transition: 'transform 0.2s',
+                                                transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)',
                                             }}
-                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
+                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(2px)'}
                                             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
                                         >
                                             <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', fontSize: '1rem', marginBottom: '0.25rem' }}>
@@ -144,7 +135,7 @@ const ServiceAreaPage = ({ slug }) => {
 
                             {nearbyLocations.length > 0 && (
                                 <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
-                                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                                    <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                         Nearby Service Areas
                                     </h2>
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -160,7 +151,7 @@ const ServiceAreaPage = ({ slug }) => {
                                                     fontSize: '0.9rem',
                                                     color: 'var(--navy)',
                                                     fontWeight: 500,
-                                                    transition: 'background-color 0.2s',
+                                                    transition: 'background-color 300ms ease',
                                                 }}
                                                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--orange)'}
                                                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--off-white)'}

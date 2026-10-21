@@ -1,0 +1,64 @@
+:root {
+    --motion-ease: cubic-bezier(.22, 1, .36, 1);
+    --motion-fast: 240ms;
+    --motion-hover: 320ms;
+    --motion-reveal: 760ms;
+}
+
+/* A first paint entrance, identical in static HTML and the hydrated app. */
+@media (prefers-reduced-motion: no-preference) {
+    [data-motion-intro] > [data-motion] {
+        animation: mcc-intro-enter var(--motion-reveal) var(--motion-ease) both;
+    }
+    [data-motion-intro] > [data-motion]:nth-child(2) { animation-delay: 55ms; }
+    [data-motion-intro] > [data-motion]:nth-child(3) { animation-delay: 110ms; }
+    [data-motion-intro] > [data-motion]:nth-child(4) { animation-delay: 165ms; }
+    [data-motion-intro] > [data-motion]:nth-child(n+5) { animation-delay: 220ms; }
+    [data-motion-intro] > .mcc-hero-actions { animation-delay: 110ms; animation-duration: 620ms; }
+    [data-motion-intro] > [data-motion="fade"] { animation-name: mcc-intro-fade; }
+}
+@keyframes mcc-intro-enter {
+    from { opacity: 0; translate: 0 16px; }
+    to { opacity: 1; translate: 0 0; }
+}
+@keyframes mcc-intro-fade { from { opacity: 0; } to { opacity: 1; } }
+
+body :is(a, button, summary, input, select, textarea) {
+    -webkit-tap-highlight-color: transparent;
+}
+.mcc-header a, .mcc-header button, .mcc-footer a, .mcc-contact a,
+.mcc-hero-actions a, .mcc-mobile-actions a, .mcc-quote-submit,
+.mcc-home-sections a, .mcc-faq-item summary, .mcc-accordion-item summary {
+    transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease,
+        border-color var(--motion-hover) ease, box-shadow var(--motion-hover) var(--motion-ease),
+        transform var(--motion-hover) var(--motion-ease);
+}
+.mcc-home-sections a svg, .mcc-hero-actions a > svg:last-child,
+.mcc-contact a > svg:last-child, .mcc-footer a > svg:last-child {
+    transition: transform var(--motion-hover) var(--motion-ease), color var(--motion-fast) ease;
+}
+@media (hover: hover) {
+    .mcc-text-link:hover > svg:last-child, .mcc-hero-quote:hover > svg:last-child,
+    .mcc-hero-call:hover > svg:last-child, .mcc-contact-call:hover > svg:last-child { transform: translate(2px, -2px); }
+}
+.mcc-hero-call:active, .mcc-hero-quote:active, .mcc-quote-submit:active,
+.mcc-nav-quote:active, .mcc-mobile-actions a:active { transform: translateY(1px); }
+
+.mcc-accordion { margin-top: 3rem; }
+.mcc-accordion > h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); color: var(--navy); margin-bottom: 2rem; }
+.mcc-accordion-item { border-bottom: 1px solid rgba(2,24,43,.1); }
+.mcc-accordion-item summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.5rem 0; cursor: pointer; list-style: none; color: var(--navy); }
+.mcc-accordion-item summary::-webkit-details-marker { display: none; }
+.mcc-accordion-item summary > span:first-child { font-family: var(--font-sans); font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
+.mcc-accordion-mark { position: relative; flex: 0 0 18px; width: 18px; height: 18px; color: #a83d00; }
+.mcc-accordion-mark::before, .mcc-accordion-mark::after { content: ''; position: absolute; top: 8px; left: 1px; width: 16px; height: 1px; background: currentColor; }
+.mcc-accordion-mark::after { transform: rotate(90deg); transition: transform 360ms var(--motion-ease); }
+.mcc-accordion-item[open] .mcc-accordion-mark::after { transform: rotate(90deg) scaleX(0); }
+.mcc-accordion-item[data-closing] .mcc-accordion-mark::after { transform: rotate(90deg) scaleX(1); }
+.mcc-accordion-item > p { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; padding-bottom: 1.5rem; margin: 0; }
+.mcc-accordion-item summary:focus-visible { outline: 2px solid #a83d00; outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+    html, body { scroll-behavior: auto !important; }
+    body *, body *::before, body *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
+}

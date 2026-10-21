@@ -25,7 +25,9 @@ test('guide artifacts contain full articles, metadata, working TOC and quote act
       assert.ok(html.includes(`href="#${heading.id}"`));
       assert.ok(html.includes(`id="${heading.id}"`));
     }
-    assert.doesNotMatch(html, /<script[^>]+src=|type="module"|TODO|react-dom|__NEXT_DATA__/);
+    assert.match(html, /<script type="module" src="\/site-motion\.js"><\/script>/);
+    const withoutMotion = html.replace('<script type="module" src="/site-motion.js"></script>', '');
+    assert.doesNotMatch(withoutMotion, /<script[^>]+src=|type="module"|TODO|react-dom|__NEXT_DATA__/);
   }
 });
 
@@ -46,7 +48,8 @@ test('city pages show referral scope, qualification, disclosure and no local add
     assert.equal(service.provider.legalName, 'Master Clean HQ LLC');
     assert.match(html, /Partner availability is being confirmed/);
     for (const suburb of city.suburbs) assert.ok(html.includes(suburb));
-    assert.doesNotMatch(html, /type="module"/);
+    assert.match(html, /<script type="module" src="\/site-motion\.js"><\/script>/);
+    assert.doesNotMatch(html.replace('<script type="module" src="/site-motion.js"></script>', ''), /type="module"|react-dom|__NEXT_DATA__/);
     for (const field of ['companyName', 'contactName', 'title', 'email', 'phone', 'city', 'buildingType', 'squareFootage', 'locations', 'frequency', 'startDate', 'currentProvider']) assert.ok(html.includes(`name="${field}"`));
   }
 });

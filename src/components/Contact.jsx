@@ -47,7 +47,7 @@ const Contact = () => {
             <div className="container mcc-contact-layout">
                 <div className="mcc-contact-info">
                     <span className="mcc-contact-eyebrow">Get a free cleaning quote</span>
-                    <h2 id="mcc-contact-title">Your next clean starts with a conversation.</h2>
+                    <h2 id="mcc-contact-title" data-motion="rise">Your next clean starts with a conversation.</h2>
                     <p>Tell us about your building, what needs attention, and the schedule that works for you. We’ll help you work out the next step.</p>
                     <a className="mcc-contact-call" href={`tel:${PHONE_E164}`}><Phone size={23} aria-hidden="true" /><span><small>Prefer to talk? Give us a call.</small>{phone}</span><ArrowUpRight size={22} aria-hidden="true" /></a>
                     <ul className="mcc-contact-reassurance">

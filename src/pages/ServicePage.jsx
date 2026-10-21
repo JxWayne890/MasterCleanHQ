@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
 import { servicePages } from '../data/servicePages';
@@ -12,15 +10,8 @@ import {
     buildServiceSchema,
     buildWebPageSchema,
 } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const ServicePage = ({ service }) => {
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.scrollTo(0, 0);
-        }
-    }, []);
-
     const relatedServices = servicePages.filter((item) => item.slug !== service.slug);
     const path = `/${service.slug}`;
 
@@ -51,10 +42,8 @@ const ServicePage = ({ service }) => {
                 backgroundColor: 'var(--navy)',
                 color: 'var(--white)',
             }}>
-                <div className="container" style={{ maxWidth: '1100px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '1100px' }}>
+                    <p data-motion="rise"
                         style={{
                             fontFamily: 'var(--font-sans)',
                             textTransform: 'uppercase',
@@ -66,10 +55,8 @@ const ServicePage = ({ service }) => {
                         }}
                     >
                         {service.eyebrow}
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{
                             fontSize: 'clamp(3rem, 6vw, 5.25rem)',
                             lineHeight: 1.05,
@@ -77,11 +64,8 @@ const ServicePage = ({ service }) => {
                         }}
                     >
                         {service.title}
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{
                             fontFamily: 'var(--font-sans)',
                             fontSize: '1.2rem',
@@ -92,10 +76,9 @@ const ServicePage = ({ service }) => {
                         }}
                     >
                         {service.intro}
-                    </motion.p>
+                    </p>
                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                         <HashLink
-                            smooth
                             to="/#contact"
                             style={{
                                 backgroundColor: 'var(--orange)',
@@ -132,13 +115,13 @@ const ServicePage = ({ service }) => {
             </section>
 
             <section style={{ padding: '4rem 0 2rem' }}>
-                <div className="container" style={{
+                <div data-motion-group className="container" style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '2rem',
                     alignItems: 'start',
                 }}>
-                    <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--orange)' }}>
+                    <div data-motion="rise" style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--orange)' }}>
                         <h2 style={{ fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                             Why businesses choose this service
                         </h2>
@@ -170,7 +153,7 @@ const ServicePage = ({ service }) => {
                         </ul>
                     </div>
 
-                    <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
+                    <div data-motion="rise" style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
                         <h2 style={{ fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                             Typical scope
                         </h2>
@@ -193,7 +176,7 @@ const ServicePage = ({ service }) => {
                         </ul>
                     </div>
 
-                    <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
+                    <div data-motion="rise" style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
                         <h2 style={{ fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                             Industries supported
                         </h2>
@@ -221,7 +204,7 @@ const ServicePage = ({ service }) => {
             <section style={{ padding: '2rem 0' }}>
                 <div className="container" style={{ maxWidth: '1100px' }}>
                     <div style={{ backgroundColor: 'var(--white)', padding: '3rem', borderTop: '3px solid var(--orange)' }}>
-                        <h2 style={{ fontSize: '2rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                        <h2 data-motion="rise" style={{ fontSize: '2rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                             Common questions
                         </h2>
                         <div style={{ display: 'grid', gap: '1.5rem' }}>
@@ -254,13 +237,13 @@ const ServicePage = ({ service }) => {
             </section>
 
             <section style={{ padding: '2rem 0 5rem' }}>
-                <div className="container" style={{
+                <div data-motion-group className="container" style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '2rem',
                     alignItems: 'start',
                 }}>
-                    <div style={{ backgroundColor: 'var(--navy)', color: 'var(--white)', padding: '3rem' }}>
+                    <div data-motion="rise" style={{ backgroundColor: 'var(--navy)', color: 'var(--white)', padding: '3rem' }}>
                         <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
                             Need help choosing the right cleaning plan?
                         </h2>
@@ -275,7 +258,6 @@ const ServicePage = ({ service }) => {
                         </p>
                         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                             <HashLink
-                                smooth
                                 to="/#contact"
                                 style={{
                                     backgroundColor: 'var(--orange)',
@@ -304,7 +286,7 @@ const ServicePage = ({ service }) => {
                         </div>
                     </div>
 
-                    <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
+                    <div data-motion="rise" style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--navy)' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                             Related services
                         </h2>

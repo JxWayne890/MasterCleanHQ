@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FAQAccordion from '../components/FAQAccordion';
 import ContactSection from '../components/ContactSection';
 import { servicePages } from '../data/servicePages';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildFaqSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const generalFaqs = [
     { question: 'What cities does Master Commercial Clean serve in West Texas?', answer: 'Master Commercial Clean serves 50+ cities across West Texas including San Angelo, Abilene, Lubbock, Midland, Odessa, Big Spring, Sweetwater, Snyder, Andrews, Pecos, Brady, Brownwood, Coleman, Ballinger, Lamesa, and many surrounding communities. We cover the Concho Valley, Big Country, Permian Basin, and South Plains regions.' },
@@ -37,13 +35,13 @@ const FaqHubPage = () => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-                    <motion.h1 initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
+                <div className="container" data-motion-group data-motion-intro style={{ position: 'relative', zIndex: 2 }}>
+                    <h1 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
                         Frequently Asked <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>Questions</span>
-                    </motion.h1>
-                    <motion.p initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false} animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined} transition={ENABLE_MOTION ? { delay: 0.1 } : undefined} style={{ fontFamily: 'var(--font-sans)', fontSize: '1.25rem', color: 'rgba(255,255,255,0.8)', maxWidth: '700px', margin: '0 auto' }}>
+                    </h1>
+                    <p data-motion="rise" style={{ fontFamily: 'var(--font-sans)', fontSize: '1.25rem', color: 'rgba(255,255,255,0.8)', maxWidth: '700px', margin: '0 auto' }}>
                         Everything you need to know about our commercial cleaning services across West Texas.
-                    </motion.p>
+                    </p>
                 </div>
                 <div style={{ position: 'absolute', top: '-50%', right: '-20%', width: '100%', height: '200%', background: 'radial-gradient(circle, rgba(255,92,0,0.05) 0%, rgba(2,24,43,0) 70%)', zIndex: 1 }} />
             </section>
@@ -64,8 +62,8 @@ const FaqHubPage = () => {
                     ))}
 
                     <div style={{ marginTop: '4rem', backgroundColor: 'var(--white)', padding: '3rem', borderTop: '3px solid var(--orange)' }}>
-                        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1.5rem' }}>Related Resources</h2>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                        <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1.5rem' }}>Related Resources</h2>
+                        <div data-motion-group style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                             {[
                                 { label: 'Commercial Cleaning', to: '/commercial-cleaning', desc: 'Recurring janitorial support' },
                                 { label: 'Post-Construction Cleanup', to: '/post-construction-cleaning', desc: 'Detailed cleanup for builds' },
@@ -74,7 +72,7 @@ const FaqHubPage = () => {
                                 { label: 'Cleaning Guides', to: '/guides', desc: 'Checklists, pricing and planning' },
                                 { label: 'Blog', to: '/blog', desc: 'Expert cleaning articles' },
                             ].map((link) => (
-                                <Link key={link.to} to={link.to} reloadDocument={link.to === "/guides"} style={{ display: 'block', padding: '1.25rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 0.2s' }}
+                                <Link data-motion="rise" key={link.to} to={link.to} reloadDocument={link.to === "/guides"} style={{ display: 'block', padding: '1.25rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)' }}
                                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                                 >

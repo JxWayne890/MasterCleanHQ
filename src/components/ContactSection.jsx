@@ -1,14 +1,10 @@
-import { motion } from 'framer-motion';
 import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
 
 const ContactSection = ({ heading, subheading }) => {
     return (
         <section style={{ backgroundColor: 'var(--off-white)', padding: '5rem 0' }}>
             <div className="container" style={{ maxWidth: '900px' }}>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                <div data-motion="rise"
                     style={{
                         backgroundColor: 'var(--navy)',
                         color: 'var(--white)',
@@ -49,9 +45,9 @@ const ContactSection = ({ heading, subheading }) => {
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
                                 fontSize: '0.9rem',
-                                transition: 'transform 0.3s, box-shadow 0.3s',
+                                transition: 'transform 300ms cubic-bezier(.22,.61,.36,1), box-shadow 300ms ease',
                             }}
-                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,92,0,0.3)'; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,92,0,0.3)'; }}
                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                         >
                             Call {PHONE_DISPLAY}
@@ -68,7 +64,7 @@ const ContactSection = ({ heading, subheading }) => {
                                 fontSize: '0.9rem',
                                 borderBottom: '2px solid rgba(255,255,255,0.4)',
                                 paddingBottom: '4px',
-                                transition: 'border-color 0.3s',
+                                transition: 'border-color 300ms ease',
                             }}
                             onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--orange)'}
                             onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'}
@@ -84,7 +80,7 @@ const ContactSection = ({ heading, subheading }) => {
                     }}>
                         San Angelo, TX &middot; Mon&ndash;Fri 7am&ndash;6pm &middot; Sat&ndash;Sun 8am&ndash;2pm
                     </p>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

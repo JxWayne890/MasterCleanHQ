@@ -1,5 +1,4 @@
 import { Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FAQAccordion from '../components/FAQAccordion';
@@ -14,7 +13,6 @@ import {
     buildWebPageSchema,
 } from '../seo/schemas';
 import { PHONE_DISPLAY, PHONE_E164 } from '../config/site';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const ComboPage = ({ citySlug, serviceSlug }) => {
     const location = getLocationBySlug(citySlug);
@@ -22,7 +20,6 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
     if (!location || !service) return <Navigate to="/service-areas" replace />;
 
     const path = `/service-areas/${location.slug}/${service.slug}`;
-    const title = `${service.navLabel} in ${location.name}, TX`;
     const metaTitle = `${service.navLabel} in ${location.name}, TX | Master Commercial Clean`;
     const metaDescription = `Professional ${service.navLabel.toLowerCase()} services in ${location.name}, ${location.county}. Serving businesses across the ${location.regionName}. Call (325) 273-2203.`;
 
@@ -77,29 +74,22 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '1100px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '1100px' }}>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}
                     >
                         {service.eyebrow} &middot; {location.name}, TX
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', lineHeight: 1.05, marginBottom: '1.5rem' }}
                     >
                         {service.navLabel} in <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>{location.name}</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '760px' }}
                     >
                         Master Commercial Clean provides professional {service.navLabel.toLowerCase()} for businesses in {location.name}, {location.county}. {service.answer}
-                    </motion.p>
+                    </p>
                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '2rem' }}>
                         <a href={`tel:${PHONE_E164}`} style={{ backgroundColor: 'var(--orange)', color: 'var(--white)', padding: '1rem 2rem', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem' }}>
                             Call {PHONE_DISPLAY}
@@ -121,8 +111,8 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
                     ]} />
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'start' }}>
-                        <div>
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                        <div data-motion-group>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                 {service.navLabel} Services for {location.name} Businesses
                             </h2>
                             <p style={{ fontFamily: 'var(--font-sans)', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
@@ -132,7 +122,7 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
                                 {location.intro[1] || location.intro[0]}
                             </p>
 
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '1rem' }}>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '1rem' }}>
                                 What&apos;s Included
                             </h2>
                             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -144,7 +134,7 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
                                 ))}
                             </ul>
 
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                 Industries Served in {location.name}
                             </h2>
                             <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -158,7 +148,7 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
 
                             {location.localInsights.length > 0 && (
                                 <>
-                                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                                    <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                         Local Considerations in {location.name}
                                     </h2>
                                     <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -174,13 +164,13 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
                         </div>
 
                         <div>
-                            <div style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--orange)', marginBottom: '2rem' }}>
+                            <div data-motion-group style={{ backgroundColor: 'var(--white)', padding: '2rem', borderTop: '3px solid var(--orange)', marginBottom: '2rem' }}>
                                 <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--navy)', marginBottom: '1rem', fontSize: '1.1rem' }}>
                                     Other Services in {location.name}
                                 </h3>
                                 {otherServicesInCity.map((s) => (
-                                    <Link key={s.slug} to={`/service-areas/${location.slug}/${s.slug}`} style={{ display: 'block', padding: '1rem', marginBottom: '0.5rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 0.2s' }}
-                                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
+                                    <Link data-motion="rise" key={s.slug} to={`/service-areas/${location.slug}/${s.slug}`} style={{ display: 'block', padding: '1rem', marginBottom: '0.5rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', borderLeft: '3px solid var(--navy)', transition: 'transform 300ms cubic-bezier(.22,.61,.36,1)' }}
+                                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(2px)'}
                                         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
                                     >
                                         <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--navy)', fontSize: '0.95rem' }}>
@@ -197,7 +187,7 @@ const ComboPage = ({ citySlug, serviceSlug }) => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                     {[...otherCitiesForService, ...nearbyForService].slice(0, 8).map((loc) => (
                                         <Link key={loc.slug} to={`/service-areas/${loc.slug}/${service.slug}`} style={{
-                                            fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', textDecoration: 'none', padding: '0.5rem 0', borderBottom: '1px solid rgba(2,24,43,0.06)', transition: 'color 0.2s',
+                                            fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', textDecoration: 'none', padding: '0.5rem 0', borderBottom: '1px solid rgba(2,24,43,0.06)', transition: 'color 300ms ease',
                                         }}
                                             onMouseEnter={(e) => e.target.style.color = 'var(--orange)'}
                                             onMouseLeave={(e) => e.target.style.color = 'var(--navy)'}

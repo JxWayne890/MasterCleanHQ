@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
+import ScrollToTop from './components/ScrollToTop';
 import { getPage } from './routing/pageRegistry';
 
 const FaqHubPage = getPage('FaqHubPage');
@@ -29,6 +30,7 @@ function PageBoundary({ children }) {
     return (
         <Suspense fallback={<div className="container" role="status" aria-live="polite" style={{ padding: '10rem 0 6rem' }}>Loading page…</div>}>
             {children}
+            <ScrollToTop />
         </Suspense>
     );
 }

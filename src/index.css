@@ -289,7 +289,7 @@ h4 {
     background: transparent;
     color: var(--navy);
     font: inherit;
-    transition: border-color 160ms ease, background 160ms ease;
+    transition: border-color 280ms ease, background 280ms ease;
 }
 
 .apply-field textarea {
@@ -432,7 +432,7 @@ h4 {
     font-weight: 700;
     letter-spacing: 1.6px;
     text-transform: uppercase;
-    transition: background 160ms ease, transform 160ms ease;
+    transition: background 280ms ease, transform 320ms var(--motion-ease);
 }
 
 .apply-button:hover:not(:disabled) {

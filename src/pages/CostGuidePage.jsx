@@ -1,5 +1,4 @@
 import { Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FAQAccordion from '../components/FAQAccordion';
@@ -7,7 +6,6 @@ import ContactSection from '../components/ContactSection';
 import { getCostGuideBySlug } from '../data/costGuides';
 import { servicePages } from '../data/servicePages';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildFaqSchema, buildWebPageSchema } from '../seo/schemas';
-import { ENABLE_MOTION } from '../lib/motion';
 
 const CostGuidePage = ({ guideSlug, citySlug, location }) => {
     const guide = getCostGuideBySlug(guideSlug);
@@ -48,29 +46,22 @@ const CostGuidePage = ({ guideSlug, citySlug, location }) => {
             />
 
             <section style={{ padding: '10rem 0 4rem', backgroundColor: 'var(--navy)', color: 'var(--white)' }}>
-                <div className="container" style={{ maxWidth: '900px' }}>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 20 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                <div className="container" data-motion-group data-motion-intro style={{ maxWidth: '900px' }}>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--orange)', marginBottom: '1rem', fontWeight: 600, fontSize: '0.85rem' }}
                     >
                         Cost Guide {citySlug ? `\u00b7 ${cityName}` : ''}
-                    </motion.p>
-                    <motion.h1
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
+                    </p>
+                    <h1 data-motion="rise"
                         style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, marginBottom: '1.5rem' }}
                     >
                         {guide.title} {citySlug ? <><br /><span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>in {cityName}</span></> : ''}
-                    </motion.h1>
-                    <motion.p
-                        initial={ENABLE_MOTION ? { opacity: 0, y: 30 } : false}
-                        animate={ENABLE_MOTION ? { opacity: 1, y: 0 } : undefined}
-                        transition={ENABLE_MOTION ? { delay: 0.1 } : undefined}
+                    </h1>
+                    <p data-motion="rise"
                         style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.82)', maxWidth: '760px' }}
                     >
                         {guide.intro}
-                    </motion.p>
+                    </p>
                 </div>
             </section>
 
@@ -88,7 +79,7 @@ const CostGuidePage = ({ guideSlug, citySlug, location }) => {
 
                     {guide.sections.map((section, i) => (
                         <div key={i} style={{ marginBottom: '3rem' }}>
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+                            <h2 data-motion="rise" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--navy)', marginBottom: '1rem' }}>
                                 {section.heading}
                             </h2>
                             {section.paragraphs.map((para, j) => (
@@ -110,7 +101,7 @@ const CostGuidePage = ({ guideSlug, citySlug, location }) => {
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                                 {['san-angelo', 'abilene', 'lubbock', 'midland', 'odessa'].map((city) => (
                                     <Link key={city} to={`/guides/${guide.slug}/${city}`} style={{
-                                        padding: '0.5rem 1rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', fontWeight: 500, transition: 'background-color 0.2s',
+                                        padding: '0.5rem 1rem', backgroundColor: 'var(--off-white)', textDecoration: 'none', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--navy)', fontWeight: 500, transition: 'background-color 300ms ease',
                                     }}
                                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--orange)'}
                                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--off-white)'}

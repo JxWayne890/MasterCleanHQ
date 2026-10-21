@@ -9,7 +9,7 @@ const Footer = () => (
             <div className="mcc-footer-intro">
                 <div>
                     <span className="mcc-footer-eyebrow">Your building. Our next conversation.</span>
-                    <h2>Let’s talk clean.</h2>
+                    <h2 data-motion="rise">Let’s talk clean.</h2>
                 </div>
                 <a className="mcc-footer-call" href={`tel:${PHONE_E164}`}><Phone size={23} aria-hidden="true" />{PHONE_DISPLAY.replace(/-/g, ' ')}<ArrowUpRight size={22} aria-hidden="true" /></a>
             </div>

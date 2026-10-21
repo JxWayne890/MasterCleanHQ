@@ -12,7 +12,7 @@ const clients = [
 export function ClientTrustBar() {
     return (
         <section className="mcc-client-proof" aria-labelledby="mcc-client-title">
-            <div className="mcc-client-proof-inner">
+            <div className="mcc-client-proof-inner" data-motion="fade">
                 <div className="mcc-client-proof-title"><span className="mcc-proof-line" aria-hidden="true" /><h2 id="mcc-client-title">Organizations<br />we’ve worked with.</h2></div>
                 <ul className="mcc-client-list">
                     {clients.map((client) => (
@@ -33,24 +33,24 @@ export default function Hero() {
     };
     return (
         <section className="mcc-home-hero" aria-labelledby="mcc-hero-title">
-            <div className="mcc-hero-layout">
-                <div className="mcc-hero-copy">
-                    <p className="mcc-hero-location"><span aria-hidden="true" />San Angelo &amp; West Texas</p>
-                    <p className="mcc-hero-service">Commercial cleaning, with a local point of contact.</p>
-                    <h1 id="mcc-hero-title">A cleaner building.<br /><em>Less on your plate.</em></h1>
-                    <p className="mcc-hero-description">Cleaning for offices, schools, churches, and commercial properties. Tell us about your space. We’ll work through the scope with you.</p>
-                    <div className="mcc-hero-actions">
+            <div className="mcc-hero-layout" data-motion-intro>
+                <div className="mcc-hero-copy" data-motion-intro data-motion-group>
+                    <p className="mcc-hero-location" data-motion="rise"><span aria-hidden="true" />San Angelo &amp; West Texas</p>
+                    <p className="mcc-hero-service" data-motion="rise">Commercial cleaning, with a local point of contact.</p>
+                    <h1 id="mcc-hero-title" data-motion="rise">A cleaner building.<br /><em>Less on your plate.</em></h1>
+                    <p className="mcc-hero-description" data-motion="rise">Cleaning for offices, schools, churches, and commercial properties. Tell us about your space. We’ll work through the scope with you.</p>
+                    <div className="mcc-hero-actions" data-motion="rise">
                         <a className="mcc-hero-call" href={'tel:' + PHONE_E164} onClick={trackCall}><Phone size={19} strokeWidth={1.7} aria-hidden="true" /><span>Call (325) 273 2203</span><ArrowUpRight size={20} aria-hidden="true" /></a>
                         <a className="mcc-hero-quote" href="#contact">Get a free quote<ArrowUpRight size={19} aria-hidden="true" /></a>
                     </div>
-                    <p className="mcc-hero-reassurance">A few building details. A useful conversation. A clear next step.</p>
-                    <ul className="mcc-hero-service-list" aria-label="Cleaning services">
+                    <p className="mcc-hero-reassurance" data-motion="rise">A few building details. A useful conversation. A clear next step.</p>
+                    <ul className="mcc-hero-service-list" aria-label="Cleaning services" data-motion="rise">
                         <li><Check size={15} aria-hidden="true" />Recurring cleaning</li>
                         <li><Check size={15} aria-hidden="true" />Project cleanup</li>
                         <li><Check size={15} aria-hidden="true" />Floor care</li>
                     </ul>
                 </div>
-                <figure className="mcc-hero-visual">
+                <figure className="mcc-hero-visual" data-motion="fade">
                     <img src="/img/mcc-commercial-lobby-1280.webp" srcSet="/img/mcc-commercial-lobby-640.webp 640w, /img/mcc-commercial-lobby-960.webp 960w, /img/mcc-commercial-lobby-1280.webp 1280w" sizes="(max-width: 760px) 100vw, (max-width: 1080px) 45vw, 47vw" width="1280" height="1600" alt="Illustrated commercial lobby with limestone walls, a clean floor, and a neatly organized cleaning cart." fetchpriority="high" decoding="async" />
                     <div className="mcc-hero-image-note"><span aria-hidden="true" className="mcc-hero-note-mark">M.</span><p>Spaces people use.<br /><strong>Care people notice.</strong></p></div>
                     <figcaption>Commercial space illustration</figcaption>
