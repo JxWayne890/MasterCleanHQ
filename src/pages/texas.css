@@ -1,0 +1,150 @@
+/* Texas referral page styles, scoped to its own components. */
+.texas-page { color: var(--navy); background: #fff; }
+.texas-page section[id] { scroll-margin-top: 95px; }
+.texas-page p { line-height: 1.7; }
+.texas-page :is(a, button, input, select, textarea):focus-visible { outline: 3px solid #b94100; outline-offset: 4px; }
+.texas-eyebrow { color: #b54000; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.25rem; }
+.texas-hero { padding: 12rem 0 6.5rem; background: var(--navy); color: #fff; }
+.texas-hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .8fr); align-items: center; gap: clamp(2rem, 7vw, 8rem); max-width: 1310px; }
+.texas-hero .texas-eyebrow { color: #ff8f50; }
+.texas-hero h1 { font-size: clamp(3.4rem, 5.6vw, 5.65rem); line-height: 1.04; letter-spacing: -1.8px; }
+.texas-hero h1 em { color: var(--orange); font-weight: 400; }
+.texas-hero-intro { max-width: 590px; margin-top: 1.7rem; font-size: clamp(1.12rem, 1.5vw, 1.3rem); color: #f1f4f6; }
+.texas-hero-detail { max-width: 590px; font-size: .96rem; margin: 1rem 0 2rem; color: #b7c4cf; }
+.texas-button { display: inline-flex; align-items: center; justify-content: center; gap: 1.7rem; padding: 1.1rem 1.5rem; background: var(--orange); color: #111c24; font-family: var(--font-sans); font-size: .95rem; font-weight: 700; border: 1px solid transparent; cursor: pointer; transition: background .18s, transform .18s; min-height: 52px; }
+.texas-button:hover { background: #ff7a30; transform: translateY(-2px); }
+.texas-button:disabled { opacity: .7; cursor: wait; transform: none; }
+.texas-hero-secondary { display: flex; align-items: center; width: fit-content; gap: .8rem; margin-top: 1.4rem; font-size: .86rem; color: #d3dde5; }
+.texas-hero-secondary:hover { color: #ff9c65; }
+.texas-network { border: 1px solid #3c4b58; padding: 2rem 2.25rem; background: #0a2236; position: relative; }
+.texas-network::before { content: ''; width: 55px; height: 3px; background: var(--orange); position: absolute; top: -2px; left: 2.25rem; }
+.texas-network-top { display: flex; align-items: center; justify-content: space-between; color: #b8c7d2; font-size: .82rem; padding-bottom: 2rem; }
+.texas-network-top svg { color: #ff8e4e; }
+.texas-network-origin { display: flex; align-items: center; gap: 1rem; }
+.texas-location-marker { width: 11px; height: 11px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 7px #ff5c001a; flex-shrink: 0; }
+.texas-network-label { display: block; color: #c2ced7; font-size: .69rem; text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: .5rem; }
+.texas-network-origin h2 { font-size: 2.75rem; line-height: 1.05; }
+.texas-network-coverage { margin: 1.1rem 0 1.8rem 1.65rem; padding-left: 1rem; border-left: 1px solid #526170; }
+.texas-network-coverage > span { font-size: .7rem; color: #ff9a60; text-transform: uppercase; letter-spacing: 1px; }
+.texas-network-coverage p { color: #ecf2f6; font-size: .94rem; margin-top: .2rem; }
+.texas-network-divider { border-top: 1px solid #3c4b58; padding: 1.4rem 0 .9rem; font-size: .73rem; color: #aebfcd; }
+.texas-network-city { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0 1.2rem; border-bottom: 1px solid #3c4b58; }
+.texas-network-city .texas-network-label { color: #ff9a60; font-size: .64rem; }
+.texas-network-city h3 { font-size: clamp(1.5rem, 2.15vw, 2rem); line-height: 1.1; }
+.texas-network-city > svg { color: #aabdc9; flex-shrink: 0; margin-left: .5rem; }
+.texas-network-footnote { margin-top: 1.4rem; color: #aebfcd; font-size: .8rem; }
+.texas-principles { background: #f2f3f1; border-bottom: 1px solid #e1e4e5; }
+.texas-principles .container { display: flex; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; max-width: 1310px; }
+.texas-principles span { display: flex; gap: .8rem; align-items: center; font-size: .83rem; font-weight: 500; }
+.texas-principles svg { color: #a13b00; flex-shrink: 0; }
+.texas-section { padding: 6.7rem 0; }
+.texas-section > .container, .texas-vetting > .container { max-width: 1310px; }
+.texas-section-heading h2, .texas-vetting h2, .texas-quote-aside h2 { font-size: clamp(2.6rem, 4.2vw, 4.1rem); line-height: 1.06; letter-spacing: -.7px; }
+.texas-section-heading > p:last-child { color: #5b6871; margin-top: 1.35rem; max-width: 540px; }
+.texas-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 3.5rem; list-style: none; gap: 2rem; }
+.texas-steps li { border-top: 1px solid #cbd0d3; padding-top: 1.5rem; }
+.texas-step-number { display: block; font-family: var(--font-serif); font-size: 2.9rem; line-height: 1; color: #ae3f00; margin-bottom: 2rem; }
+.texas-steps h3 { font-family: var(--font-sans); font-size: 1.1rem; font-weight: 700; line-height: 1.35; margin-bottom: .8rem; }
+.texas-steps p { color: #5b6871; font-size: .94rem; }
+.texas-vetting { padding: 6rem 0; background: #f3f3ef; border-top: 1px solid #e7e8e3; border-bottom: 1px solid #e7e8e3; }
+.texas-vetting-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2.5rem, 8vw, 9rem); }
+.texas-vetting h2 em, .texas-quote-aside h2 em { color: #a43c00; font-weight: 400; }
+.texas-vetting-grid > div > p:not(.texas-eyebrow) { max-width: 490px; margin-top: 1.5rem; color: #52616c; }
+.texas-vetting-list { display: grid; gap: 1.6rem; }
+.texas-vetting-list li { display: flex; align-items: flex-start; gap: 1.1rem; padding-bottom: 1.6rem; border-bottom: 1px solid #d7ddda; }
+.texas-vetting-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.texas-vetting-list svg { flex-shrink: 0; margin-top: .2rem; color: #9e3900; }
+.texas-vetting-list h3 { font-size: 1.3rem; margin-bottom: .45rem; }
+.texas-vetting-list p { color: #52616c; font-size: .91rem; }
+.texas-services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; margin-top: 3.5rem; }
+.texas-services-grid article { padding-top: 2rem; border-top: 1px solid #cbd0d3; }
+.texas-services-grid svg { color: #a43c00; margin-bottom: 1.7rem; }
+.texas-services-grid h3 { font-size: 1.8rem; line-height: 1.15; max-width: 300px; margin-bottom: 1rem; }
+.texas-services-grid p { color: #5b6871; font-size: .95rem; }
+.texas-quote-section { background: #eceeea; padding: 6rem 0 7rem; }
+.texas-quote-layout { max-width: 1310px; display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.1fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+.texas-quote-aside { padding-top: 1rem; position: sticky; top: 110px; }
+.texas-quote-aside > p:not(.texas-eyebrow) { margin-top: 1.4rem; color: #52616c; }
+.texas-quote-market { margin: 2rem 0; padding: 1.5rem 0; border-top: 1px solid #c9d0cb; border-bottom: 1px solid #c9d0cb; display: flex; gap: .85rem; align-items: flex-start; color: #52616c; }
+.texas-quote-market svg { color: #a43c00; margin-top: .25rem; flex-shrink: 0; }
+.texas-quote-market p { font-size: .88rem; }
+.texas-quote-market strong { display: block; color: var(--navy); margin-top: .4rem; font-size: 1rem; font-weight: 500; }
+.texas-quote-aside .texas-fee-disclosure { font-size: .87rem; max-width: 350px; }
+.texas-contact-link { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.2rem; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.texas-quote-form, .texas-form-success { min-width: 0; padding: clamp(1.5rem, 3.5vw, 3.5rem); background: #fff; border-top: 3px solid var(--orange); }
+.texas-form-heading h3 { font-size: clamp(2rem, 3.1vw, 3rem); line-height: 1.08; }
+.texas-form-heading p { color: #5b6871; font-size: .85rem; margin: .9rem 0 2rem; }
+.texas-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem 1.1rem; }
+.texas-field { min-width: 0; }
+.texas-field-full { grid-column: 1 / -1; }
+.texas-field label { display: block; font-size: .8rem; font-weight: 700; margin-bottom: .55rem; line-height: 1.4; }
+.texas-field label > span { font-weight: 400; color: #5b6871; }
+.texas-field :is(input, select, textarea) { display: block; width: 100%; min-width: 0; padding: .85rem .8rem; min-height: 48px; color: var(--navy); background: #fff; border: 1px solid #aeb9c1; border-radius: 0; font-family: var(--font-sans); font-size: .92rem; line-height: 1.4; }
+.texas-field input::placeholder, .texas-field textarea::placeholder { color: #707d87; opacity: 1; }
+.texas-field textarea { resize: vertical; }
+.texas-form-consent { margin: 1.4rem 0; color: #5b6871; font-size: .77rem; }
+.texas-button-submit { width: 100%; gap: .8rem; }
+.texas-form-note { font-size: .73rem; color: #5b6871; text-align: center; margin-top: 1rem; }
+.texas-form-error { border-left: 3px solid #a72121; background: #fff0ee; color: #8b1919; padding: 1rem; margin-bottom: 1rem; font-size: .88rem; }
+.texas-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.texas-form-success { min-height: 440px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1.4rem; }
+.texas-form-success > svg { color: #367546; }
+.texas-form-success h3 { font-size: 2.5rem; line-height: 1.1; }
+.texas-form-success p { color: #52616c; font-size: .96rem; }
+.texas-form-success a { text-decoration: underline; text-underline-offset: 3px; }
+.texas-text-button { display: inline-flex; gap: .5rem; align-items: center; text-align: left; border: 0; background: none; color: #a43c00; padding: .5rem 0; font-family: var(--font-sans); font-weight: 700; line-height: 1.5; font-size: .86rem; cursor: pointer; }
+.texas-spinner { animation: texas-spin 1s linear infinite; }
+@keyframes texas-spin { to { transform: rotate(360deg); } }
+@media (max-width: 1100px) {
+    .texas-hero { padding-top: 10rem; }
+    .texas-hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 2rem; }
+    .texas-hero h1 { font-size: clamp(3.3rem, 5.8vw, 4.7rem); }
+    .texas-network { padding: 1.7rem; }
+    .texas-quote-layout { grid-template-columns: minmax(0, .65fr) minmax(0, 1.1fr); gap: 2rem; }
+}
+@media (max-width: 800px) {
+    .texas-hero { padding: 10rem 0 4rem; }
+    .texas-hero-grid, .texas-vetting-grid, .texas-quote-layout { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+    .texas-hero h1 { font-size: clamp(3.5rem, 8.5vw, 5.7rem); }
+    .texas-hero-intro, .texas-hero-detail { max-width: 640px; }
+    .texas-network { max-width: 640px; width: 100%; }
+    .texas-network-city h3 { font-size: 2rem; }
+    .texas-network-origin h2 { font-size: 3rem; }
+    .texas-principles .container { flex-wrap: wrap; justify-content: flex-start; gap: 1rem 2rem; }
+    .texas-principles span { font-size: .77rem; }
+    .texas-section { padding: 4.5rem 0; }
+    .texas-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+    .texas-step-number { margin-bottom: 1.4rem; }
+    .texas-vetting { padding: 4.5rem 0; }
+    .texas-services-grid { gap: 1.5rem; }
+    .texas-services-grid h3 { font-size: 1.45rem; }
+    .texas-services-grid p { font-size: .88rem; }
+    .texas-quote-section { padding: 4.5rem 0; }
+    .texas-quote-aside { position: static; max-width: 600px; }
+    .texas-quote-market { margin: 1.4rem 0; }
+    .texas-quote-aside .texas-fee-disclosure { max-width: 500px; }
+}
+@media (max-width: 520px) {
+    .texas-hero { padding-top: 9rem; }
+    .texas-hero h1 { font-size: clamp(3rem, 10.6vw, 4rem); letter-spacing: -1px; }
+    .texas-hero-intro { font-size: 1.07rem; }
+    .texas-hero-detail { font-size: .88rem; }
+    .texas-button { font-size: .87rem; gap: 1rem; }
+    .texas-network { padding: 1.7rem 1.5rem; }
+    .texas-principles .container { display: grid; gap: .9rem; }
+    .texas-section-heading h2, .texas-vetting h2, .texas-quote-aside h2 { font-size: 2.6rem; }
+    .texas-steps { column-gap: 1.4rem; margin-top: 2.5rem; }
+    .texas-steps h3 { font-size: 1rem; }
+    .texas-steps p { font-size: .86rem; }
+    .texas-services-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; margin-top: 2.5rem; }
+    .texas-services-grid h3 { max-width: none; font-size: 1.8rem; }
+    .texas-services-grid svg { margin-bottom: 1rem; }
+    .texas-form-grid { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+    .texas-field :is(input, select, textarea) { font-size: 1rem; }
+    .texas-form-heading h3 { font-size: 2.25rem; }
+    .texas-quote-form, .texas-form-success { padding: 1.7rem 1.2rem; }
+    .texas-form-success h3 { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .texas-page *, .texas-page *::before, .texas-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
