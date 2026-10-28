@@ -21,6 +21,7 @@ const WhyChooseUsPage = getPage('WhyChooseUsPage');
 const ReviewsPage = getPage('ReviewsPage');
 const ContactPage = getPage('ContactPage');
 const ApplyPage = getPage('ApplyPage');
+const TexasPage = getPage('TexasPage');
 
 function ParamPage({ component: Component }) {
     return <Component {...useParams()} />;
@@ -44,6 +45,7 @@ const AppRoutes = () => (
             <Route path="/post-construction-cleaning" element={<PageBoundary><ServicePage serviceSlug="post-construction-cleaning" /></PageBoundary>} />
             <Route path="/specialized-cleaning" element={<PageBoundary><ServicePage serviceSlug="specialized-cleaning" /></PageBoundary>} />
             <Route path="/service-areas" element={<PageBoundary><ServiceAreasIndex /></PageBoundary>} />
+            <Route path="/texas" element={<PageBoundary><TexasPage /></PageBoundary>} />
             <Route path="/service-areas/:slug" element={<PageBoundary><ParamPage component={ServiceAreaPage} /></PageBoundary>} />
             <Route path="/service-areas/:citySlug/:serviceSlug" element={<PageBoundary><ParamPage component={ComboPage} /></PageBoundary>} />
             <Route path="/blog" element={<PageBoundary><BlogIndex /></PageBoundary>} />

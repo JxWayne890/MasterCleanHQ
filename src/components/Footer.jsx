@@ -45,7 +45,8 @@ const Footer = () => (
                         <h3>Outside West Texas?</h3>
                         <p>Explore our commercial cleaning referral network.</p>
                         <a href="/partner-network">Texas partner network <ArrowUpRight size={15} aria-hidden="true" /></a>
-                        <a href="/partner-network/become-a-partner">Become a partner <ArrowUpRight size={15} aria-hidden="true" /></a>
+                        <a href="/texas">Request a Texas quote <ArrowUpRight size={15} aria-hidden="true" /></a>
+                        <a href="https://partners.mastercleanhq.com">Become a partner <ArrowUpRight size={15} aria-hidden="true" /></a>
                     </div>
                 </div>
             </div>
