@@ -6,7 +6,7 @@ The records use schema version 1 and contain an identifier, form type, received 
 
 ## Storage and account boundary
 
-Records live in the private Supabase Storage bucket `mcc-network-intake` in the existing MCC project `siipmaubrftdkbttsnbu`. The bucket accepts JSON only, with a 64 KB object limit. No public bucket or public storage policy is created. No existing CRM tables, functions or access policies are changed. The website server uses its authenticated MCC credential. Credentials never enter the browser bundle.
+Records live in the private Supabase Storage bucket `mcc-network-intake` in the existing MCC project `siipmaubrftdkbttsnbu`. The bucket accepts JSON only, with a 64 KB object limit. No public bucket or public storage policy is created. Network records also create leads in `public.leads` in this same CRM project. The additive migration in `supabase/migrations/20261029183000_network_crm_intake.sql` adds structured network fields and the server only `submit_network_lead` RPC. Existing CRM access policies remain in place. The website server uses its authenticated MCC credential. Credentials never enter the browser bundle.
 
 Submission paths are:
 
@@ -17,7 +17,7 @@ preview/submissions/YYYY-MM-DD/quote/CRM-UUID.json
 production/submissions/YYYY-MM-DD/referral/UUID.json
 ```
 
-Preview records remain separate from production records. Each internal preview alert starts with a visible preview notice. The exact requested email subjects remain unchanged, with a clearly labeled synthetic company name during testing.
+Preview records remain separate from production records. Each internal preview alert starts with a visible preview notice. MasterClean Connect email subjects begin with `Connect `. Every alert includes its technical source and, after a successful CRM save, the lead link. Synthetic tests use a clearly labeled company name.
 
 The existing quote form still saves to the existing CRM endpoint first. After a confirmed, new CRM save, the website stores a separate quote notification record and attempts the internal email. Duplicate CRM submissions do not send another quote alert. Internal email and optional Form Guard observation run concurrently after the CRM save, so their timeouts do not add together. Form Guard observation stays in its existing observation mode. CRM failure never returns a success response. Failure of the optional internal email cannot undo a saved CRM lead.
 
@@ -39,7 +39,7 @@ All five variables are now configured for both Preview and Production. The corre
 
 The connected preview checks below confirm delivery to John. John approved the initial production release on October 21, 2026. The verified source is now live with Production configuration. The recorded email delivery tests below used the Preview environment; do not relabel them as Production submissions.
 
-A newly added city file under `content/cities` is automatically accepted by the intake when its source path matches that file. The record stores the canonical region name and slug separately from the visitor’s actual building city or suburb. Vercel must include `content/cities/**` in the `api/network-intake.js` function files.
+Referral intake accepts safe `/partner-network/<region>` paths, including `/partner-network/texas`, before a dedicated city page exists. The record stores the canonical routing region (`Greater Houston`, `Dallas Fort Worth`, or `Other Texas`) and route slug separately from the visitor’s actual building city or suburb. Explicit Houston and DFW routes determine their region; statewide routes can match the building city against existing region data. Vercel must include `content/cities/**` in the `api/network-intake.js` function files.
 
 ## Spam controls and cost
 
@@ -81,7 +81,7 @@ If quote notification logging itself fails, the canonical CRM quote remains save
 Focused Node tests cover concurrent rate reservations across server instances, validation and city matching, honeypot isolation, save before send, notification outage recovery, exact subjects, recipient restrictions, JSON confirmation, native form redirects and quote notification recovery. Run:
 
 ```bash
-node --test test/network-intake.test.js test/quote.test.js
+node --test test/network-intake.test.js test/network-backfill.test.js test/network-crm-migration.test.js test/quote.test.js
 ```
 
 Connected deployment checks must confirm both form types create private objects, that the objects cannot be downloaded anonymously, that the intended internal alerts are accepted, and that the visible form reports success only after persistence. Use a company name beginning with `MCC SYNTHETIC NETWORK TEST`. Remove only clearly identified test objects after verification. Never remove a real inquiry while cleaning up test data.
@@ -101,3 +101,27 @@ The direct sender setup email and the actual preview quote, referral and partner
 All three exact private quote, referral and partner objects were confirmed through bucket metadata. A read only CRM query confirmed the exact synthetic lead `7958f29d-07b9-4a13-97f1-27999b3193de`, one quote `0301337e-01de-432e-adc4-726fafcb70fb` with status `Not Started` and no amount, and one intake activity `d7971a15-350e-4ea8-b55e-cc34015eda04`. The browser blocked the private JSON file URLs, so the current raw record bodies and their stored notification fields were not inspected. Delivered email evidence must not be described as a verified read of those fields.
 
 Read only checks found zero associated calls, photos, upload links, invoices, customer accounts, duplicate leads or operations activity. Runtime foreign keys and the exact quote and activity identifiers were inspected. Cleanup of the current synthetic records remains pending explicit confirmation. Remove only the exact verified test object paths and the identified synthetic CRM lead, with its exact company marker and unchanged initial state. Do not delete storage metadata through SQL or remove unrelated records or rate reservations. The initial production release was separately approved and verified after these notification checks. Guide publishing activation and Groku verification remain in progress. No DNS or billing changed.
+
+
+## CRM delivery and backfill, October 29, 2026
+
+`/api/network-intake` writes both referral requests and partner applications into the same `public.leads` table as `/api/quote`, in Supabase project `siipmaubrftdkbttsnbu`. A matching quote placeholder and creation activity are inserted in the same transaction. The server uses the existing `NETWORK_SUPABASE_URL` and `NETWORK_SUPABASE_SERVICE_ROLE_KEY` configuration. No new credential is needed.
+
+The current Connect form omits its channel field. The endpoint supplies `mastercleanconnect` when a request from either exact trusted Connect origin has no channel property. Explicit channels still follow normal validation. A request with `channel: "mastercleanconnect"` stores `source` and `channel` as `mastercleanconnect` in its private JSON record. Its CRM source is `MasterClean Connect`. Other network requests use `mcc_partner_network` and the CRM source `MCC Partner Network`. Use the CRM Leads page Source filter to select either brand, and Region to narrow routing. CRM interface changes live in the existing `MasterCleanHQ/master-clean-hq-platform` repository under `apps/crm`, because that application is deployed separately from this public website.
+
+The private JSON save precedes the CRM attempt and notification. CRM failure does not prevent the internal email or discard the backup. `crm.status` is `saved` or `retry_required`; warnings include the submission identifier and operational error. A pending record is also safe to retry after an interrupted invocation. The RPC uses `network_submission_id` for idempotency. Staff status, notes, partner assignment, fee status and follow up date are preserved when an existing submission is retried.
+
+All normalized contact, company, facility, qualification and attribution fields are stored in structured columns. The full original normalized record is also retained in `network_submission`. In the CRM, `partner_company_assigned`, `referral_fee_status` and `follow_up_date` are editable alongside the existing lead status and notes. The fee options are Not Started, Pending, Invoiced, Paid and Not Applicable.
+
+The allowed origins include both `https://mastercleanconnect.com` and `https://www.mastercleanconnect.com`. CORS preflight and validation errors grant access only to an exact allowed origin.
+
+Backfill reads only `production/submissions` from the private bucket. It paginates and recursively visits dated folders. Existing quote notification logs are skipped because they are written only after the quote's CRM save. The backfill RPC atomically skips existing leads by normalized email plus company, including existing quote leads, and marks each archive record with its CRM identifier. Source and received time are retained from the historical record. It does not resend notification emails.
+
+Run a dry run first, then explicitly apply:
+
+```bash
+node --env-file=/private/path/mcc-network.env scripts/backfill-network-leads.mjs
+node --env-file=/private/path/mcc-network.env scripts/backfill-network-leads.mjs --apply
+```
+
+The initial production run scanned one eligible historical network record and imported one lead, with zero duplicate records and zero failures. A repeat run can safely confirm duplicate handling without overwriting staff edits.

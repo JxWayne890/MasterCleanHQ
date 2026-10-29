@@ -1,6 +1,7 @@
 import { createHmac, randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { networkLeadUrl, saveNetworkLead } from './network-crm.js';
 
 export const NETWORK_BUCKET = 'mcc-network-intake';
 export const NETWORK_RECIPIENT = 'john@mastercleanhq.com';
@@ -19,7 +20,7 @@ export function normalizeNetworkSubmission(raw, now = new Date()) {
   if (raw.companyWebsite || raw.company_website) return { honeypot: true };
   if (!['referral', 'partner'].includes(raw.formType)) return fail('Select a valid request type.', 'formType');
   const fields = {};
-  let region = null;
+  let region = 'Other Texas';
   let regionSlug = null;
   for (const [name, max] of Object.entries(contactFields)) {
     fields[name] = safeText(raw[name], max);
@@ -69,16 +70,25 @@ export function normalizeNetworkSubmission(raw, now = new Date()) {
   if (raw.formType === 'referral') {
     const slug = sourcePage.split('/')[2];
     if (!slug || slug === 'become-a-partner') return fail('Open the city request page and retry.', 'sourcePage');
+    // A safe Texas source path may be used before a dedicated city page exists.
+    // Keep the route slug and the actual building city separately from routing region.
+    regionSlug = slug;
+  }
+  for (const slug of ['greater-houston', 'dallas-fort-worth']) {
     try {
       const city = JSON.parse(readFileSync(join(process.cwd(), 'content', 'cities', `${slug}.json`), 'utf8'));
-      if (typeof city.name !== 'string' || !city.name.trim()) throw new Error('City name is missing');
-      region = city.name;
-      regionSlug = slug;
-    } catch { return fail('Open a supported city page and retry.', 'sourcePage'); }
+      const matchesCity = [city.name, ...(city.suburbs || []), ...(slug === 'greater-houston' ? ['Houston'] : ['Dallas', 'Fort Worth', 'DFW'])]
+        .some((name) => name.toLowerCase() === fields.city.toLowerCase());
+      if (regionSlug === slug || (!['greater-houston', 'dallas-fort-worth'].includes(regionSlug) && matchesCity)) {
+        region = city.name;
+        break;
+      }
+    } catch { /* Safe statewide submissions remain routable as Other Texas. */ }
   }
   const context = {};
   for (const [name, max] of Object.entries(optionalFields)) context[name] = safeText(raw[name] ?? '', max);
-  return { submission: { schemaVersion: 1, formType: raw.formType, source: 'mcc_partner_network', sourcePage, ...(region ? { region, regionSlug } : {}), ...context, fields } };
+  const channel = raw.channel === 'mastercleanconnect' ? 'mastercleanconnect' : 'mcc_partner_network';
+  return { submission: { schemaVersion: 1, formType: raw.formType, source: channel, channel, sourcePage, region, ...(regionSlug ? { regionSlug } : {}), ...context, fields } };
 }
 
 export function networkConfig(env = process.env) {
@@ -132,12 +142,12 @@ export function createNetworkStore(config, fetcher = fetch) {
 
 export function buildNetworkEmail(record) {
   const { fields } = record;
-  const subject = `${record.formType === 'referral' ? 'Referral Lead' : record.formType === 'quote' ? 'Quote Request' : 'Partner Application'}: ${fields.city} ${fields.companyName}`;
+  const subject = `${record.source === 'mastercleanconnect' ? 'Connect ' : ''}${record.formType === 'referral' ? 'Referral Lead' : record.formType === 'quote' ? 'Quote Request' : 'Partner Application'}: ${fields.city} ${fields.companyName}`;
   const labels = { companyName: 'Company', contactName: 'Contact', title: 'Title', email: 'Email', phone: 'Phone', city: 'City', buildingType: 'Building type', squareFootage: 'Approximate square footage', locations: 'Number of locations', frequency: 'Cleaning frequency', startDate: 'Desired start date', currentProvider: 'Current provider', revenueQualified: 'At least $1 million annual revenue confirmed', permissionToShare: 'Permission confirmed', services: 'Services', serviceType: 'Requested service', message: 'Inquiry', preferredContactMethod: 'Preferred contact method', yearsInBusiness: 'Years in business', insured: 'Insured' };
   const lines = Object.entries(fields).map(([name, value]) => `${labels[name] || name}: ${Array.isArray(value) ? value.join(', ') : typeof value === 'boolean' ? value ? 'Yes' : 'No' : value || 'Not provided'}`);
   return {
     subject,
-    text: [`${record.environment === 'preview' ? 'PREVIEW TEST OR PREVIEW INQUIRY. Verify before follow up.\n\n' : ''}${record.formType === 'referral' ? 'New commercial cleaning referral request.' : record.formType === 'quote' ? 'New Master Commercial Clean quote request.' : 'New commercial cleaning partner application.'}`, '', ...lines, '', `Submission: ${record.id}`, `Received: ${record.receivedAt}`, `Source page: ${record.sourcePage}`, `Environment: ${record.environment}`, '', 'Saved in the private MCC network intake log.'].join('\n'),
+    text: [`${record.environment === 'preview' ? 'PREVIEW TEST OR PREVIEW INQUIRY. Verify before follow up.\n\n' : ''}${record.formType === 'referral' ? 'New commercial cleaning referral request.' : record.formType === 'quote' ? 'New Master Commercial Clean quote request.' : 'New commercial cleaning partner application.'}`, '', ...lines, '', `Submission: ${record.id}`, `Received: ${record.receivedAt}`, `Source page: ${record.sourcePage}`, `Source: ${record.source}`, `Region: ${record.region || 'Not provided'}`, `CRM: ${record.crm?.leadId ? networkLeadUrl(record.crm.leadId) : record.formType === 'quote' ? networkLeadUrl(record.id) : 'https://crm.mastercleanhq.com/leads (CRM save needs retry)'}`, `Environment: ${record.environment}`, '', 'Saved in the private MCC network intake log.'].join('\n'),
   };
 }
 
@@ -154,7 +164,7 @@ export async function sendNetworkNotification(record, config, fetcher = fetch) {
   return body.id;
 }
 
-export async function submitNetworkIntake(raw, { config = networkConfig(), fetcher = fetch, store, now = new Date(), address = '', userAgent = '', id = randomUUID(), notify = sendNetworkNotification, logger = console } = {}) {
+export async function submitNetworkIntake(raw, { config = networkConfig(), fetcher = fetch, store, now = new Date(), address = '', userAgent = '', id = randomUUID(), notify = sendNetworkNotification, writeCrm = saveNetworkLead, logger = console } = {}) {
   const result = normalizeNetworkSubmission(raw, now);
   if (result.honeypot) return { status: 200, body: { submissionId: 'received' } };
   if (!result.submission) return result;
@@ -166,12 +176,20 @@ export async function submitNetworkIntake(raw, { config = networkConfig(), fetch
     logger.warn('Network intake storage unavailable');
     return { status: 503, body: { error: 'We could not confirm your request was saved. Please retry or call (325) 273 2203.' } };
   }
-  const record = { ...result.submission, id, receivedAt: now.toISOString(), environment: config.environment || 'preview', userAgent: safeText(userAgent, 500), notification: { status: 'pending', recipient: NETWORK_RECIPIENT } };
+  const record = { ...result.submission, id, receivedAt: now.toISOString(), environment: config.environment || 'preview', userAgent: safeText(userAgent, 500), crm: { status: 'pending' }, notification: { status: 'pending', recipient: NETWORK_RECIPIENT } };
   let path;
   try { path = await storage.save(record); }
   catch {
     logger.warn('Network intake save failed');
     return { status: 503, body: { error: 'We could not confirm your request was saved. Please retry or call (325) 273 2203.' } };
+  }
+  try {
+    const crm = await writeCrm(record, config, fetcher);
+    record.crm = { status: 'saved', ...crm, savedAt: new Date().toISOString() };
+  } catch (error) {
+    record.crm = { status: 'retry_required' };
+    // Log operational detail only. Never log a payload, email, or service credential.
+    logger.warn('Network intake CRM write failed', id, error instanceof Error ? error.message : 'Unknown CRM error');
   }
   try {
     record.notification = { ...record.notification, status: 'sent', sentAt: new Date().toISOString(), providerId: await notify(record, config, fetcher) };
@@ -180,7 +198,7 @@ export async function submitNetworkIntake(raw, { config = networkConfig(), fetch
     logger.warn('Network intake notification retry required', id);
   }
   try { await storage.mark(path, record); } catch { logger.warn('Network intake notification status update failed', id); }
-  return { status: 200, body: { submissionId: id, notificationStatus: record.notification.status } };
+  return { status: 200, body: { submissionId: id, crmStatus: record.crm.status, ...(record.crm.leadId ? { leadId: record.crm.leadId } : {}), notificationStatus: record.notification.status } };
 }
 
 /** Quote data is already durable in CRM. This separate log tracks its internal email. */

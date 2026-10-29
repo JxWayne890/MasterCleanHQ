@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   res.setHeader('X-Robots-Tag', 'noindex');
   res.setHeader('Vary', 'Origin');
   if (!['POST', 'OPTIONS'].includes(req.method)) { res.setHeader('Allow', 'POST, OPTIONS'); return answer(req, res, 405, { error: 'Method not allowed.' }); }
-  const origins = new Set(['https://www.mastercleanhq.com', 'https://mastercleanhq.com', 'https://mastercleanconnect.com']);
+  const origins = new Set(['https://www.mastercleanhq.com', 'https://mastercleanhq.com', 'https://mastercleanconnect.com', 'https://www.mastercleanconnect.com']);
   if (process.env.VERCEL_ENV === 'preview') {
     for (const hostname of [process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL]) if (hostname && /^[a-z0-9.-]+\.vercel\.app$/.test(hostname)) origins.add(`https://${hostname}`);
   }
@@ -40,6 +40,12 @@ export default async function handler(req, res) {
       if (data.getAll('services').length > 1) raw.services = data.getAll('services');
     } else raw = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
   } catch { return answer(req, res, 400, { error: 'Send a valid form request.' }); }
+  // The existing Connect form predates its hidden channel field. Attribute its
+  // submissions using the exact allowed browser origin until that field exists.
+  if (['https://mastercleanconnect.com', 'https://www.mastercleanconnect.com'].includes(req.headers.origin)
+      && raw && typeof raw === 'object' && !Array.isArray(raw) && !Object.hasOwn(raw, 'channel')) {
+    raw = { ...raw, channel: 'mastercleanconnect' };
+  }
   const result = await submitNetworkIntake(raw, {
     address: String(req.headers['x-forwarded-for'] || '').split(',')[0].trim().slice(0, 100),
     userAgent: String(req.headers['user-agent'] || '').slice(0, 500),
