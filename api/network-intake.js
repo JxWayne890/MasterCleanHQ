@@ -14,12 +14,19 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Robots-Tag', 'noindex');
-  if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return answer(req, res, 405, { error: 'Method not allowed.' }); }
-  const origins = new Set(['https://www.mastercleanhq.com', 'https://mastercleanhq.com']);
+  res.setHeader('Vary', 'Origin');
+  if (!['POST', 'OPTIONS'].includes(req.method)) { res.setHeader('Allow', 'POST, OPTIONS'); return answer(req, res, 405, { error: 'Method not allowed.' }); }
+  const origins = new Set(['https://www.mastercleanhq.com', 'https://mastercleanhq.com', 'https://mastercleanconnect.com']);
   if (process.env.VERCEL_ENV === 'preview') {
     for (const hostname of [process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL]) if (hostname && /^[a-z0-9.-]+\.vercel\.app$/.test(hostname)) origins.add(`https://${hostname}`);
   }
   if (!origins.has(req.headers.origin)) return answer(req, res, 403, { error: 'Please open this form on the Master Commercial Clean website.' });
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    return res.status(204).send('');
+  }
   const contentType = String(req.headers['content-type'] || '').split(';')[0].trim();
   if (!['application/json', 'application/x-www-form-urlencoded'].includes(contentType)) return answer(req, res, 415, { error: 'Send a valid form request.' });
   let raw;

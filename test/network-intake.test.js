@@ -86,16 +86,52 @@ test('HTTP endpoint rejects cross origin requests, oversized payloads and wrong 
     const res = response(); await handler({ ...base, ...change }, res); assert.equal(res.statusCode, status);
   }
 });
-test('native forms receive a success redirect and JSON clients receive confirmation', async () => {
+test('native forms and JSON clients work from MCC and MasterClean Connect origins', async () => {
   const body = { ...raw, companyWebsite: 'bot' };
-  const native = response();
-  await handler({ method: 'POST', headers: { origin: 'https://www.mastercleanhq.com', 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body).toString() }, native);
-  assert.equal(native.statusCode, 303);
-  assert.equal(native.redirectPath, '/partner-network/thank-you');
-  const json = response();
-  await handler({ method: 'POST', headers: { origin: 'https://www.mastercleanhq.com', 'content-type': 'application/json', accept: 'application/json' }, body }, json);
-  assert.equal(json.statusCode, 200);
-  assert.equal(json.body.submissionId, 'received');
+  for (const origin of ['https://www.mastercleanhq.com', 'https://mastercleanhq.com', 'https://mastercleanconnect.com']) {
+    const native = response();
+    await handler({ method: 'POST', headers: { origin, 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body).toString() }, native);
+    assert.equal(native.statusCode, 303);
+    assert.equal(native.redirectPath, '/partner-network/thank-you');
+    assert.equal(native.headers['Access-Control-Allow-Origin'], origin);
+    const json = response();
+    await handler({ method: 'POST', headers: { origin, 'content-type': 'application/json', accept: 'application/json' }, body }, json);
+    assert.equal(json.statusCode, 200);
+    assert.equal(json.body.submissionId, 'received');
+    assert.equal(json.headers['Access-Control-Allow-Origin'], origin);
+    assert.equal(json.headers.Vary, 'Origin');
+  }
+});
+
+test('Connect JSON preflight succeeds without processing a submission', async () => {
+  const res = response();
+  await handler({ method: 'OPTIONS', headers: { origin: 'https://mastercleanconnect.com', 'access-control-request-method': 'POST', 'access-control-request-headers': 'content-type' } }, res);
+  assert.equal(res.statusCode, 204);
+  assert.equal(res.body, '');
+  assert.equal(res.headers['Access-Control-Allow-Origin'], 'https://mastercleanconnect.com');
+  assert.equal(res.headers['Access-Control-Allow-Methods'], 'POST, OPTIONS');
+  assert.equal(res.headers['Access-Control-Allow-Headers'], 'Content-Type, Accept');
+  assert.equal(res.headers.Vary, 'Origin');
+});
+
+test('untrusted origins receive no CORS permission for preflight or form posts', async () => {
+  for (const origin of ['https://evil.example', 'https://mastercleanconnect.com.evil.example', 'http://mastercleanconnect.com', undefined]) {
+    for (const method of ['OPTIONS', 'POST']) {
+      const res = response();
+      await handler({ method, headers: { origin, accept: 'application/json', 'content-type': 'application/json' }, body: { ...raw, companyWebsite: 'bot' } }, res);
+      assert.equal(res.statusCode, 403);
+      assert.equal(res.headers['Access-Control-Allow-Origin'], undefined);
+      assert.equal(res.headers['Access-Control-Allow-Methods'], undefined);
+    }
+  }
+});
+
+test('Connect clients can read validation errors through CORS', async () => {
+  const res = response();
+  await handler({ method: 'POST', headers: { origin: 'https://mastercleanconnect.com', accept: 'application/json', 'content-type': 'text/plain' }, body: raw }, res);
+  assert.equal(res.statusCode, 415);
+  assert.equal(res.headers['Access-Control-Allow-Origin'], 'https://mastercleanconnect.com');
+  assert.equal(res.body.error, 'Send a valid form request.');
 });
 
 test('quote notifications use a durable independent log and leave a recoverable record when email is unavailable', async () => {
