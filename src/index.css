@@ -450,13 +450,19 @@ h4 {
 }
 
 .apply-message {
-    margin: 0;
+    margin: 0 0 1.15rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid #d9d6cf;
+    background: #fff;
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     line-height: 1.45;
+    scroll-margin-top: 7.5rem;
 }
 
 .apply-message-error {
+    border-color: #e7b2ad;
+    background: #fff4f2;
     color: #a62f28;
     font-weight: 700;
 }
