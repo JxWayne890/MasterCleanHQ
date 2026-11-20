@@ -1,14 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { buildBaseSchemas, buildBreadcrumbSchema, buildWebPageSchema } from '../seo/schemas';
+import { DAYS, buildApplicationPayload, formatPhoneNumber, intakeFailureMessage, validateApplicationStep } from '../lib/applicationIntake';
 
-const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const DRAFT_KEY = 'mchq-application-draft-v2';
 const PORTAL_KEY = 'mchq-application-portal-v1';
-const MAX_RESUME_BYTES = 5 * 1024 * 1024;
-const RESUME_TYPES = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 const initialEmployer = () => ({ company: '', role_title: '', supervisor_name: '', supervisor_phone: '', start_date: '', end_date: '', duties: '', reason_for_leaving: '', permission_to_contact: '' });
 const initialReference = () => ({ full_name: '', relationship: '', phone: '', email: '', years_known: '', permission_to_contact: '' });
 const LanguageContext = /*#__PURE__*/ createContext({ t: (value) => value });
@@ -61,27 +59,6 @@ function LanguageToggle({ language, onChange }) {
     </div>;
 }
 
-function isEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-function formatPhoneNumber(value) {
-    const rawDigits = String(value || '').replace(/\D/g, '');
-    const digits = rawDigits.length === 11 && rawDigits.startsWith('1') ? rawDigits.slice(1) : rawDigits.slice(0, 10);
-    if (!digits) return '';
-    if (digits.length <= 3) return `(${digits}`;
-    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-function isPhoneNumber(value) {
-    return /^\(\d{3}\) \d{3}-\d{4}$/.test(value);
-}
-
-function hasValue(value) {
-    return typeof value === 'string' ? Boolean(value.trim()) : Boolean(value);
-}
-
 function restoreDraft(value) {
     if (!value || typeof value !== 'object' || !value.form || typeof value.form !== 'object') return null;
     const fallback = initialForm();
@@ -89,6 +66,7 @@ function restoreDraft(value) {
         ...fallback,
         ...value.form,
         phone: formatPhoneNumber(value.form.phone),
+        company_website: '',
         days_available: Array.isArray(value.form.days_available) ? value.form.days_available.filter((day) => DAYS.includes(day)) : [],
         previous_employers: Array.isArray(value.form.previous_employers) && value.form.previous_employers.length === 2 ? value.form.previous_employers.map((entry) => ({ ...initialEmployer(), ...entry, supervisor_phone: formatPhoneNumber(entry.supervisor_phone) })) : fallback.previous_employers,
         professional_references: Array.isArray(value.form.professional_references) && value.form.professional_references.length === 2 ? value.form.professional_references.map((entry) => ({ ...initialReference(), ...entry, phone: formatPhoneNumber(entry.phone) })) : fallback.professional_references,
@@ -110,6 +88,7 @@ const ApplyPage = () => {
     const [portal, setPortal] = useState(null);
     const [portalStatus, setPortalStatus] = useState({ kind: 'idle', data: null, error: '' });
     const [language, setLanguage] = useState('en');
+    const messageRef = useRef(null);
     const submittedDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
     const t = useCallback((value) => language === 'es' ? (ES[value] || value) : value, [language]);
 
@@ -151,11 +130,21 @@ const ApplyPage = () => {
 
     useEffect(() => {
         if (!hydrated || !started || portal) return;
-        localStorage.setItem(DRAFT_KEY, JSON.stringify({ form, activeStep, savedAt: new Date().toISOString() }));
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({ form: { ...form, company_website: '' }, activeStep, savedAt: new Date().toISOString() }));
     }, [activeStep, form, hydrated, portal, started]);
 
+    useEffect(() => {
+        if (!message.text || message.kind === 'idle') return;
+        messageRef.current?.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    }, [message]);
+
+    useEffect(() => {
+        if (!portal) return;
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, [portal]);
+
     const update = (key, value) => {
-        setMessage({ kind: 'idle', text: '' });
+        if (key !== 'company_website') setMessage({ kind: 'idle', text: '' });
         setForm((current) => ({ ...current, [key]: value }));
     };
     const updateEntry = (collection, index, key, value) => {
@@ -164,29 +153,12 @@ const ApplyPage = () => {
     };
     const toggleDay = (day) => setForm((current) => ({ ...current, days_available: current.days_available.includes(day) ? current.days_available.filter((item) => item !== day) : [...current.days_available, day] }));
 
-    const complete = useMemo(() => ({
-        personal: ['legal_first_name', 'legal_last_name', 'email', 'phone', 'address_line1', 'city', 'state', 'postal_code'].every((key) => hasValue(form[key])) && isEmail(form.email) && isPhoneNumber(form.phone) && /^[A-Za-z]{2}$/.test(form.state),
-        availability: ['earliest_start_date', 'employment_preference', 'availability_details', 'evening_availability', 'weekend_availability', 'desired_weekly_hours', 'reliable_transportation', 'travel_service_area', 'is_at_least_18'].every((key) => hasValue(form[key])) && Number(form.desired_weekly_hours) >= 1 && form.days_available.length > 0 && form.employment_authorization_acknowledged,
-        experience: ['commercial_cleaning_experience', 'years_experience', 'prior_work_settings', 'duties_performed', 'floor_equipment_experience'].every((key) => hasValue(form[key])) && Number(form.years_experience) >= 0,
-        employment: form.previous_employers.every((employer) => Object.entries(employer).every(([, value]) => hasValue(value)) && isPhoneNumber(employer.supervisor_phone) && employer.end_date >= employer.start_date),
-        references: form.professional_references.every((reference) => Object.entries(reference).every(([key, value]) => key === 'email' ? isEmail(value) : hasValue(value)) && isPhoneNumber(reference.phone)),
-        review: hasValue(form.typed_signature) && form.accuracy_acknowledged && form.reference_verification_authorized && form.consent_acknowledged && (!resume || (RESUME_TYPES.includes(resume.type) && resume.size <= MAX_RESUME_BYTES)),
-    }), [form, resume]);
+    const complete = useMemo(() => Object.fromEntries(STEP_META.map((step) => [step.id, validateApplicationStep(form, step.id, resume) === ''])), [form, resume]);
 
     const completeCount = STEP_META.filter((step) => complete[step.id]).length;
 
     function validateStep(index) {
-        const step = STEP_META[index];
-        if (complete[step.id]) return '';
-        const errors = {
-            personal: 'Please complete your legal name, a 10-digit phone number, contact information, and two-letter state.',
-            availability: 'Please complete your work availability and all required acknowledgements.',
-            experience: 'Please complete your cleaning experience and equipment background.',
-            employment: 'Complete both employer entries, including a 10-digit supervisor phone number, valid work dates, and contact permission.',
-            references: 'Complete both reference entries with valid 10-digit phone numbers, email addresses, and contact permission.',
-            review: resume ? 'Use a PDF, DOC, or DOCX résumé no larger than 5 MB, or remove the file.' : 'Please complete your typed signature and required acknowledgements.',
-        };
-        return errors[step.id];
+        return validateApplicationStep(form, STEP_META[index].id, resume);
     }
 
     function goNext() {
@@ -230,20 +202,14 @@ const ApplyPage = () => {
         const duplicateKey = `mchq-job-application:${form.email.trim().toLowerCase()}`;
         if (localStorage.getItem(duplicateKey)) { setMessage({ kind: 'error', text: 'This browser already shows an application for that email. Return to the application status panel to check your next steps.' }); return; }
         setMessage({ kind: 'loading', text: 'Submitting your application securely…' });
-        const payload = {
-            ...form,
-            submission_date: submittedDate,
-            evening_availability: form.evening_availability === 'yes', weekend_availability: form.weekend_availability === 'yes', reliable_transportation: form.reliable_transportation === 'yes', travel_service_area: form.travel_service_area === 'yes', is_at_least_18: form.is_at_least_18 === 'yes', commercial_cleaning_experience: form.commercial_cleaning_experience === 'yes', desired_weekly_hours: Number(form.desired_weekly_hours), years_experience: Number(form.years_experience),
-            previous_employers: form.previous_employers.map((item) => ({ ...item, permission_to_contact: item.permission_to_contact === 'yes' })),
-            professional_references: form.professional_references.map((item) => ({ ...item, years_known: Number(item.years_known), permission_to_contact: item.permission_to_contact === 'yes' })),
-        };
+        const payload = buildApplicationPayload(form, submittedDate);
         try {
             const request = new FormData();
             request.append('payload', JSON.stringify(payload));
             if (resume) request.append('resume', resume);
             const response = await fetch(endpoint, { method: 'POST', body: request });
             const data = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(data.error || 'We could not submit your application. Please try again.');
+            if (!response.ok) throw new Error(intakeFailureMessage(data));
             localStorage.setItem(duplicateKey, data.submissionId || 'received');
             localStorage.removeItem(DRAFT_KEY);
             if (data.portalToken) {
@@ -252,7 +218,7 @@ const ApplyPage = () => {
                 setPortal(nextPortal);
                 await refreshPortal(nextPortal.token);
             } else {
-                setMessage({ kind: 'success', text: 'Thank you — your application has been received.' });
+                setMessage({ kind: 'success', text: 'Thank you. Your application has been received.' });
             }
         } catch (error) {
             setMessage({ kind: 'error', text: error instanceof Error ? error.message : 'We could not submit your application. Please try again.' });
@@ -265,11 +231,11 @@ const ApplyPage = () => {
             <Field label="Legal last name *"><input value={form.legal_last_name} onChange={(event) => update('legal_last_name', event.target.value)} autoComplete="family-name" /></Field>
             <Field label="Preferred name"><input value={form.preferred_name} onChange={(event) => update('preferred_name', event.target.value)} /></Field>
             <Field label="Email address *"><input type="email" value={form.email} onChange={(event) => update('email', event.target.value)} autoComplete="email" /></Field>
-            <Field label="Phone number *"><input type="tel" inputMode="tel" value={form.phone} onChange={(event) => update('phone', formatPhoneNumber(event.target.value))} placeholder="(325) 000-0000" maxLength="14" autoComplete="tel" /></Field>
+            <Field label="Phone number *"><input type="tel" inputMode="tel" value={form.phone} onChange={(event) => update('phone', formatPhoneNumber(event.target.value))} placeholder="(325) 555-0100" maxLength="14" autoComplete="tel" /></Field>
             <Field label="Preferred contact method *"><select value={form.preferred_contact_method} onChange={(event) => update('preferred_contact_method', event.target.value)}><option value="phone">Phone</option><option value="email">Email</option><option value="either">Either</option></select></Field>
             <Field label="Street address *" wide><input value={form.address_line1} onChange={(event) => update('address_line1', event.target.value)} autoComplete="street-address" /></Field>
             <Field label="City *"><input value={form.city} onChange={(event) => update('city', event.target.value)} autoComplete="address-level2" /></Field>
-            <Field label="State *"><input value={form.state} onChange={(event) => update('state', event.target.value.toUpperCase().slice(0, 2))} pattern="[A-Za-z]{2}" placeholder="TX" autoComplete="address-level1" /></Field>
+            <Field label="State *" hint="Two letter code, or the full state name."><input value={form.state} onChange={(event) => update('state', event.target.value.toUpperCase())} placeholder="TX" maxLength="22" autoComplete="address-level1" /></Field>
             <Field label="ZIP code *"><input value={form.postal_code} onChange={(event) => update('postal_code', event.target.value)} autoComplete="postal-code" /></Field>
         </div>;
         if (activeStep === 1) return <div className="apply-grid">
@@ -295,9 +261,9 @@ const ApplyPage = () => {
             <Field label="Optional résumé" hint="PDF, DOC, or DOCX · 5 MB maximum"><input type="file" accept=".pdf,.doc,.docx" onChange={(event) => { setResume(event.target.files?.[0] || null); setResumeNotice(false); }} />{resume && <small className="apply-file-name">Selected: {resume.name}</small>}{resumeNotice && <small className="apply-file-name">Choose your résumé again before submitting; browsers do not store file contents in a saved application.</small>}</Field>
         </div>;
         if (activeStep === 3) return <div className="apply-repeated-list">{form.previous_employers.map((employer, index) => <section className="apply-repeat" key={`employer-${index}`}><header><span>Employer {index + 1}</span><strong>{index === 0 ? 'Most recent role' : 'Previous role'}</strong></header><div className="apply-grid">
-            <Field label="Company *"><input value={employer.company} onChange={(event) => updateEntry('previous_employers', index, 'company', event.target.value)} /></Field><Field label="Role *"><input value={employer.role_title} onChange={(event) => updateEntry('previous_employers', index, 'role_title', event.target.value)} /></Field><Field label="Supervisor *"><input value={employer.supervisor_name} onChange={(event) => updateEntry('previous_employers', index, 'supervisor_name', event.target.value)} /></Field><Field label="Supervisor phone *"><input type="tel" inputMode="tel" value={employer.supervisor_phone} onChange={(event) => updateEntry('previous_employers', index, 'supervisor_phone', formatPhoneNumber(event.target.value))} placeholder="(325) 000-0000" maxLength="14" autoComplete="tel" /></Field><Field label="Start date *"><input type="date" value={employer.start_date} onChange={(event) => updateEntry('previous_employers', index, 'start_date', event.target.value)} /></Field><Field label="End date *"><input type="date" value={employer.end_date} onChange={(event) => updateEntry('previous_employers', index, 'end_date', event.target.value)} /></Field><Field label="Duties *" wide><textarea rows="2" value={employer.duties} onChange={(event) => updateEntry('previous_employers', index, 'duties', event.target.value)} /></Field><Field label="Reason for leaving *" wide><textarea rows="2" value={employer.reason_for_leaving} onChange={(event) => updateEntry('previous_employers', index, 'reason_for_leaving', event.target.value)} /></Field><Field label="May we contact this employer? *"><select value={employer.permission_to_contact} onChange={(event) => updateEntry('previous_employers', index, 'permission_to_contact', event.target.value)}><option value="" disabled>Select one</option><option value="yes">Yes</option><option value="no">No</option></select></Field>
+            <Field label="Company *"><input value={employer.company} onChange={(event) => updateEntry('previous_employers', index, 'company', event.target.value)} /></Field><Field label="Role *"><input value={employer.role_title} onChange={(event) => updateEntry('previous_employers', index, 'role_title', event.target.value)} /></Field><Field label="Supervisor *"><input value={employer.supervisor_name} onChange={(event) => updateEntry('previous_employers', index, 'supervisor_name', event.target.value)} /></Field><Field label="Supervisor phone *"><input type="tel" inputMode="tel" value={employer.supervisor_phone} onChange={(event) => updateEntry('previous_employers', index, 'supervisor_phone', formatPhoneNumber(event.target.value))} placeholder="(325) 555-0100" maxLength="14" autoComplete="tel" /></Field><Field label="Start date *"><input type="date" value={employer.start_date} onChange={(event) => updateEntry('previous_employers', index, 'start_date', event.target.value)} /></Field><Field label="End date *"><input type="date" value={employer.end_date} onChange={(event) => updateEntry('previous_employers', index, 'end_date', event.target.value)} /></Field><Field label="Duties *" wide><textarea rows="2" value={employer.duties} onChange={(event) => updateEntry('previous_employers', index, 'duties', event.target.value)} /></Field><Field label="Reason for leaving *" wide><textarea rows="2" value={employer.reason_for_leaving} onChange={(event) => updateEntry('previous_employers', index, 'reason_for_leaving', event.target.value)} /></Field><Field label="May we contact this employer? *"><select value={employer.permission_to_contact} onChange={(event) => updateEntry('previous_employers', index, 'permission_to_contact', event.target.value)}><option value="" disabled>Select one</option><option value="yes">Yes</option><option value="no">No</option></select></Field>
         </div></section>)}</div>;
-        if (activeStep === 4) return <div className="apply-repeated-list">{form.professional_references.map((reference, index) => <section className="apply-repeat" key={`reference-${index}`}><header><span>Reference {index + 1}</span><strong>Professional reference</strong></header><div className="apply-grid"><Field label="Full name *"><input value={reference.full_name} onChange={(event) => updateEntry('professional_references', index, 'full_name', event.target.value)} /></Field><Field label="Relationship *"><input value={reference.relationship} onChange={(event) => updateEntry('professional_references', index, 'relationship', event.target.value)} /></Field><Field label="Phone *"><input type="tel" inputMode="tel" value={reference.phone} onChange={(event) => updateEntry('professional_references', index, 'phone', formatPhoneNumber(event.target.value))} placeholder="(325) 000-0000" maxLength="14" autoComplete="tel" /></Field><Field label="Email *"><input type="email" value={reference.email} onChange={(event) => updateEntry('professional_references', index, 'email', event.target.value)} /></Field><Field label="Years known *"><input type="number" min="0" max="70" step="0.5" value={reference.years_known} onChange={(event) => updateEntry('professional_references', index, 'years_known', event.target.value)} /></Field><Field label="May we contact this reference? *"><select value={reference.permission_to_contact} onChange={(event) => updateEntry('professional_references', index, 'permission_to_contact', event.target.value)}><option value="" disabled>Select one</option><option value="yes">Yes</option><option value="no">No</option></select></Field></div></section>)}</div>;
+        if (activeStep === 4) return <div className="apply-repeated-list">{form.professional_references.map((reference, index) => <section className="apply-repeat" key={`reference-${index}`}><header><span>Reference {index + 1}</span><strong>Professional reference</strong></header><div className="apply-grid"><Field label="Full name *"><input value={reference.full_name} onChange={(event) => updateEntry('professional_references', index, 'full_name', event.target.value)} /></Field><Field label="Relationship *"><input value={reference.relationship} onChange={(event) => updateEntry('professional_references', index, 'relationship', event.target.value)} /></Field><Field label="Phone *"><input type="tel" inputMode="tel" value={reference.phone} onChange={(event) => updateEntry('professional_references', index, 'phone', formatPhoneNumber(event.target.value))} placeholder="(325) 555-0100" maxLength="14" autoComplete="tel" /></Field><Field label="Email *"><input type="email" value={reference.email} onChange={(event) => updateEntry('professional_references', index, 'email', event.target.value)} /></Field><Field label="Years known *"><input type="number" min="0" max="70" step="0.5" value={reference.years_known} onChange={(event) => updateEntry('professional_references', index, 'years_known', event.target.value)} /></Field><Field label="May we contact this reference? *"><select value={reference.permission_to_contact} onChange={(event) => updateEntry('professional_references', index, 'permission_to_contact', event.target.value)}><option value="" disabled>Select one</option><option value="yes">Yes</option><option value="no">No</option></select></Field></div></section>)}</div>;
         return <div className="apply-grid">
             <div className="apply-review-summary apply-field-wide"><span>Application readiness</span><strong>{completeCount} of {STEP_META.length} sections complete</strong><p>Review each section in the left menu. A check mark means that section is ready to submit.</p></div>
             <Field label="Additional comments" wide><textarea rows="3" value={form.additional_comments} onChange={(event) => update('additional_comments', event.target.value)} /></Field>
@@ -319,7 +285,7 @@ const ApplyPage = () => {
     if (!started) return <LanguageContext.Provider value={{ t }}><div className="apply-page apply-entry-page" lang={language}>{seo}<section className="apply-entry-hero"><div className="container"><LanguageToggle language={language} onChange={setLanguage} /><div data-motion-intro data-motion-group><span data-motion="rise">Careers at Master Commercial Clean</span><h1 data-motion="rise">{language === 'es' ? <>Trabaje con un equipo que se enorgullece de <em>cada detalle.</em></> : <>Work with a team that takes <em>pride</em> in every detail.</>}</h1><p data-motion="rise">{language === 'es' ? 'Inicie una solicitud segura, guarde su progreso en este navegador y vuelva cuando esté listo.' : 'Start a secure application, save your progress in this browser, and return whenever you are ready.'}</p><button data-motion="rise" className="apply-button" type="button" onClick={startApplication}>{language === 'es' ? 'Iniciar solicitud' : 'Start application process'} <span>→</span></button></div><aside data-motion="fade"><strong>{language === 'es' ? 'Qué esperar' : 'What to expect'}</strong><ul><li>{language === 'es' ? 'Seis secciones claras de solicitud' : 'Six clear application sections'}</li><li>{language === 'es' ? 'Su trabajo en curso se guarda en este navegador' : 'Your in-progress work is saved in this browser'}</li><li>{language === 'es' ? 'I-9 y W-4 se desbloquean después de la aprobación' : 'I-9 and W-4 unlock only after approval'}</li></ul></aside></div></section><Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Apply', path: '/apply' }]} /></div></LanguageContext.Provider>;
 
     const step = STEP_META[activeStep];
-    return <LanguageContext.Provider value={{ t }}><div className="apply-page apply-process-page" lang={language}>{seo}<Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Apply', path: '/apply' }]} /><main className="container apply-process-shell"><header className="apply-process-title" data-motion-intro data-motion-group><LanguageToggle language={language} onChange={setLanguage} /><span>{t('Employment / job application')}</span><h1 data-motion="rise">Master Commercial Clean</h1><p>{t('Save your place automatically in this browser. You can return to mastercleanhq.com/apply and continue.')}</p></header>{restoreNotice && <div className="apply-restore-notice" role="status"><span>✓</span><p>Your progress has been restored. Your résumé file is not saved by your browser for privacy, so select it again before submitting if needed.</p><button type="button" onClick={() => setRestoreNotice(false)}>Dismiss</button><button type="button" onClick={startOver}>Start over</button></div>}<div className="apply-process-grid"><aside className="apply-progress-nav"><div className="apply-progress-group"><header><span>{t('Application')}</span><strong>{completeCount}/{STEP_META.length}</strong></header>{STEP_META.map((item, index) => <button key={item.id} className={`apply-progress-item ${index === activeStep ? 'active' : ''} ${complete[item.id] ? 'complete' : ''}`} type="button" onClick={() => goToStep(index)}><i>{complete[item.id] ? '✓' : index + 1}</i><span>{t(item.label)}</span></button>)}</div><div className="apply-progress-group"><header><span>{t('Next steps')}</span><strong>{t('Locked')}</strong></header><div className="apply-progress-item locked"><i>⌕</i><span>Official Form I-9</span></div><div className="apply-progress-item locked"><i>⌕</i><span>Official Form W-4</span></div><p className="apply-nav-note">{t('Unlocked only after the hiring team approves your application.')}</p></div></aside><form className="apply-wizard-card" onSubmit={submit} noValidate><div key={step.id} data-motion="step"><div className="apply-step-heading"><span>{t(step.kicker)}</span><h2>{t(step.title)}</h2><p>{t(step.copy)}</p></div>{renderStep()}</div><div className="apply-honeypot" aria-hidden="true"><label>Company website<input tabIndex="-1" autoComplete="off" value={form.company_website} onChange={(event) => update('company_website', event.target.value)} /></label></div>{message.text && <p aria-live="polite" className={message.kind === 'error' ? 'apply-message apply-message-error' : 'apply-message'}>{message.text}</p>}<div className="apply-wizard-actions"><button className="apply-secondary-button" type="button" disabled={activeStep === 0 || message.kind === 'loading'} onClick={() => goToStep(Math.max(activeStep - 1, 0))}>← {t('Previous')}</button>{activeStep < STEP_META.length - 1 ? <button className="apply-button" type="button" onClick={goNext}>{t('Next')} <span>→</span></button> : <button className="apply-button" disabled={message.kind === 'loading'} type="submit">{t(message.kind === 'loading' ? 'Submitting…' : 'Submit application')} <span>→</span></button>}</div></form></div></main></div></LanguageContext.Provider>;
+    return <LanguageContext.Provider value={{ t }}><div className="apply-page apply-process-page" lang={language}>{seo}<Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Apply', path: '/apply' }]} /><main className="container apply-process-shell"><header className="apply-process-title" data-motion-intro data-motion-group><LanguageToggle language={language} onChange={setLanguage} /><span>{t('Employment / job application')}</span><h1 data-motion="rise">Master Commercial Clean</h1><p>{t('Save your place automatically in this browser. You can return to mastercleanhq.com/apply and continue.')}</p></header>{restoreNotice && <div className="apply-restore-notice" role="status"><span>✓</span><p>Your progress has been restored. Your résumé file is not saved by your browser for privacy, so select it again before submitting if needed.</p><button type="button" onClick={() => setRestoreNotice(false)}>Dismiss</button><button type="button" onClick={startOver}>Start over</button></div>}<div className="apply-process-grid"><aside className="apply-progress-nav"><div className="apply-progress-group"><header><span>{t('Application')}</span><strong>{completeCount}/{STEP_META.length}</strong></header>{STEP_META.map((item, index) => <button key={item.id} className={`apply-progress-item ${index === activeStep ? 'active' : ''} ${complete[item.id] ? 'complete' : ''}`} type="button" onClick={() => goToStep(index)}><i>{complete[item.id] ? '✓' : index + 1}</i><span>{t(item.label)}</span></button>)}</div><div className="apply-progress-group"><header><span>{t('Next steps')}</span><strong>{t('Locked')}</strong></header><div className="apply-progress-item locked"><i>⌕</i><span>Official Form I-9</span></div><div className="apply-progress-item locked"><i>⌕</i><span>Official Form W-4</span></div><p className="apply-nav-note">{t('Unlocked only after the hiring team approves your application.')}</p></div></aside><form className="apply-wizard-card" onSubmit={submit} noValidate><div key={step.id} data-motion="step"><div className="apply-step-heading"><span>{t(step.kicker)}</span><h2>{t(step.title)}</h2><p>{t(step.copy)}</p></div>{message.text && <p ref={messageRef} role={message.kind === 'error' ? 'alert' : 'status'} className={message.kind === 'error' ? 'apply-message apply-message-error' : 'apply-message'}>{message.text}</p>}{renderStep()}</div><div className="apply-honeypot" aria-hidden="true"><label>Company website<input tabIndex={-1} autoComplete="new-password" autoCorrect="off" spellCheck={false} value={form.company_website} onChange={(event) => update('company_website', event.target.value)} /></label></div><div className="apply-wizard-actions"><button className="apply-secondary-button" type="button" disabled={activeStep === 0 || message.kind === 'loading'} onClick={() => goToStep(Math.max(activeStep - 1, 0))}>← {t('Previous')}</button>{activeStep < STEP_META.length - 1 ? <button className="apply-button" type="button" onClick={goNext}>{t('Next')} <span>→</span></button> : <button className="apply-button" disabled={message.kind === 'loading'} type="submit">{t(message.kind === 'loading' ? 'Submitting…' : 'Submit application')} <span>→</span></button>}</div></form></div></main></div></LanguageContext.Provider>;
 };
 
 export default ApplyPage;
