@@ -44,6 +44,7 @@ const prerenderRoutes = [
     { path: '/post-construction-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/specialized-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/contact', priority: '0.8', changefreq: 'monthly' },
+    { path: '/walkthroughs', priority: '0.5', changefreq: 'monthly' },
     { path: '/apply', priority: '0.5', changefreq: 'monthly' },
     // This saved-progress route must resolve on a direct visit, but it is not
     // public search content. Its canonical is /apply and it is noindexed.
