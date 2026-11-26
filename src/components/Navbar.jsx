@@ -193,7 +193,7 @@ const Navbar = ({ hideContactDetails }) => {
                             <p>Let’s talk about<br />your building.</p>
                             {!hideContactDetails && <a className="mcc-menu-phone" href={`tel:${PHONE_E164}`} onClick={() => requestClose()}><Phone size={20} aria-hidden="true" />{phone}<ArrowUpRight size={19} aria-hidden="true" /></a>}
                             <a className="mcc-menu-quote" href="/#contact" onClick={(event) => followMenuLink(event, '/#contact')}>Get a free quote<ArrowUpRight size={20} aria-hidden="true" /></a>
-                            <span className="mcc-menu-area">San Angelo &amp; West Texas</span>
+                            {!hideContactDetails && <span className="mcc-menu-area">San Angelo &amp; West Texas</span>}
                         </div>
                     </div>
                 </div>
