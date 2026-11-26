@@ -43,7 +43,7 @@ function lockPageScroll() {
     };
 }
 
-const Navbar = () => {
+const Navbar = ({ hideContactDetails }) => {
     const [phase, setPhase] = useState('closed');
     const isOpen = phase !== 'closed';
     const location = useLocation();
@@ -162,7 +162,7 @@ const Navbar = () => {
                         ))}
                     </nav>
                     <div className="mcc-header-actions">
-                        <a className="mcc-header-phone" href={`tel:${PHONE_E164}`}><Phone size={17} aria-hidden="true" />{phone}</a>
+                        {!hideContactDetails && <a className="mcc-header-phone" href={`tel:${PHONE_E164}`}><Phone size={17} aria-hidden="true" />{phone}</a>}
                         <a className="mcc-nav-quote" href="/#contact">Get a free quote <ArrowUpRight size={17} aria-hidden="true" /></a>
                         <button ref={menuButton} className="mcc-menu-toggle" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded={isOpen} aria-controls="mcc-mobile-menu" onClick={() => { openingUrl.current = window.location.href; setPhase('open'); }}>
                             <Menu size={28} strokeWidth={1.7} aria-hidden="true" />
@@ -191,17 +191,19 @@ const Navbar = () => {
                         </nav>
                         <div className="mcc-menu-contact">
                             <p>Let’s talk about<br />your building.</p>
-                            <a className="mcc-menu-phone" href={`tel:${PHONE_E164}`} onClick={() => requestClose()}><Phone size={20} aria-hidden="true" />{phone}<ArrowUpRight size={19} aria-hidden="true" /></a>
+                            {!hideContactDetails && <a className="mcc-menu-phone" href={`tel:${PHONE_E164}`} onClick={() => requestClose()}><Phone size={20} aria-hidden="true" />{phone}<ArrowUpRight size={19} aria-hidden="true" /></a>}
                             <a className="mcc-menu-quote" href="/#contact" onClick={(event) => followMenuLink(event, '/#contact')}>Get a free quote<ArrowUpRight size={20} aria-hidden="true" /></a>
-                            <span className="mcc-menu-area">San Angelo &amp; West Texas</span>
+                            {!hideContactDetails && <span className="mcc-menu-area">San Angelo &amp; West Texas</span>}
                         </div>
                     </div>
                 </div>
             </dialog>
-            <nav className="mcc-mobile-actions" aria-label="Quick contact">
-                <a href={`tel:${PHONE_E164}`}><Phone size={18} aria-hidden="true" />Call MCC</a>
-                <a href="/#contact">Request a quote<ArrowUpRight size={18} aria-hidden="true" /></a>
-            </nav>
+            {!hideContactDetails && (
+                <nav className="mcc-mobile-actions" aria-label="Quick contact">
+                    <a href={`tel:${PHONE_E164}`}><Phone size={18} aria-hidden="true" />Call MCC</a>
+                    <a href="/#contact">Request a quote<ArrowUpRight size={18} aria-hidden="true" /></a>
+                </nav>
+            )}
         </>
     );
 };

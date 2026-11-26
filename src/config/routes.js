@@ -13,6 +13,7 @@ export const prerenderRoutes = [
     { path: '/about/why-choose-us', priority: '0.6', changefreq: 'monthly' },
     { path: '/reviews', priority: '0.7', changefreq: 'monthly' },
     { path: '/faq', priority: '0.8', changefreq: 'monthly' },
+    { path: '/walkthroughs', priority: '0.5', changefreq: 'monthly' },
     { path: '/commercial-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/post-construction-cleaning', priority: '0.9', changefreq: 'monthly' },
     { path: '/specialized-cleaning', priority: '0.9', changefreq: 'monthly' },

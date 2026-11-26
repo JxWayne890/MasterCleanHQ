@@ -20,6 +20,7 @@ const AboutProcessPage = getPage('AboutProcessPage');
 const WhyChooseUsPage = getPage('WhyChooseUsPage');
 const ReviewsPage = getPage('ReviewsPage');
 const ContactPage = getPage('ContactPage');
+const WalkthroughsPage = getPage('WalkthroughsPage');
 const ApplyPage = getPage('ApplyPage');
 const TexasPage = getPage('TexasPage');
 
@@ -59,6 +60,7 @@ const AppRoutes = () => (
             <Route path="/reviews" element={<PageBoundary><ReviewsPage /></PageBoundary>} />
             <Route path="/faq" element={<PageBoundary><FaqHubPage /></PageBoundary>} />
             <Route path="/contact" element={<PageBoundary><ContactPage /></PageBoundary>} />
+            <Route path="/walkthroughs" element={<PageBoundary><WalkthroughsPage /></PageBoundary>} />
             <Route path="/apply" element={<PageBoundary><ApplyPage /></PageBoundary>} />
             <Route path="/apply/start" element={<PageBoundary><ApplyPage /></PageBoundary>} />
             <Route path="*" element={<Navigate to="/" replace />} />

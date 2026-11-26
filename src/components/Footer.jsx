@@ -3,7 +3,7 @@ import { ArrowUpRight, Phone } from 'lucide-react';
 import { MAILING_ADDRESS, PHONE_DISPLAY, PHONE_E164 } from '../config/site';
 import './contact-navigation.css';
 
-const Footer = () => (
+const Footer = ({ hideContactDetails }) => (
     <footer className="mcc-footer">
         <div className="container">
             <div className="mcc-footer-intro">
@@ -11,12 +11,12 @@ const Footer = () => (
                     <span className="mcc-footer-eyebrow">Your building. Our next conversation.</span>
                     <h2 data-motion="rise">Let’s talk clean.</h2>
                 </div>
-                <a className="mcc-footer-call" href={`tel:${PHONE_E164}`}><Phone size={23} aria-hidden="true" />{PHONE_DISPLAY.replace(/-/g, ' ')}<ArrowUpRight size={22} aria-hidden="true" /></a>
+                {!hideContactDetails && <a className="mcc-footer-call" href={`tel:${PHONE_E164}`}><Phone size={23} aria-hidden="true" />{PHONE_DISPLAY.replace(/-/g, ' ')}<ArrowUpRight size={22} aria-hidden="true" /></a>}
             </div>
             <div className="mcc-footer-grid">
                 <div className="mcc-footer-brand">
                     <Link to="/" aria-label="Master Commercial Clean home"><img src="/img/logo2.png" width="882" height="553" alt="Master Commercial Clean" loading="lazy" /></Link>
-                    <p>Commercial cleaning for San Angelo and the surrounding West Texas communities.</p>
+                    {!hideContactDetails && <p>Commercial cleaning for San Angelo and the surrounding West Texas communities.</p>}
                     <a href="mailto:john@mastercleanhq.com">john@mastercleanhq.com</a>
                 </div>
                 <div>
@@ -39,8 +39,12 @@ const Footer = () => (
                     </ul>
                 </div>
                 <div className="mcc-footer-address">
-                    <h3>Mailing address only</h3>
-                    <address>{MAILING_ADDRESS.recipient}<br />{MAILING_ADDRESS.street}<br />{MAILING_ADDRESS.cityStateZip}</address>
+                    {!hideContactDetails && (
+                        <>
+                            <h3>Mailing address only</h3>
+                            <address>{MAILING_ADDRESS.recipient}<br />{MAILING_ADDRESS.street}<br />{MAILING_ADDRESS.cityStateZip}</address>
+                        </>
+                    )}
                     <div className="mcc-footer-partner">
                         <h3>Outside West Texas?</h3>
                         <p>Explore our commercial cleaning referral network.</p>
@@ -52,7 +56,7 @@ const Footer = () => (
             </div>
             <div className="mcc-footer-bottom">
                 <p>© {new Date().getFullYear()} Master Clean HQ LLC, doing business as Master Commercial Clean.</p>
-                <p>San Angelo, Texas</p>
+                {!hideContactDetails && <p>San Angelo, Texas</p>}
             </div>
         </div>
     </footer>
