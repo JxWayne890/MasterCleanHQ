@@ -58,6 +58,7 @@
 }
 
 @media (max-width: 760px) {
+    body:has(.walkthroughs) { padding-bottom: 0; }
     .walkthroughs-grid { grid-template-columns: 1fr; }
 }
 .walkthroughs a.mcc-quote-submit { display: inline-flex; width: auto; }
