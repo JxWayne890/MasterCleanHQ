@@ -44,8 +44,18 @@
 .walkthroughs-card p:last-child { margin-bottom: 0; }
 .walkthroughs-request { background: var(--off-white); scroll-margin-top: 6rem; }
 .walkthroughs-request .mcc-quote-panel { max-width: 760px; margin-inline: auto; }
+.walkthroughs-request .mcc-quote-heading { margin-bottom: 1.5rem; }
+.walkthroughs-request .mcc-quote-heading p { color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0; }
+.walkthroughs-request .mcc-quote-heading p + p { margin-top: 0.5rem; }
+.walkthroughs-request .mcc-quote-form .mcc-quote-submit { margin-top: 1.5rem; }
+.walkthroughs-request .mcc-form-message { margin-top: 1rem; }
 .walkthroughs-next { max-width: 480px; }
 .walkthroughs .mcc-quote-submit { text-decoration: none; }
+
+@media (min-width: 761px) {
+    .walkthroughs-section:has(> .walkthroughs-next) { text-align: center; }
+    .walkthroughs-next { margin-inline: auto; }
+}
 
 @media (max-width: 760px) {
     .walkthroughs-grid { grid-template-columns: 1fr; }
