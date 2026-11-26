@@ -4,6 +4,10 @@
     {
       "source": "/texas",
       "destination": "/texas/index.html"
+    },
+    {
+      "source": "/walkthroughs",
+      "destination": "/walkthroughs/index.html"
     }
   ],
   "redirects": [
