@@ -145,7 +145,11 @@ for (const route of [...uniqueRoutes, ...nonSitemapRoutes]) {
         }
         const outputFile = getOutputFile(route.path);
         await fs.mkdir(path.dirname(outputFile), { recursive: true });
-        await fs.writeFile(outputFile, injectMarkup(template, rendered), 'utf8');
+        const routeTemplate = route.path === '/walkthroughs'
+            ? template.replace(/^ *<meta name="(?:geo\.[^"]+|ICBM)"[^>]*>\r?\n/gm, '')
+            : template;
+        await fs.writeFile(outputFile, injectMarkup(routeTemplate, rendered), 'utf8');
+        if (route.path === '/walkthroughs') console.log(`Prerendered ${route.path}`);
         prerenderSuccess++;
         if (route.sitemap !== false) successfulRoutes.push(route);
     } catch (e) {
